@@ -1,0 +1,2 @@
+names:
+snip_[name_of_chapter]_[name_of_app].m
