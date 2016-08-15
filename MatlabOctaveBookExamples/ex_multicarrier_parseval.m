@@ -1,0 +1,9 @@
+[A, Ai]=ak_fftmtx(8,1); %obtain unitary FFT matrices
+xn=rand(8,1); %some arbitrary time-domain sequence as column vector
+Xk=A*xn; %obtain its unitary DFT
+xn_energyTime = sum(abs(xn).^2) %check Parseval between xn and Xk
+Xk_energyFreq = sum(abs(Xk).^2)
+xp=[xn(5:8); xn]; %add cyclic prefix of 3 samples
+xp_powerTime = mean(abs(xp).^2) %check average power of xn, xp and Xk
+xn_powerTime = mean(abs(xn).^2)
+Xk_powerFreq = mean(abs(Xk).^2)
