@@ -1,0 +1,1 @@
+By Aldebaro. July 06, 2013. Because I could not find GSMsim at its original web site (Aalborg Univ.) I wrote to Prof. Jam Mikkelsen, who kindly confirmed I could modify and redistribute it. If you do the same, please make sure you add an appropriate reference to the original work, by Dr. Mikkelsen and colleagues. 
