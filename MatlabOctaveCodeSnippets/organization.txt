@@ -1,2 +1,7 @@
+Convention:
 names:
 snip_[name_of_chapter]_[name_of_app].m
+
+
+obs: the digi_comm chapter was split into several, and then its
+scripts are not following the convetion.
