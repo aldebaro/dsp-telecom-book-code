@@ -1,0 +1,12 @@
+Ptx=16; %transmitter power in dBW
+Gtx=30; %transmitter antenna gain in dBi
+EIRP=Ptx+Gtx; %EIRP in dBW
+distance=37e3; %distance in km
+freq=12e3; %frequency in MHz (it corresponds to 12 GHz)
+fspl=32.45+20*log10(distance)+20*log10(freq); %free space loss in dB
+Grx=35;  %receiver antenna gain in dBi
+Prx=EIRP-fspl+Grx; %signal power at receiver in dBW
+noiseTemperature=200 %thermal noise temperature in Kelvin
+K_boltzmann=1.38e-23; %Boltzmann's constant in Joules/Kelvin
+N0_rx=10*log10(K_boltzmann*noiseTemperature); %noise PSD in dBW/Hz
+C_N0=Prx-N0_rx %Carrier-to-noise density ratio in dB*Hz

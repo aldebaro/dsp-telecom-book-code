@@ -1,0 +1,13 @@
+hI=[1 2 3 2 1] %Type I FIR
+hII=[1 2 2 1]  %Type II FIR
+hIII=[1 2 0 -2 -1] %Type III FIR
+hIV=[1 2 -2 -1] %Type IV FIR
+disp(['I: DC=' num2str(polyval(hI,1)) ...
+    ' Nyquist=' num2str(polyval(hI,-1))])
+disp(['II: DC=' num2str(polyval(hII,1)) ...
+    ' Nyquist=' num2str(polyval(hII,-1))])
+disp(['III: DC=' num2str(polyval(hIII,1)) ...
+    ' Nyquist=' num2str(polyval(hIII,-1))])
+disp(['IV: DC=' num2str(polyval(hIV,1)) ...
+    ' Nyquist=' num2str(polyval(hIV,-1))])
+
