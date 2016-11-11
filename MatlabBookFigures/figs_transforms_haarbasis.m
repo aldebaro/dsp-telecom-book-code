@@ -2,7 +2,7 @@
 N=32;
 
 mydir = pwd;
-cd('../MatlabThirdPartyFunctions/');
+cd('../MatlabOctaveThirdPartyFunctions/');
 Ah=haarmtx(N);
 cd(mydir);
 A=Ah'; %the inverse is the Hermitian

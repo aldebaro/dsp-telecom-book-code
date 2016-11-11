@@ -1,6 +1,6 @@
 myfigure=clf; %get a handler to manipulate the figure
 %load black & white 256 x 256 pixels of Lenna:
-fullPath='../../BitmapOriginalFigures/lenna_bw.gif' %file location
+fullPath='lenna_bw.gif' %file location
   [lenaImage,map]=imread(fullPath); %read file
 colormap(map); %use the proper color map
 x1=128; x2=135; y1=160; y2=167; %to take a 8x8 block close to her eye

@@ -3,7 +3,7 @@
 N=32;
 
 mydir = pwd;
-cd('../MatlabThirdPartyFunctions/');
+cd('../MatlabOctaveThirdPartyFunctions/');
 Ah_haar=haarmtx(N);
 A_haar = Ah_haar'; %unitary: inverse is the Hermitian
 cd(mydir);
