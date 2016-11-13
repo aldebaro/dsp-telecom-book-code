@@ -37,3 +37,7 @@ ylabel('PSD (dBW/Hz)')
 title('')
 
 writeEPS('pamvsask');
+
+%AK: this one is not at the best place here
+snip_digi_comm_path_loss
+writeEPS('pathlosses');

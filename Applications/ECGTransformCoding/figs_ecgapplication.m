@@ -59,3 +59,5 @@ writeEPS('ecg_ratedistortion');
 %estimate quantization SNR
 RSR = signalPower / ((delta^2)/12)
 RSRdB = 10 * log10(RSR) 
+
+close all

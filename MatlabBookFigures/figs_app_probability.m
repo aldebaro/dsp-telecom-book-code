@@ -26,16 +26,15 @@ mean(victories(:,1))
 std(victories(:,1))
 
 stem(1:M,victories(:,1)); xlabel('n (month)'); ylabel('# victories'); grid
-%    writeEPS('randomsignal');
-pause
+    writeEPS('randomsignal');
+
 
 close all
 figure1=figure %should have a better way for doing this
 
 plot(victories);
 xlabel('n (month)'); ylabel('# victories');
-%    writeEPS('realizations');
-pause
+    writeEPS('realizations');
 
 % Create line
 annotation(figure1,'line',[0.5179 0.5196],[0.1061 0.9167],'LineStyle','--',...
@@ -43,8 +42,7 @@ annotation(figure1,'line',[0.5179 0.5196],[0.1061 0.9167],'LineStyle','--',...
 % Create line
 annotation(figure1,'line',[0.7754 0.7771],[0.11 0.9205],'LineStyle','--',...
     'LineWidth',4);
-%    writeEPS('marked_realizations');
-pause
+    writeEPS('marked_realizations');
 
 %estimate joint pdf (probability density function) through histograms
 clf
@@ -56,16 +54,16 @@ bar(bin,n/sum(n))
 [histogram,xaxis,yaxis]=ak_hist2d(victories(4,:),victories(6,:),7,7);
 mesh(xaxis,yaxis,histogram/sum(histogram(:))); %normalize to estimate pmf
 xlabel('X(4)'); ylabel('X(6)')
-%    writeEPS('joint_pdf');
-pause
+    writeEPS('joint_pdf');
+
 
 %estimate correlation function
 [Rxx,n1,n2] = ak_correlationEnsemble(victories);
 mesh1 = mesh(n1,n2,Rxx);
 ylabel('n1'); xlabel('n2'); zlabel('Rx');
 %makedatatip(mesh1,[1]); %could not use makedatatip properly in this case
-%    writeEPS('correlationNonStationary');
-pause
+    writeEPS('correlationNonStationary');
+
 
 h=imagesc(n1,n2,transpose(Rxx));
 xlabel('n1'), ylabel('n2')
@@ -73,8 +71,8 @@ axis equal, axis tight, axis xy
 colorbar
 ak_makedatatip(h,[1 2])
 ak_makedatatip(h,[3 5])
-%    writeEPS('nonStationaryCorrAsImage');
-pause
+    writeEPS('nonStationaryCorrAsImage');
+
 
 %Compare putting in subplot
 %estimate correlation function
@@ -89,8 +87,8 @@ subplot(122)
 h2=mesh(n,lags,transpose(newRxx)); %use transpose of newRxx such ...
 xlabel('absolute time n');ylabel('lag l'); %that n and l ...
 zlabel('Rxx[n,l]'); %are row and column
-%    writeEPS('twoAbsVersusLag','none');
-pause
+    writeEPS('twoAbsVersusLag','none');
+
 
 %Compare putting in subplot as images
 clf
@@ -123,16 +121,14 @@ set(h4, ...
     arrayfun(@num2str, lags(:), 'UniformOutput', false));
 position=[5 2];
 ak_makedatatip(h3,position)
-%  writeEPS('twoAbsVersusLagAsImage','none');
-pause
+  writeEPS('twoAbsVersusLagAsImage','none');
 
 %With a toeplitz matrix
 clf
 Rxx=toeplitz(14:-1:4);
 ak_correlationMatrixAsLags(Rxx);
 colorbar
-%    writeEPS('rxxOfToeplitz','none');
-pause
+    writeEPS('rxxOfToeplitz','none');
 
 
 %generate random signal
@@ -161,17 +157,13 @@ ylabel('n1'); xlabel('n2'); zlabel('Rx');
 %makedatatip(mesh3,10); %could not use makedatatip properly in this case
 axis([1 10 1 10 0 1])
 title('(b) random values -1 and 1');
-
-
-%writeEPS('correlationStationary');
-return
+writeEPS('correlationStationary');
 
 %representation as image for the polar case
 clf
 ak_correlationMatrixAsLags(Rxx);
 colorbar
 writeEPS('correlationPolarAsImage','none')
-return
 
 [Rxx_tau, lags] = ak_convertToWSSCorrelation(Rxx);
 Rxx_tau_polar = Rxx_tau; %keep for later use

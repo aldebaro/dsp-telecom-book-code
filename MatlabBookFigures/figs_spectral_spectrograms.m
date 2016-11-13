@@ -43,4 +43,4 @@ t = linspace(0, N / Fs, numFrames); %abscissa
 for i=1:numFormants %plot the formants
     text(t,formants(:,i),num2str(i),'color','blue')
 end
-%writeEPS('formantsAndSpectrogram','font12Only')
+writeEPS('formantsAndSpectrogram','font12Only')

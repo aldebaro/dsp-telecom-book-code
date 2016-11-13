@@ -4,7 +4,7 @@ nstart=12650;%chosen after zooming the signal in impulseResponses.wav
 nend=22050;%this was the chosen segment. Adjust them for your data!
 if 1 %if you have impulseResponses.wav available
     %[h,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\impulseResponses.wav','native');
-    [h,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\impulseResponses.wav');
+    [h,Fs,b]=wavread('..\Applications\LoopbackMeasurements\impulseResponses.wav');
     h=double(h(nstart:nend)); %segment and cast h to double
 else %use signal with few samples extracted from impulseResponses.wav
     duration = floor(nend-nstart+1); %same duration as h above
@@ -28,7 +28,7 @@ writeEPS('loopbackFreqResponse','font12Only')
 clf
 clear all
 %[h,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\impulseResponses.wav','native');
-[h,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\impulseResponses.wav');
+[h,Fs,b]=wavread('..\Applications\LoopbackMeasurements\impulseResponses.wav');
 nstart=11026; %when second \delta[n] occurs in impulses.wav
 nend=22050; %segment ends before the third \delta[n] in impulses.wav
 h=double(h(nstart:nend)); %segment and cast h to double
@@ -45,7 +45,7 @@ writeEPS('loopbackFreqResponsePhase')
 
 clf
 %[x,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\filteredNoise.wav','native');
-[x,Fs,b]=wavread('..\..\Applications\LoopbackMeasurements\filteredNoise.wav');
+[x,Fs,b]=wavread('..\Applications\LoopbackMeasurements\filteredNoise.wav');
 N=1024; %number of FFT points
 M=floor(length(x)/N); %number of segments of N samples each
 x=x(1:N*M); x=x(:); %make sure x is a column vector with N*M samples

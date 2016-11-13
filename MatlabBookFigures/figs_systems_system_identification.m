@@ -10,7 +10,6 @@ legend('Channel','LS estimation via pinv (method 1)','LS estimat. simplified (me
 'Location','SouthEast')
 writeEPS('ls_channel_estimation','font12Only');
 
-if 0
 [R,lag]=xcorr(x);
 subplot(121), stem(lag,R); xlabel('lag k'), ylabel('R_x(k)');
 subplot(122), mesh(X'*X); colorbar, title('X^H X')
@@ -19,4 +18,3 @@ x=get(gcf, 'Position'); %get figure's position on screen
 x(3)=floor(x(3)*1.6); %adjust the size making it "wider"
 set(gcf, 'Position',x);
 writeEPS('autocorrelationSignalAndMatrix','font12Only');
-end

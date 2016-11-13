@@ -126,6 +126,7 @@ figs_gsm_synchronism
 figs_app_impulse
 figs_app_plot_qvalues
 figs_app_probability
+figs_app_probability_modulated_noise
 figs_app_random_processes_taxonomy
 
 %applications
@@ -133,10 +134,10 @@ figs_app_random_processes_taxonomy
 %run changes the current directory to be the one in which the script
 %file resides, executes the script, and sets the current directory back
 %to what it was.
-run('../../Applications/ECGTransformCoding/figs_ecgapplication');
-run('../../Applications/FSKSynchronous/figs_fskapplication');
-run('../../Applications/QAMSynchronous/figs_qamapplication');
-run('../../Applications/AMDemodulation/figs_AMDemodulationApplication');
-run('../../Applications/AMonUSRP/figs_AMonUSRPApplication');
+run('../Applications/ECGTransformCoding/figs_ecgapplication');
+run('../Applications/FSKSynchronous/figs_fskapplication');
+run('../Applications/QAMSynchronous/figs_qamapplication');
+run('../Applications/AMDemodulation/figs_amDemodulationApplication');
+run('../Applications/AMonUSRP/figs_AMonUSRPApplication');
 close all
 disp('Finished generating all figures!')

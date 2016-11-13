@@ -62,7 +62,6 @@ legend('Simulated','Theoretical');
 axis([-2 72 -80 -10])
 
 writeEPS('psd_rz_unipolar_small_variance','font12Only');
-pause
 %% PSD estimation with small FFT bins (large variance)
 clf
 [P2,f2]=ak_psd(s,Fs);

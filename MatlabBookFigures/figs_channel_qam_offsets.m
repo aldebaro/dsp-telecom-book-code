@@ -1,6 +1,5 @@
 %Figures for FFT-based QAM carrier recovery
 %this is based on figures for FFT-based PAM carrier recovery
-if 0
 ex_fftBasedQAMCarrierRecovery %run script that generates signals
 close all
 [S,f]=ak_psd(sbb,Fs); 
@@ -83,7 +82,6 @@ plot(real(symbolsRx ),imag(symbolsRx),'o')
 title('Constellation: X, received symbols: o');
 %pause; 
 writeEPS('qamOffsetsConstellations','font12Only');
-end
 
 close all
 [S,f]=ak_psd(r_carrierRecovery,Fs); 

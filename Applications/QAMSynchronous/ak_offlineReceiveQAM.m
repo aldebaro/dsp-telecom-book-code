@@ -92,6 +92,7 @@ if showPlots==1 || shouldWriteEPS==1
     x(3)=floor(x(3)*1.4); %adjust the size making it "wider"
     set(gcf, 'Position',x);
     if shouldWriteEPS == 1
-        writeEPS('qamOverSoundBoard','font12Only')
+        %instead of the one below, I will use a pre-generated figure
+        writeEPS('qamOverSoundBoard_notused','font12Only')
     end
 end

@@ -1,5 +1,4 @@
-if 0
-    clf
+clf
 N=4;
 N0over2 = 3; %power spectral density of white noise W/Hz
 subplot(211)
@@ -48,8 +47,10 @@ writeEPS('periodogram','font12Only')
 
 clf
 %a)
-snip_frequency_pwelch
+snip_frequency_pwelch  %estimates for PSD M=32 samples
 subplot(211)
+plot(w,2*pi*Sk) %scaled periodogram is discrete-time PSD
+hold on, plot(w,power_x*ones(1,length(w)),'r') %PSD theoretical value
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; myaxis(3)=0;
 axis(myaxis);
 ylabel('S(e^{j \Omega})');
@@ -68,8 +69,6 @@ xlabel('\Omega (rad)'); ylabel('S(e^{j \Omega})');
 title('Periodograms of M = 256 samples')
 writeEPS('welch_awgn_3000')
 
-end %AAK
-
 clf
 snip_frequency_filtered_noise_PSD
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; myaxis(3)=0;
@@ -78,11 +77,8 @@ xlabel('\Omega (rad)'); ylabel('S_y(e^{j \Omega})');
 legend('PSD via Welch','Theoretical')
 writeEPS('periodogram_of_pulse')
 
-return
-
 clf
 snip_frequency_PSD_using_xcorr
-if 0
 N = 3000; %total number of signal samples
 L = 4; %number of non-zero samples of h[n]
 power_x = 600; %noise power in Watts
@@ -98,7 +94,6 @@ if 0 %no need for DFT estimation
     Nfft = 256; %segment length M and also FFT dimension
     Fs = 1; %sampling frequency = 1 because discrete-time PSD
     Sy_dft=pwelch(y,hamming(Nfft),Nfft/2,Nfft,Fs,'twosided');
-end
 end
 %plot:
 %w=linspace(0,2*pi,length(Sy_dft)); %create abscissa

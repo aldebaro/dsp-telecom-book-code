@@ -1,4 +1,3 @@
-if 0
 wn = 100; %natural frequency in rad/s
 zeta = [0.5 0.707 1 2]; %damping ratios
 N=500; %number of points for plot
@@ -25,7 +24,6 @@ legend('\zeta=0.5','\zeta=0.707','\zeta=1','\zeta=2','Location',...
     'SouthWest')
 title('b) Finite zeros')
 writeEPS('secondOrderSys')
-end
 
 wn = 20; %natural frequency in rad/s
 zeta = [0.5 0.707 1 2]; %damping ratios

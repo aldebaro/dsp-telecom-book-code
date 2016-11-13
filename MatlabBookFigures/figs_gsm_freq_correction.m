@@ -2,7 +2,7 @@ clear all
 clf
 %add path to GSM scripts
 P=path;
-path(P,'../../Applications/GSM_PHY_Analysis');
+path(P,'../Applications/GSM_PHY_Analysis');
 ex_gsm_freq_correction
 
 subplot(131)

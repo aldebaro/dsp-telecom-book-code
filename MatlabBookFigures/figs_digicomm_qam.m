@@ -1,4 +1,3 @@
-if 0
 N = 52;           % Filter order
 F = [0.05 0.95];  % Frequency Vector
 A = [1 1];        % Amplitude Vector
@@ -63,20 +62,19 @@ ylabel('|X_{ce}(f)|');
 grid
 xlabel('f (Hz)');
 writeEPS('analyticSignal')
-end
 
 clear all
 close all
-ex_qam_generation_via_symbols
-ex_qam_demodulation
-%Plot constellation:
-plot(real(ys),imag(ys),'x','markersize',20); %received
+%ex_qam_generation_via_symbols %runs the QAM transmitter (old)
+ex_qam_demodulation %runs the Tx and Rx
+%Plot constellations:
+plot(real(symbolsRx),imag(symbolsRx),'x','markersize',20); %received
+%plot(real(ys),imag(ys),'x','markersize',20); %received
 hold on
-plot(real(qamSymbols),imag(qamSymbols),'or'); %transmitted
+plot(real(symbolsTx),imag(symbolsTx),'or','markersize',12); %transmitted
 axis equal; %make constellation on square
 axis([-4 4 -4 4]) 
 title('Transmitted (o) and received (x) constellations');
 xlabel('Real part of QAM symbol m_i');
 ylabel('Imaginary part of QAM symbol m_q');
-writeEPS('qam_constellation2')
-
+writeEPS('qam_constellation2','font12Only')
