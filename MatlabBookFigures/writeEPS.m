@@ -91,7 +91,13 @@ end
 %this is equivalent to
 %print -depsc ../../Figures/outputFileName.eps
 %pause
-fullPathFileName = ['../../Figures/' outputFileName '.eps'];
+outputFolder='../../Figures/';
+doesFolderExist=exist(outputFolder);
+if doesFolderExist == 0
+    outputFolder='../../../Figures/';
+end
+
+fullPathFileName = [outputFolder outputFileName '.eps'];
 disp(['Printing ' fullPathFileName]);
 if 1
     %old style
