@@ -16,5 +16,11 @@ Alternatively, after download, you can manually set the path of Octave or Matlab
 addpath('../dsp-telecom-book-code/MatlabOctaveFunctions);
 addpath('../dsp-telecom-book-code/MatlabOctaveThirdPartyFunctions);
 
+# Note to Octave users
+
+Besides "installing" the packages (that are called "toolboxes" in Matlab), Octave requires "loading" (enabling for usage) the packages that will be used. For example, having the "signal" package installed, to effectively use it, issue the command:
+
+pkg load signal
+
 # Credits
 I tried to give credits to all third-party code I am using. In case I failed, please let me know and will I happily give proper credits.
