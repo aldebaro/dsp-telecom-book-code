@@ -5,4 +5,7 @@ t=0:Ts:10; ht=4*(exp(-2*t)-exp(-3*t)); %create h(t) to compare
 hn=impz(Bz,Az,length(ht)); %discrete-time h[n] from H(z)=Bz/Az
 h_Error=Ts*ht(:) - hn(:); %error from column vectors
 disp(['mean square error (MSE) = ' num2str(mean(h_Error.^2))]);
-plot(Ts*ht); hold on; plot(hn,'rx'); %compare curves
+plot(t,Ts*ht); hold on; plot(t,hn,'rx'); %compare curves
+legend('T_s \times h(t)','h(nT_s) that has same amplitudes of h[n]')
+xlabel('time (s)')
+ak_increaseFigureItems
