@@ -25,7 +25,7 @@ X=fftshift(X); %move negative frequencies to the left part
 Xmag=20*log10(abs(X)/Nfft); %magnitude in dB
 h=plot(f,Xmag); %plot graph
 maxIndex=find(Xmag==max(Xmag),1,'last'); %find maximum magnitude
-maxFFTValue=X(maxIndex); %return value, FFT value (complex-valued)
+maxFFTValue=X(maxIndex)/Nfft; %normalized (DTFS) value (complex)
 maxFreq=f(maxIndex); %return value, frequency in Hertz
 %makedatatip(h,maxIndex) %if running Matlab, this makes a data tip
 myaxis=axis; axis([f(1),f(end),myaxis(3), myaxis(4)])
