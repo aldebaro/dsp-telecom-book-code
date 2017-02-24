@@ -29,9 +29,9 @@ plot(-Fs2*(fliplr(w))/(2*pi)/1e3,fliplr(20*log10(abs(H))),'r');%freqs
 grid, set(gca,'XTick',[(-10*Fs:Fs:10*Fs)/1e3])
 axis([-5*Fs/1e3 5*Fs/1e3 -150 10]) %zoom it
 title(['Fs=' num2str(Fs/1e3) ' kHz and BW=' num2str(Fc/1e3) ' kHz'])
-h=legend('Digital signal','Analog Filter');
+h=legend('Sampled signal','Analog Filter');
 set(h,'Location','SouthWest');
-ylabel('|X(e^{2\pi T_s f}| (dB)')%it's PSD, but explain as |.| instead
+ylabel('|Y(e^{2\pi T_s f}| (dB)')%it's PSD, but explain as |.| instead
 % 2nd plot
 [S,f]=ak_psd(yu,Fs2); %signal after the DAC "reconstruction filter"
 subplot(212)

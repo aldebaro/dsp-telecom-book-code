@@ -1,5 +1,5 @@
 %generate example of y[n]=x[-n]
-clf
+close all
 x=[3 0 4 0 5];
 y=fliplr(x);
 n1=0:4;
