@@ -1,10 +1,13 @@
 function [maxFFTValue,maxFreq]=ak_plotBilateralFFTMagnitude(x,Fs)
 % function ak_plotBilateralFFTMagnitude(x,Fs)
-%Plot the FFT magnitude of x using a bilateral spectrum. Normalize
-%the FFT by the FFT length, such that the output corresponds to
+%Plot the FFT magnitude of vector x using a bilateral spectrum.
+%Normalize FFT by the FFT length, such that the output corresponds to
 %the DTFS. Fs is the sampling frequency, used to plot the abscissa.
 %The default value for Fs is 1 Hz. It returns the FFT value 
 %corresponding to the largest magnitude and its frequency in Hz.
+if ~isvector(x) || isempty(x)
+    error('First argument must be a non-empty vector, not matrix!');
+end
 if nargin < 2
     Fs=1; %default value
 end 
