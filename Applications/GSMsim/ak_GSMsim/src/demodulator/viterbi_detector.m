@@ -3,7 +3,8 @@ function [ rx_burst ] = viterbi_detector(SYMBOLS,NEXT,PREVIOUS,START,STOPS,Y,Rhh
 % VITERBI_DETECTOR:
 %           This matlab code does the actual detection of the
 %           received sequence. As indicated by the name the algorithm
-%           is the viterbi algorithm, which is a MLSE. At this time 
+%           is the viterbi algorithm, which is a MLSE (maximum likelihood
+%           sequence estimator). At this time 
 %           the approch is to use Ungerboecks modified algorithm, and
 %           to return hard output only.
 %

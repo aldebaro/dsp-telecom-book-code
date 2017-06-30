@@ -1,5 +1,19 @@
 function [tx_enc] = chan_enc(tx_block)
 %
+% Obs, from http://www.edaboard.com/thread97140.html
+% GSM divides output of the RPE-LTP speech coder into 3 categories:
+% 1-50 bits called "Very Important bits"
+% 2-132 bits called "Important bits"
+% 3-78 bits called " Not so Important bits"
+% 
+% the 50 bits are very important for having intelligible speech,
+% so they're applied to both block coder and 1/2 rate convolutional
+% encoder .The 132 bits are important but not as important as the 50
+% bits so they're applied only to the convolutional encoder. Speech 
+% can be understood even if an error occured at the last 78 bits so
+% no channel coding is applied to them .Afterwards, interleaving is 
+% apllied to mitigate burst errors .
+%%
 % chan_enc:   This function accepts a 260 bits long vector contaning the 
 %             data sequence intended for transmission. The length of 
 %             the vector is expanded by channel encoding to form a data

@@ -61,7 +61,7 @@ if showPlots == 1
     n=startSample:endSample;
     sa = cumsum(da); %would give the phase back    
     %sa is phase unwrapped, use trick to map to -pi to pi
-    sa = angle(exp(j*sa));
+    sa = angle(exp(1j*sa));
     subplot(311);    
     plot(start+n,sa(n)/pi*180); ylabel('Phase')
     axis tight

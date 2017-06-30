@@ -16,7 +16,7 @@ fcch_start = fcch_start * oversampling;
 
 % Correct the frequency of the whole vector
 n=transpose(0:length(r)-1);
-r = r .* exp(-j*n*freq_offset / oversampling);
+r = r .* exp(-1j*n*freq_offset / oversampling);
 %r = xlat_freq(r, freq_offset / oversampling);
 
 % Check offset once more

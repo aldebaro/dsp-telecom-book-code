@@ -34,7 +34,7 @@ function [ r, snrdB ] = channel_simulator(I,Q,OSR)
 % HERE WE SIMPLY ADD NOISE OF VARIANCE Var TO THE MODULATED SIGNAL. NOTE
 % THAT THIS NOISE IS ONLY BANDLIMITED BY THE SAMPLERATE.
 %
-r= I + j*Q; %noiseless signal
+r= I + 1j*Q; %noiseless signal
 %b=[-4 20]; r=conv(r,b);
 signalPower = mean(abs(r).^2);
 
@@ -43,7 +43,7 @@ FACTOR=sqrt(Var);
 samples=length(r);
 random=randn(1,2*samples);
 noise = random(1:samples).*FACTOR + ...
-    random(samples+1:2*samples).*FACTOR.*j;
+    random(samples+1:2*samples).*FACTOR.*1j;
 noisePower = mean(abs(noise).^2); %approximately 2 Var
 r= r + noise; %add noise
 snrdB = 10*log10(signalPower/noisePower);

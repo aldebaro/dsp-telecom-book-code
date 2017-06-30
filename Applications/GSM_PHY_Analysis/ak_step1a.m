@@ -43,6 +43,7 @@ if showPlots == 1
     Pr=pwelch(r, Nfft+1, 0, Nfft, SampleRate);
     Pr=fftshift(Pr);
     plot(f,10*log10(Pr));
+    %ak_psd(r,SampleRate);
     axis([-250 250 -80 20])    
     title('PSD of filtered complex envelope');
     ylabel('dB / Hz');

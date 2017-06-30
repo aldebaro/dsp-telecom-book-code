@@ -9,7 +9,7 @@ function [ SYMBOLS , PREVIOUS , NEXT , START , STOPS ] = viterbi_init(Lh)
 %           viterbi_init(Lh)
 %
 % INPUT:    Lh:       The length of the channel impulse response
-%                     minus one.
+%                     minus one, also called the "channel dispersion"
 %
 % OUTPUT:   SYMBOLS:  Statenumber to MSK-symbols mapping table.
 %           PREVIOUS: This state to legal previous state mapping table.

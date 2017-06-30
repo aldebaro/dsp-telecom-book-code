@@ -27,14 +27,14 @@
 % GSM 05.05 PARAMETERS
 %
 Tb = 3.692e-6;
-BT = 0.3;
-OSR = 4;
+BT = 0.3; %used in GMSK modulation
+OSR = 4; %oversampling factor: number of samples for each symbol
 
 % INITIALIZE THE RANDOM NUMBER GENERATOR.
 % BY USING THE SAME SEED VALUE IN EVERY SIMULATION, WE GET THE SAME 
 % SIMULATION DATA, AND THUS SIMULATION RESULTS MAY BE REPRODUCED.
 %
-SEED = 931316785;
+SEED = 931316785; %random seed to initialize generators
 randn('state',SEED);
 rand('twister',SEED);
 

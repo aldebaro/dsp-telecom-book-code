@@ -1,4 +1,4 @@
-numOfBurts =10; %number of bursts
+numOfBurts =100; %number of bursts
 Lh=2; %channel dispersion: length of the channel impulse
 %response minus one.
 showPlots=1;
@@ -18,7 +18,7 @@ for n=1:numOfBurts;
             disp(['SNR = ' num2str(snrdB) ' dB']);
         end
     else
-        r = I + j*Q; %no channel: noise and ISI free
+        r = I + 1j*Q; %no channel: noise and ISI free
     end
     %matched filtering:
     [Y, Rhh] = ak_mafi(r,Lh,T_SEQ,OSR);
