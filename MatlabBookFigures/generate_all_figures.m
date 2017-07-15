@@ -70,6 +70,7 @@ figs_systems_roundoffErrors;
 figs_systems_system_identification
 figs_systems_dac_reconstruction
 figs_systems_second_order
+figs_systems_multirate
 
 %frequency - spectral analysis
 figs_spectral_whitenoise

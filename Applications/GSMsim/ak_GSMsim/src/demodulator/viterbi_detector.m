@@ -201,9 +201,10 @@ end
 % FOR INITIALIZATION THE FOLLOWING IS USED:
 % IEST(0)=1 og rx_burst(0)=1
 %
-rx_burst(1)=IEST(1)/(j*1*1);
+rx_burst(1)=IEST(1)/(1j*1*1);
 for n = 2:STEPS,
-  rx_burst(n)=IEST(n)/(j*rx_burst(n-1)*IEST(n-1));
+    %AK: rx_burst(n) is increasing inside the loop. Bad for speed.
+  rx_burst(n)=IEST(n)/(1j*rx_burst(n-1)*IEST(n-1));
 end
 
 % rx_burst IS POLAR (-1 AND 1), THIS TRANSFORMS IT TO
