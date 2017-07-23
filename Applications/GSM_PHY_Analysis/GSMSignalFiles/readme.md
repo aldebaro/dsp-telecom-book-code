@@ -1,0 +1,1 @@
+Execute ak_investigateAllFiles.m
