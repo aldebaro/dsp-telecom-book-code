@@ -13,9 +13,10 @@ fileNumber=1; %there are 8 files. Choose a number between 1 and 8
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
 %duration signal
 % Gets the data from a file:
-%Select a folder and end it with slash (/ or \)
+%Select a folder and end it with slash (/ or \). For example:
 %folder='C:/gits/Latex/ak_dspbook/Code/Applications/GSM_PHY_Analysis/';
-folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
+%folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
+folder='./GSMSignalFiles/'; %default folder using relative path
 [r_original, information] = ak_getGSMDataFromFile(fileNumber,folder);
 SampleRate = information.sampleRate;
 %ak_psd(r_original,2);
