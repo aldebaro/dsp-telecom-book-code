@@ -1,7 +1,18 @@
-function bcch_start = find_fcch(s, start, stop, showPlots)
-% function bcch_start=find_fcch(s, start, stop, showPlots)
+function [bestFCCH, fcchStartCandidates] = find_fcch(s,start,stop,...
+    showPlots, thresholdForDetectionInRad)
+%function [bestFCCH, fcchStartCandidates] = find_fcch(s,start,stop,...
+%    showPlots, thresholdForDetectionInRad)
 %Inputs: s->signal, start and stop->first and last samples
 %if showPlots is 1, show a graph
+%It assumes s has oversampling = 1 (is sampled at symbol rate).
+%Recall that a frequency burst has
+%3 tail bits | 142 fixed bits 0 | 3 tail bits | 8.25 bits guard period
+%and the multiframe is
+%FSBBBBCCCCFSCCCCCCCCFSCCCCCCCCFSCCCCCCCCFSCCCCCCCCI
+
+if nargin < 5
+    thresholdForDetectionInRad = 1; %threshold, 1 radians
+end
 
 r = s(start:stop); %extract segment of interest
 
@@ -33,17 +44,35 @@ end
 
 %all phases are the same for a FB burst, so the difference
 %should be zero.
-[minDynamicRange, index_minDynamicRange] = min(df)
+[minDynamicRange, index_minDynamicRange] = min(df);
 
-%the threshold for minDynamicRange is 1 rad
-if minDynamicRange < 1 
-    %find the sample index considering the whole input
-    %vector, not only its segment (sum to start)
-    bcch_start = index_minDynamicRange + start - TB;
+%the threshold for minDynamicRange
+if minDynamicRange < thresholdForDetectionInRad
+    bestFCCH = index_minDynamicRange + start - 1 - TB;
 else
-    bcch_start = -1; %could not find
-    warning('Could not find BCCH!');
-    return;
+    bestFCCH = -1; %could not find
+    minDynamicRange
+    error('Could not find any FCCH!');
+end
+
+%find other candidates, which may be necessary to find the start
+%of the multiframe
+allCandidates = find(df < thresholdForDetectionInRad);
+groupLimits=find(diff(allCandidates) > 6000);
+numberOfFBGroups=length(groupLimits)+1;
+fcchStartCandidates=zeros(1,numberOfFBGroups);
+groupStart=allCandidates(1);
+for i=1:numberOfFBGroups
+    if i==numberOfFBGroups %last iteration is exception
+        groupEnd=allCandidates(end);
+    else
+        groupEnd=allCandidates(groupLimits(i));
+    end
+    [minDynamicRange, index_minDynamicRange] = min(df(groupStart:groupEnd));    
+    fcchStartCandidates(i)= index_minDynamicRange+groupStart-1+start-1-TB;
+    if i~=numberOfFBGroups %last iteration is exception
+        groupStart=allCandidates(groupLimits(i)+1);
+    end    
 end
 
 if showPlots == 1

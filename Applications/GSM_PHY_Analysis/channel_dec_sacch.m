@@ -6,7 +6,7 @@ function [rx_block,FLAG_SS,PARITY_CHK] = channel_dec_sacch(rx_enc)
 % 
 % INPUT:      rx_enc  A 456 bits long vector contaning the encoded 
 %                     data sequence as estimated by the SOVA. The 
-%                     format of the sequency must be according to 
+%                     format of the sequence must be according to 
 %                     the GSM 05.03 encoding scheme
 %
 % OUTPUT:     rx_block  A 228 bits long vector contaning the final

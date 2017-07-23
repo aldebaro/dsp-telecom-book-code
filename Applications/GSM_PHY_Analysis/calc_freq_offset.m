@@ -5,12 +5,13 @@ GUARD = 6 * OSR;
 LENGTH = 148 * OSR - 2 * GUARD;
 
 %segment signal
-t = s(fcch_start+GUARD:fcch_start+GUARD+LENGTH);
+lastSample=min(fcch_start+GUARD+LENGTH,length(s));
+t = s(fcch_start+GUARD:lastSample);
 L = length(t);
 da = angle(t(1:L-1) .* conj(t(2:L))); %angle difference
 v = mean(da);
 
-frequency_offset_rads = -(pi/2/OSR) - v
+frequency_offset_rads = -(pi/2/OSR) - v;
 
 if showPlots == 1
     clf

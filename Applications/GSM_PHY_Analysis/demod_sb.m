@@ -1,8 +1,8 @@
 function [BCC, PLM, FN] = demod_sb(r,start)
 %demodulate a synchronism burst. Use ak_mafi_sch for 
-%matched filtering
+%matched filtering and Viterbi decoding
 
-OSR = 4;
+OSR = 4; %oversampling
 Lh = 4; %the assumed channel dispersion. It will determine
 %the length of the impulse response estimated by ak_mafi
 
@@ -21,7 +21,7 @@ T_SEQ = T_SEQ_gen(TRAINING);
 % Adjust phase according to detector requirements
 % Phase is wrong because MAFI_SCH was created from MAFI
 % and expanded for a longer sequence
-Y = Y*-i;
+Y = Y*-1i;
 
 rx_burst = viterbi_detector(SYMBOLS,NEXT,PREVIOUS,START,STOPS,Y,Rhh);
 

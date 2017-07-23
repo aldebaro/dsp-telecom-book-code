@@ -1,24 +1,37 @@
 %Step 1 - Read in the signal and apply low pass filtering
+global showPlots %show plots if equal to 1
+%Some extra constants
+SymbolRate = 270833.3333; %bauds
+%Obs: signal bandwidth in Hz coincides with SymbolRate in GMSK
+%Hence, consider the spectrum of interest is from -SymbolRate/2 to
+%SymbolRate/2, such that:
+FilterBandWidth = SymbolRate/2; %filter cutoff frequency
+FilterBandWidth = 100e3;
 
 % Select the file to analyze
-FileName='GSMSP_20070204_robert_dbsrx_953.6MHz_128.cfile';
-SampleRate = 500000; %in Hz
-%FileName='GSMSP_20070204_robert_dbsrx_941.0MHz_128.cfile';
-%SampleRate = 500000;
-%FileName='GSMSP_20070204_robert_dbsrx_953.6MHz_64.cfile';
-%SampleRate = 1000000;
+fileNumber=1; %there are 8 files. Choose a number between 1 and 8
+%Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
+%duration signal
+% Gets the data from a file:
+%Select a folder and end it with slash (/ or \)
+%folder='C:/gits/Latex/ak_dspbook/Code/Applications/GSM_PHY_Analysis/';
+folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
+[r_original, information] = ak_getGSMDataFromFile(fileNumber,folder);
+SampleRate = information.sampleRate;
+%ak_psd(r_original,2);
+%disp(['Sample rate = ' num2str(SampleRate/1e3) ' kHz'])
 
-%Some constants
-FilterBandWidth = 100000; %Hz
-SymbolRate = 270833; %bauds
-Interpolation = 13; %used for resampling
-showPlots = 1; %show plots if equal to 1
-
-% Load file
-r_original = read_complex_binary(FileName);
+if 0 %if wants to tune into another GSM channel
+    %pi = 500k as w0 = 400k
+    w0=-0.6*pi;
+    %w0=2*pi/5;
+    %w0=800e3/(SampleRate/2)*pi;
+    n=0:length(r_original)-1;
+    r_original=r_original.*exp(-1j*w0*n');
+end
 
 %Use a low pass filter to clean up the signal
-filt = fir1(40, 2*FilterBandWidth/SampleRate);
+filt = fir1(40, FilterBandWidth/(SampleRate/2)); %normalize by Nyquist frequency
 r = conv(r_original,filt);
 
 if showPlots == 1
@@ -44,7 +57,7 @@ if showPlots == 1
     Pr=fftshift(Pr);
     plot(f,10*log10(Pr));
     %ak_psd(r,SampleRate);
-    axis([-250 250 -80 20])    
+    %axis([-250 250 -80 20])    
     title('PSD of filtered complex envelope');
     ylabel('dB / Hz');
     xlabel('Frequency (kHz)');

@@ -1,15 +1,17 @@
-%Step 1b - find the start of a frequency correction burst
+%Step 1b - find the start of frequency correction bursts
 
-%Some constants
-Interpolation = 13; %used for resampling to 270.8333 kHz
-
-%Resample to the baud (symbol) rate for a faster 
+%Resample to the baud (symbol) rate for a faster
 %Frequency Correction Burst search
-Decimation = round(SampleRate*Interpolation/SymbolRate);
-%Decimation=24, such that 500*13/24=270.8333
-%r has Fs=500 kHz  and t has Fs=270.8333 kHz
-t = resample(r,Interpolation,Decimation);
+if 1
+    %use a more precise ratio
+    [Interpolation,Decimation]=rat(SymbolRate/SampleRate);
+else %faster option
+    Interpolation = 13; %used for resampling to 270.8333 kHz
+    Decimation = round(SampleRate*Interpolation/SymbolRate);
+end
+t = resample(r,Interpolation,Decimation); %t is at symbol rate
 
-%Find first frequency correction burst in the file, but
-%searching only the first 15000 samples
-fcch_start = find_fcch(t,1,15000,showPlots)
+%Find frequency correction bursts in the file
+thresholdForDetectionInRad=1; %1 radian
+[fcch_start, fcchStartCandidates] = find_fcch(t,1,length(t), ...
+    showPlots, thresholdForDetectionInRad);

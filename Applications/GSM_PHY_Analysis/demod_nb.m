@@ -2,7 +2,7 @@ function [rx_burst] = demod_nb(r,start)
 %demodulate a normal burst. Use ak_mafi for matched
 %filtering
 
-OSR = 4;
+OSR = 4; %oversampling
 Lh = 4; %the assumed channel dispersion. It will determine
 %the length of the impulse response estimated by ak_mafi
 
@@ -24,5 +24,5 @@ T_SEQ = T_SEQ_gen(TRAINING);
 
 [Y, Rhh] = ak_mafi(a,Lh,T_SEQ,OSR);
 
+%rx_burst has the hard-decoded 0 or 1 bits
 rx_burst = viterbi_detector(SYMBOLS,NEXT,PREVIOUS,START,STOPS,Y,Rhh);
-

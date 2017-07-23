@@ -11,5 +11,6 @@ syncBits = [1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, ...
 %map synchronism bits to GMSK symbols
 syncSymbols = T_SEQ_gen(syncBits);
 
+%initialize random number generators
 rand('twister',0);
 randn('state',0);
