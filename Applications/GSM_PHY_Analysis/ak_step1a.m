@@ -8,15 +8,7 @@ SymbolRate = 270833.3333; %bauds
 FilterBandWidth = SymbolRate/2; %filter cutoff frequency
 FilterBandWidth = 100e3;
 
-% Select the file to analyze
-fileNumber=1; %there are 8 files. Choose a number between 1 and 8
-%Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
-%duration signal
-% Gets the data from a file:
-%Select a folder and end it with slash (/ or \). For example:
-%folder='C:/gits/Latex/ak_dspbook/Code/Applications/GSM_PHY_Analysis/';
-%folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
-folder='./GSMSignalFiles/'; %default folder using relative path
+%read data
 [r_original, information] = ak_getGSMDataFromFile(fileNumber,folder);
 SampleRate = information.sampleRate;
 %ak_psd(r_original,2);

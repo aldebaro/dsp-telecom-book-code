@@ -1,5 +1,6 @@
 function plotframe2(r)
 
+oversampling = 4;
 clf
 L = length(r);
 a = angle(r);
@@ -15,8 +16,10 @@ plot(sa);
 %axis([250 350 min(sa(250:350)) max(sa(250:350))]);
 title('Phase');
 
-subplot(2,1,2);
-plot(da)
+subplot(2,2,3);
+stem(da/(pi/2))
 %axis([250 350 -2 2]);
 title('Phase difference');
 
+subplot(2,2,4);
+plot(real(r(1:oversampling:end)),imag(r(1:oversampling:end)),'x')

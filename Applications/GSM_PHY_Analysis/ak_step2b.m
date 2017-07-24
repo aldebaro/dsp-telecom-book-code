@@ -16,7 +16,7 @@ for i=1:length(allSCHStarts)
     if i==1 %first iteration
         %In 51-frames multiframe, following a SB there is BCCH or CCCH
         %The "data" below is a BCCH or CCCH
-        first_data_burst_start = sync_burst_start + numOfSamplesIn8TimeSlots;
+        first_data_burst_start = schStart + numOfSamplesIn8TimeSlots;
         first_data_burst_frame_number = FN + 1;
         %record BCC and PLM
         thisBCC=BCC;
@@ -32,7 +32,7 @@ for i=1:length(allSCHStarts)
             warning(['PLM changed to = ' num2str(PLM)])
         end
         %consider sequence 1,11,21,31,41,1,11...
-        if thisFNmod51-previousFNmod51 ~= 10 & thisFNmod51-previousFNmod51 ~= -40
+        if thisFNmod51-previousFNmod51 ~= 10 && thisFNmod51-previousFNmod51 ~= -40
             thisFNmod51
             previousFNmod51
             warning('thisFNmod51-previousFNmod51 ~= 10')

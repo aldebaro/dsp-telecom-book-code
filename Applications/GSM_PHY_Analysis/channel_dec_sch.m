@@ -18,6 +18,8 @@ function [rx_block,FLAG_SS,PARITY_CHK] = channel_dec_sch(rx_enc)
 %             PARITY_CHK The 10 parity check bit inserted in the 
 %                        transmitter.
 % 					 
+% AK: See Figure 4.9 of Yacoub's book.
+%
 % SUB_FUNC:   None
 %
 % WARNINGS:   None
@@ -271,7 +273,7 @@ end
 
 STATE_SEQ = [START_STATE STATE_SEQ];
 
-% RESOLVING THE CORRESPONDING BIT SEQUENCS
+% RESOLVING THE CORRESPONDING BIT SEQUENCE
 %
 
 for n = 1:length(STATE_SEQ)-1,

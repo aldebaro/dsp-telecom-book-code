@@ -1,6 +1,11 @@
 function [BCC, PLM, FN] = demod_sb(r,start)
 %demodulate a synchronism burst. Use ak_mafi_sch for 
 %matched filtering and Viterbi decoding
+%Format os SB:
+%3 tail bits | 39 data | 64 sync | 39 data | 3 tail | 8.25 guard
+%defined in gsm_setGlobalVariables.m
+%syncSymbols  is the 64-symbols training sequence used in SB
+global syncSymbols showPlots 
 
 OSR = 4; %oversampling
 Lh = 4; %the assumed channel dispersion. It will determine
@@ -10,13 +15,19 @@ a = conj(r(start:start+150*OSR-1));
 
 %the SCH burst has a longer training sequence than the
 %used in normal bursts:
-TRAINING = [1 0 1 1 1 0 0 1 0 1 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1 1 1 0 0 1 0 1 1 0 1 0 1 0 0 0 1 0 1 0 1 1 1 0 1 1 0 0 0 0 1 1 0 1 1];
-                                
-T_SEQ = T_SEQ_gen(TRAINING);
+%TRAINING = [1 0 1 1 1 0 0 1 0 1 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1 1 1 0 0 1 0 1 1 0 1 0 1 0 0 0 1 0 1 0 1 1 1 0 1 1 0 0 0 0 1 1 0 1 1];                                
+%T_SEQ = T_SEQ_gen(TRAINING);
 
 [ SYMBOLS , PREVIOUS , NEXT , START , STOPS ] = viterbi_init(Lh);
 
-[Y, Rhh] = ak_mafi_sch(a,Lh,T_SEQ,OSR);
+%[Y, Rhh] = ak_mafi_sch(a,Lh,T_SEQ,OSR);
+[Y, Rhh] = ak_mafi_sch(a,Lh,syncSymbols,OSR);
+
+if showPlots==1
+    plotframe2(Y)
+    disp('SB. Press <ENTER>')
+    pause
+end
 
 % Adjust phase according to detector requirements
 % Phase is wrong because MAFI_SCH was created from MAFI
@@ -25,8 +36,9 @@ Y = Y*-1i;
 
 rx_burst = viterbi_detector(SYMBOLS,NEXT,PREVIOUS,START,STOPS,Y,Rhh);
 
-DATABITS1 = rx_burst(4:42);
-DATABITS2 = rx_burst(107:145);
+%The two blocks of 39 bits each
+DATABITS1 = rx_burst(4:42); %skip 3 tail bits in front
+DATABITS2 = rx_burst(107:145); %skip 3 tail + 39 data + 64 sync = 106
 
 [rx_block,FLAG_SS,PARITY_CHK] = channel_dec_sch([DATABITS1 DATABITS2]);
 
