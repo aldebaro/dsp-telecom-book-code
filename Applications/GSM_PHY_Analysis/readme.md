@@ -24,4 +24,20 @@ https://www.thc.org/
 
 2) Modifications made at UFPA
 
+IMPORTANT: Now one has to use the GSMsim package. Having GSMsim installed, go to its main folder directory called here GSMtop, and then go to GSMtop/config. While standing in the directory GSMtop/config, execute the script GSMsim_config.m to include the GSMsim folders in your PATH for the duration of this session (you need to save your new PATH in case you want to avoid repeating the operation).
+
+You have to use GSMsim because I deleted the functions / scripts from GSMsim that were repeated at the original GSMSP code: 
+mafi.m, 
+deinterleave.m, 
+DeMUX.m, 
+make_increment.m, 
+make_next.m, 
+make_previous.m, 
+make_start.m, 
+make_stops.m, 
+make_symbols.m, 
+T_SEQ_gen.m, 
+viterbi_detector.m and 
+viterbi_init.m
+
 I added some comments and tried to make the code clearer to our students. These versions have the prefix ak_ and you can run script ak_runAllSteps.m to execute these modified versions. To learn about the cfiles, execute ak_investigateAllFiles.m.
