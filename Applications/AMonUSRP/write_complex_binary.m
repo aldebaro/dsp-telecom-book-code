@@ -14,7 +14,7 @@ write_vec(1:2:vec_length) = real(complex_signal);
 write_vec(2:2:vec_length) = imag(complex_signal);
 
 % Write data to the file
-f = fopen(file_name, 'w');
+f = fopen(file_name, 'wb');
 fwrite(f, write_vec, 'float32');
 fclose(f);
 

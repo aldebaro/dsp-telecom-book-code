@@ -32,7 +32,7 @@ function [I,Q] = gmsk_mod(BURST,Tb,OSR,BT)
 %
 %             When the input consists of all 1's the resulting baseband
 % 	      outputs the function should return a sinusoidal signal of
-%             frequency rb/4, i.e. a signal having a periode time of
+%             frequency rb/4, i.e. a signal having a time period of
 %             approximately 4*Tb = 4*3.692e-6 s = 1.48e-5 s for GSM
 %
 % AUTHOR:   Jan H. Mikkelsen / Arne Norre Ekstrøm

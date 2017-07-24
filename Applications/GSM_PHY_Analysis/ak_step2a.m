@@ -17,7 +17,7 @@ numOfSamplesIn8TimeSlots=5000; %156.25 x numTS x OSR=5000 samples, where numTS=8
 
 %% First alternative: all from first FB
 disp('-------First alternative: all from first FB:')
-increment = 10*numOfSamplesIn8TimeSlots; %# samples
+increment = 10*numOfSamplesIn8TimeSlots; % number of samples
 counter = 1; %count FCCHs starting from the first one
 sch_start=fcch_start+numOfSamplesIn8TimeSlots; %from first FCCH
 for n=sch_start:increment:length(r)

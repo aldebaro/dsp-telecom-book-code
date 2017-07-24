@@ -1,11 +1,15 @@
 function [newb,f,newt]=ak_specgram(x,filterBWInHz,samplingFrequency,windowShiftInms,thresholdIndB)
 %function [newb,f,newt]=ak_specgram(x,filterBWInHz,samplingFrequency,windowShiftInms,thresholdIndB)
-%suggested threshold=120; maximum - threshold is floor value
+%suggested threshold=120; maximum - threshold is floor value.
+%If x is complex-valued, use frequency range from -Fs/2 to Fs/2-df
+%instead of 0 to Fs-df as in Matlab's.
 %Example:
 %x=randn(1,1000); %white noise
-%[b,f,t]=ak_specgram(x,80,16000,1,120);
-%imagesc(t,f,b);axis xy; colormap(jet)
-%xlabel('seconds'); ylabel('Hz');
+%or
+% x=exp(-1j*pi/4*(0:999)); %complex tone at -2000 Hz
+% [b,f,t]=ak_specgram(x,80,16000,1,120);
+% imagesc(t,f,b);axis xy; colormap(jet)
+% xlabel('seconds'); ylabel('Hz');
 %
 %Aldebaro Klautau - Dec. 2007
 
@@ -37,11 +41,17 @@ else
 end
 
 [b,f,t]=specgram(y,nfft,samplingFrequency,HanningWindowLength,noverlap);
+if ~isreal(x) %it is complex, use frequency from -Fs/2 to Fs/2-df
+    df=samplingFrequency/nfft; %or df=f(2)-f(1)
+    f=-samplingFrequency/2:df:samplingFrequency/2-df;
+    b=fftshift(b);
+end
+
 b=20*log10(abs(b));
 maximum = max(b(:));
 minimum = maximum - thresholdIndB;
 %Matlab takes care of -Inf also
-b(find(b<minimum))=minimum;
+b(b<minimum)=minimum;
 %imagesc(b');
 
 %find a slightly different time axis. the new axis adds the amount

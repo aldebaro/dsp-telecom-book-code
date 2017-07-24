@@ -42,6 +42,11 @@ switch fileNumber
         fileName='GSMSP_20070204_robert_dbsrx_953.6MHz_128.cfile';
         decimationFactor = 128;
         information.fcenterMHz=953.6; %center frequency in MHz
+    case 9
+        fileName='beacon.cfile';
+        SymbolRate = 270833.3333; %bauds
+        decimationFactor = 64e6/(4*SymbolRate);
+        information.fcenterMHz=0; %center frequency in MHz
     otherwise
         error(['File index ' num2str(fileNumber) ' not found!']);
 end

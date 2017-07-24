@@ -54,7 +54,7 @@ DEBUG=0;
 % assumes the one with 26 bits. Larger values of GUARD
 % can be used for SCH longer training sequences.
 GUARD = 10;
-if 0
+if 1
     %do not use the whole burst:
     center_r=round(length(r)/2);
     start_sub=center_r-(GUARD+27)*OSR; %8 to 27
@@ -62,6 +62,8 @@ if 0
 else
     % YOU MAY WANT TO ENABLE THIS FOR SPECIAL DEBUGGNIG
     %Use the whole burst, and override previous values
+    %this may cause array out of bound at (end of file):
+    %Y(n) = r_extended(aa:bb)*h_est'; %matched filtering
     start_sub=1;
     end_sub=length(r);
 end
@@ -98,7 +100,7 @@ end
 
 if DEBUG,
     plot(abs(crossCorrelation));
-    title('The absoulte value of the correlation');
+    title('The absolute value of the correlation');
     pause;
 end
 
@@ -175,8 +177,17 @@ r_extended=[zeros(1,GUARDmf) r zeros(1,m) ...
 
 % RECALL THAT THE ' OPERATOR IN MATLAB DOES CONJUGATION
 Y = zeros(1,148); %pre-allocate space
-for n=1:148,
+for n=1:148
     aa=GUARDmf+burst_start+(n-1)*OSR; %start sample
     bb=GUARDmf+burst_start+(n-1)*OSR+m; %end sample
+    if bb > length(r_extended) || aa > length(r_extended) || ...
+            aa < 1 || bb < 1
+        aa
+        bb
+        figure
+        plot(abs(crossCorrelation));
+        title('The absolute value of the correlation');
+        error('Could not find SCH burst start!')
+    end
     Y(n) = r_extended(aa:bb)*h_est'; %matched filtering
 end
