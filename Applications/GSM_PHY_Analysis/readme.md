@@ -41,3 +41,5 @@ viterbi_detector.m and
 viterbi_init.m
 
 Besides, I added some comments and tried to make the code clearer to our students. These versions have the prefix ak_ and you can run script ak_runAllSteps.m to execute these modified versions. To learn about the cfiles, execute ak_investigateAllFiles.m.
+
+To study the receiver algorithms under more controlled conditions, the script ak_CreateC0T0BeaconSignal.m allows to create an artificial signal corresponding to a channel 0 and TS0 (beacon) signal with 51-frames multiframes.
