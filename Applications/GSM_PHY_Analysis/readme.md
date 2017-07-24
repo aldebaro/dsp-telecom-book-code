@@ -40,4 +40,4 @@ T_SEQ_gen.m,
 viterbi_detector.m and 
 viterbi_init.m
 
-I added some comments and tried to make the code clearer to our students. These versions have the prefix ak_ and you can run script ak_runAllSteps.m to execute these modified versions. To learn about the cfiles, execute ak_investigateAllFiles.m.
+Besides, I added some comments and tried to make the code clearer to our students. These versions have the prefix ak_ and you can run script ak_runAllSteps.m to execute these modified versions. To learn about the cfiles, execute ak_investigateAllFiles.m.
