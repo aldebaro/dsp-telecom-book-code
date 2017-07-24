@@ -34,9 +34,14 @@
 %
 % $Id: GSMsim_demo_2.m,v 1.6 1998/10/01 10:18:47 hmi Exp $
 
+disp('Recall that before running this script, you should have executed GSMsim_config.m in config folder');
+exist(GSMtop,'dir');
+% GSMsim_config.m should be executed while standing in the directory
+% GSMtop/config
+
 NumberOfBlocks = 40;
-Lh =3; %channel dispersion, Lh=4 imposes severe number of errors
-LogName = 'mysimulation'; 
+Lh =3; %channel dispersion, Lh>=4 imposes severe number of errors
+LogName = 'simulation'; 
 
 % This is an aid for the final screen report
 %
@@ -47,7 +52,7 @@ tTotal=clock;
 LogFile=[LogName '_' num2str(NumberOfBlocks,'%9d') '_' ];
 LogFile=[LogFile num2str(Lh,'%3d') '.gsmsim.txt'];
 
-% Print header to the log file, abort if file allready exist.
+% Print header to the log file, abort if file already exist.
 %
 fid=fopen(LogFile,'r');
 if fid==-1
@@ -62,7 +67,8 @@ if fid==-1
   fprintf(LogFID,'%%\n');
   fclose(LogFID);
 else
-  error('The logfile allready exists, aborting simulation...');
+  fclose(fid); %close pointer to existing log file
+  error('The logfile already exists, aborting simulation...');
 end
 
 % There has, not yet, been observed any errors.
@@ -128,7 +134,7 @@ for N=2:NumberOfBlocks+1,
   %
   tx_enc2=channel_enc(tx_block2);
 
-  % tx_data_mnatrix contains data for four burst, generated from two blocks.
+  % tx_data_matrix contains data for four bursts, generated from two blocks.
   %
   tx_data_matrix=interleave(tx_enc1,tx_enc2);
 
@@ -150,7 +156,7 @@ for N=2:NumberOfBlocks+1,
     % RUN THE MATCHED FILTER, IT IS RESPONSIBLE FOR FILTERING SYNCRONIZATION 
     % AND RETRIEVAL OF THE CHANNEL CHARACTERISTICS.
     % 
-    [Y, Rhh] = mafi(r,Lh,T_SEQ,OSR);
+    [Y, Rhh] = ak_mafi(r,Lh,T_SEQ,OSR);
     
     % HAVING PREPARED THE PRECALCULATABLE PART OF THE VITERBI
     % ALGORITHM, IT IS CALLED PASSING THE OBTAINED INFORMATION ALONG WITH

@@ -35,6 +35,8 @@ function [Y, Rhh] = mafi(r,L,T_SEQ,OSR)
 %
 % $Id: mafi.m,v 1.1 1998/10/01 10:20:21 hmi Exp $
 
+error('Deprecated by UFPA team. Use ak_mafi.m instead');
+
 DEBUG=0;
 
 % PICK CENTRAL 16 BITS [ B | C | A ] AS COMPROMISE
@@ -177,9 +179,6 @@ r_extended = [ zeros(1,GUARDmf) r zeros(1,m) zeros(1,GUARDmf)];
 
 % RECALL THAT THE ' OPERATOR IN MATLAB DOES CONJUGATION
 %
-
-%AK
-h_est
 
 for n=1:148,
   aa=GUARDmf+burst_start+(n-1)*OSR;

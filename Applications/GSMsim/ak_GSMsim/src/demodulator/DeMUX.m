@@ -1,6 +1,6 @@
 function [ rx_data ] = DeMUX(rx_burst)
 
-% DeMUX:   This pice of code does the demultiplexing of the received
+% DeMUX:   This piece of code does the demultiplexing of the received
 %          GSM burst.
 %
 % SYNTAX:   [ rx_data ] = DeMUX(rx_burst)

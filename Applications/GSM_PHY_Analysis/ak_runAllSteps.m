@@ -3,7 +3,7 @@ clear * %clear all variables but breakpoints
 gsm_setGlobalVariables %set some global variables
 showPlots=0; %use 1 to show plots
 % Select the file to analyze
-fileNumber=4; %there are 8 files. Choose a number between 1 and 8
+fileNumber=8; %there are 8 files. Choose a number between 1 and 8
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
 %duration signal. File 4 changes the BCC and PLM in some bursts
 % Gets the data from a file:

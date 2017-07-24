@@ -25,9 +25,9 @@ function T_SEQ = T_SEQ_gen(TRAINING)
 % TEST TO SEE WETHER THE LENGTH OF Ic IS CORRECT.
 % IF NOT, THEN ABORT...
 %
-if length(TRAINING) ~= 26 
-  error('TRAINING is not of length 26, terminating.');
-end
+%if length(TRAINING) ~= 26 
+%  error('TRAINING is not of length 26, terminating.');
+%end
 
 % MAKE A POLAR VERSION OF TRAINING
 TRAININGPol=(2.*TRAINING)-1;

@@ -1,4 +1,4 @@
-numOfBurts =100; %number of bursts
+numOfBurts =500; %number of bursts
 Lh=2; %channel dispersion: length of the channel impulse
 %response minus one.
 showPlots=1;
