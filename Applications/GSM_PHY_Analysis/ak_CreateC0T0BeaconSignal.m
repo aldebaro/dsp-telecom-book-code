@@ -1,6 +1,7 @@
 gsm_set; %set some variables
 global syncBits %the SCH burst has a longer training sequence (64 bits) than the
 global debugWithArtificialFile %use for debugging with pre-defined bursts
+debugWithArtificialFile = 1;
 maxNumOf51Multiframes = 3; %number of 51-frames multiframes
 showPlots=1; %use 1 to show intermediate plots
 outputFileName='./GSMSignalFiles/beacon.cfile';
@@ -9,7 +10,6 @@ guardPeriodLengthMinus2bits=6.25*4; %25 = When oversampling is 4, modulator func
 %600 samples, which corresponds to 150 bits, not 148 bits for the
 %burst. Then, the 8.25 bits guard period is only 6.25 bits here
 guardPeriod=zeros(1,guardPeriodLengthMinus2bits); %25 samples for oversampling = 4
-debugWithArtificialFile = 1;
 
 x=[]; %initialize signal array
 frameNumber=0;

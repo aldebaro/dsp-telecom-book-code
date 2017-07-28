@@ -5,10 +5,9 @@ if ~exist('GSMtop','var')
 end
 gsm_set %set some global variables (from GSMsim package)
 global debugWithArtificialFile 
-debugWithArtificialFile = 0;
 showPlots=0; %use 1 to show plots
 % Select the file to analyze
-fileNumber=6; %there are 9 files. Choose a number between 1 and 9
+fileNumber=9; %there are 9 files. Choose a number between 1 and 9
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
 %duration signal. File 4 changes the BCC and PLM in some bursts. File
 %9 (called beacon.cfile) should be first artificially generated with 
@@ -19,8 +18,11 @@ fileNumber=6; %there are 9 files. Choose a number between 1 and 9
 %folder='C:/gits/Latex/ak_dspbook/Code/Applications/GSM_PHY_Analysis/';
 %folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
 folder='./GSMSignalFiles/'; %default folder using relative path
-if fileNumber~=9 && debugWithArtificialFile == 1
-    error('Wrong configuration of fileNumber and debugWithArtificialFile');
+if fileNumber==9
+    debugWithArtificialFile = 1;
+else 
+    debugWithArtificialFile = 0;
+    %error('Wrong configuration of fileNumber and debugWithArtificialFile');
 end
 
 ak_step1a %choose the file, read its corresponding signal and filter it

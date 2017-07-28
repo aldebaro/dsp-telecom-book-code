@@ -20,6 +20,6 @@ disp('Found the following FHCC (first samples):')
 fcchStartCandidates
 disp('First difference of vector above:')
 diff(fcchStartCandidates)
-disp('Obs: theoretically FCCHs are separated by 12500 symbols,')
-disp('from 10 frames, each with 156.25*8=1250 symbols)')
-
+disp('Obs: theoretically, 4 FCCHs within a block are separated by 12500 symbols,')
+disp('from 10 frames, each with 156.25*8=1250 symbols. And the last FCCH in a 51-multiframe')
+disp('is separated from the next first FHCC by 11*1250=13750 symbols due to the idle frame.');
