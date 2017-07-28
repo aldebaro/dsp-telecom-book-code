@@ -15,15 +15,7 @@ function [ tx_burst , I , Q ] = gsm_mod_fb(Tb,OSR,BT)
 % 	     I: Inphase part of modulated burst.
 %            Q: Quadrature part of modulated burst.
 %
-% WARNINGS: No interleaving or channel coding is done, and thus the 
-%           GSM recommadations are violated. Data simulations done using
-%           this format can only be used for predicting Class II performance.
 %
-% AUTHOR:   Jan H. Mikkelsen / Arne Norre Ekstrøm
-% EMAIL:    hmi@kom.auc.dk / aneks@kom.auc.dk
-%
-% $Id: gsm_mod.m,v 1.10 1997/12/17 15:29:27 aneks Exp $
-
 % GENERATE BURST SEQUENCE (THIS IS ACTUALLY THE MUX).
 %           The GSM burst contains a total of 148 bits accounted
 %           for in the following burststructure (GSM 05.05)
@@ -40,5 +32,7 @@ tx_burst = [TAIL zeros(1,142) TAIL];
 burst = diff_enc(tx_burst);
 
 % GMSK MODULATION OF BURST SEQUENCE
-%
+%AK: When oversampling is 4, this function returns I and Q with
+%600 samples, which corresponds to 150 bits, not 148 bits for the
+%burst. I think it deserves correction.
 [I,Q] = gmsk_mod(burst,Tb,OSR,BT);

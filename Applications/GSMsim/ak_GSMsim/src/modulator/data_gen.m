@@ -1,4 +1,4 @@
-function [tx_data] = data_gen(INIT_L);
+function [tx_data] = data_gen(INIT_L)
 %
 % data_gen:   This function generates a block of random data bits. 
 %

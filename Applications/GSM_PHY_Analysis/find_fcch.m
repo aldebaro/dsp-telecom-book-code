@@ -17,8 +17,8 @@ end
 r = s(start:stop); %extract segment of interest
 
 OSR = 1; %oversampling
-BL = 142*OSR; %number of samples in 142 bits of burst
-TB = 3*OSR; %3 Tailing Bits at each side of the burst
+syncBitsLength = 142*OSR; %number of samples in 142 bits of burst
+tailingBitsInSamples = 3*OSR; %3 Tailing Bits at each side of the burst
 %FL = 2 * TB + BL; %148
 %PLOTEXTRA = 25;
 
@@ -34,11 +34,11 @@ da = angle(r(1:L-1) .* conj(r(2:L))); %angles difference
 
 %from the start to the end of the segment of interest,
 %search the sample that better matches the begin of a FB
-df=NaN * ones(1,L-BL-1); %pre-allocate space
-for i = 1 : (L-BL-1)
+df=NaN * ones(1,L-syncBitsLength-1); %pre-allocate space
+for i = 1 : (L-syncBitsLength-1)
     %extract a sub-segment with 142 bits: da(i:i+BL-1)
-    low  = min(da(i:i+BL-1)); %minimum angle difference
-    high = max(da(i:i+BL-1)); %maximum angle difference
+    low  = min(da(i:i+syncBitsLength-1)); %minimum angle difference
+    high = max(da(i:i+syncBitsLength-1)); %maximum angle difference
     df(i) = high - low;
 end
 
@@ -48,7 +48,10 @@ end
 
 %the threshold for minDynamicRange
 if minDynamicRange < thresholdForDetectionInRad
-    bestFCCH = index_minDynamicRange + start - 1 - TB;
+    bestFCCH = index_minDynamicRange + start - 1 - tailingBitsInSamples;
+    if bestFCCH < 1
+        bestFCCH = 1; % Do not allow negative index
+    end
 else
     bestFCCH = -1; %could not find
     minDynamicRange
@@ -56,7 +59,8 @@ else
 end
 
 %find other candidates, which may be necessary to find the start
-%of the multiframe
+%of the multiframe. Assuming oversampling=1, the FCCH are separated
+%by 10 frames, each with 156.25*8=1250 symbols, i.e. 12500 samples
 allCandidates = find(df < thresholdForDetectionInRad);
 groupLimits=find(diff(allCandidates) > 6000);
 numberOfFBGroups=length(groupLimits)+1;
@@ -68,19 +72,27 @@ for i=1:numberOfFBGroups
     else
         groupEnd=allCandidates(groupLimits(i));
     end
-    [minDynamicRange, index_minDynamicRange] = min(df(groupStart:groupEnd));    
-    fcchStartCandidates(i)= index_minDynamicRange+groupStart-1+start-1-TB;
+    if 0 %use the minimum value
+        [minDynamicRange, index_minDynamicRange] = min(df(groupStart:groupEnd));    
+        fcchStartCandidates(i)= index_minDynamicRange+groupStart+start-1-TB;
+    else %use median value given tail bits are also zero and influence here
+        index_minDynamicRange=floor(median(groupStart:groupEnd))-1; %this minus 1 is empirical
+        fcchStartCandidates(i)= index_minDynamicRange+start-1-tailingBitsInSamples;
+    end    
     if i~=numberOfFBGroups %last iteration is exception
         groupStart=allCandidates(groupLimits(i)+1);
     end    
 end
 
+%% Do not allow negative indices
+fcchStartCandidates(fcchStartCandidates < 1)=1;
+
 if showPlots == 1
     clf
     %Fs = 270833; %sampling frequency    
     N=3; %number of bursts to the left and right
-    startSample = (index_minDynamicRange-TB) - N*BL; 
-    endSample = index_minDynamicRange + (N+1)*BL;
+    startSample = (index_minDynamicRange-tailingBitsInSamples) - N*syncBitsLength; 
+    endSample = index_minDynamicRange + (N+1)*syncBitsLength;
     if (startSample < 1)
         startSample = 1;
     end

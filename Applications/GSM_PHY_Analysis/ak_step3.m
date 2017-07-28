@@ -1,6 +1,7 @@
 %ak_step3_v2 - Channel decoding for normal bursts (BCCH and CCCH)
 %In 51-frames multiframe, following a SB there is BCCH or CCCH
 %The "data" below is a BCCH or CCCH.
+global debugWithArtificialFile
 
 verbosity = 0;
 L = length(r); %total number of samples
@@ -13,10 +14,15 @@ disp(['There are ' num2str(N) ' frames in this signal'])
 rx_data_matrix1=zeros(4,114); %space for data (114 bits) of 4 bursts
 for i=1:length(allSCHStarts)
     schStart=allSCHStarts(i);
-    [BCC, PLM, FN] = demod_sb(r',schStart); %decode burst
+    [BCC, PLM, FN, rx_burst] = demod_sb(r',schStart); %decode burst
+    if debugWithArtificialFile==1
+        if ~isequal(rx_burst, sb_tx_burst) %assuming given and fixed SB
+            error('~isequal(rx_burst, sb_tx_burst)')
+        end
+    end
     thisSCHFNmod51=mod(FN,51); %for checking the relative position in multiframe
     %each SB is followed by BBBBCCCC (first SB in multiframe) or CCCCCCCC
-    for blockNumber=1:2 
+    for blockNumber=1:2
         blockStart=schStart+numOfSamplesIn8TimeSlots+...
             (blockNumber-1)*4*numOfSamplesIn8TimeSlots;
         for n=1:4 %a block (BCCH or CCCH) has 4 bursts
@@ -31,10 +37,15 @@ for i=1:length(allSCHStarts)
                 % Plot the burst
                 plotframe2((r(burst_start:burst_end)))
             end
-            %Demodulate    
+            %Demodulate
             frame_number = FN+4*(blockNumber-1)+n;
             %frame_number = (first_data_burst_frame_number + (n-1) + 4 * (m-1) + 10 * (k-1));
             rx_burst = demod_nb(r',burst_start); %demodulate a normal burst
+            if debugWithArtificialFile==1
+                if ~isequal(rx_burst, nb_tx_burst) %assuming given and fixed SB
+                    error('~isequal(rx_burst, nb_tx_burst)')
+                end
+            end
             
             %Must store data from 4 bursts before we have a complete message
             %rx_burst has 148 bits and DeMUX returns 114 data bits

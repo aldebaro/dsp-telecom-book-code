@@ -40,6 +40,11 @@ function [I,Q] = gmsk_mod(BURST,Tb,OSR,BT)
 %
 % $Id: gmsk_mod.m,v 1.5 1998/02/12 10:50:10 aneks Exp $
 
+%TO-DO:
+%AK: When oversampling is 4, this function returns I and Q with
+%600 samples, which corresponds to 150 bits, not 148 bits for the
+%burst. I think it deserves correction.
+
 % ACCUIRE GMSK FREQUENCY PULSE AND PHASE FUNCTION
 %
 [g,q] = ph_g(Tb,OSR,BT);

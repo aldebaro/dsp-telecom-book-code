@@ -24,9 +24,17 @@
 %
 % $Id: gsm_set.m,v 1.11 1997/09/22 11:38:19 aneks Exp $
 
+%set global constants
+global showPlots syncBits syncSymbols Lh
+global Tb OSR BT TRAINING INIT_L T_SEQ
+global debugWithArtificialFile
+
+debugWithArtificialFile = 0; %use 1 only for generating pre-defined (non-random) bursts
+
 % GSM 05.05 PARAMETERS
 %
-Tb = 3.692e-6;
+%GSM transmits a total of 1,625 symbols within an interval of 6 ms, hence:
+Tb = 6e-3/1625; %%symbol (or GMSK bit) period (original GSMsim value: 3.692e-6)
 BT = 0.3; %used in GMSK modulation
 OSR = 4; %oversampling factor: number of samples for each symbol
 
@@ -49,3 +57,24 @@ TRAINING = [0 0 1 0 0 1 0 1 1 1 0 0 0 0 1 0 0 0 1 0 0 1 0 1 1 1];
 % CONSTRUCT THE MSK MAPPED TRAINING SEQUENCE USING TRAINING.
 %
 T_SEQ = T_SEQ_gen(TRAINING);
+
+showPlots=1; %use 1 to show plots
+
+Lh = 4; %the assumed channel dispersion. It will determine
+%the length of the impulse response estimated by ak_mafi, etc.
+%possible values: [2, 4]
+
+%synchronism bits used in the synchronization burst (SB)
+syncBits = [1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, ...
+    1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, ...
+    1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, ...
+    0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1];
+%map synchronism bits to GMSK symbols
+syncSymbols = T_SEQ_gen(syncBits); %in SB
+
+%initialize random number generators
+rand('twister',0);
+randn('state',0);
+
+%turn warning on when using Matlab (sometimes it is off)
+%w = warning ('on','all');

@@ -55,7 +55,11 @@ LogFile=[LogFile num2str(Lh,'%3d') '.gsmsim.txt'];
 % Print header to the log file, abort if file already exist.
 %
 fid=fopen(LogFile,'r');
-if fid==-1
+if fid~=-1
+    fclose(fid); %close pointer to existing log file
+    warning([LogFile ' already existed. It has been overwritten!'])
+end
+%if fid==-1
   LogFID=fopen(LogFile,'w');
   fprintf(LogFID,'%% GSMsim_demo_2 - simulation log.\n');
   fprintf(LogFID,'%%\n');
@@ -66,10 +70,10 @@ if fid==-1
   fprintf(LogFID,'%% B_ERRS_Ia B_ERRS_Ib B_ERRS_II B_ERRS_II_CHEAT\n');
   fprintf(LogFID,'%%\n');
   fclose(LogFID);
-else
-  fclose(fid); %close pointer to existing log file
-  error('The logfile already exists, aborting simulation...');
-end
+%else
+%  fclose(fid); %close pointer to existing log file
+%  error('The logfile already exists, aborting simulation...');
+%end
 
 % There has, not yet, been observed any errors.
 %

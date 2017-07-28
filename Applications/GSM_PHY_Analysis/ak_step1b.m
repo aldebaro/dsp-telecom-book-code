@@ -15,3 +15,11 @@ t = resample(r,Interpolation,Decimation); %t is at symbol rate
 thresholdForDetectionInRad=1; %1 radian
 [fcch_start, fcchStartCandidates] = find_fcch(t,1,length(t), ...
     showPlots, thresholdForDetectionInRad);
+
+disp('Found the following FHCC (first samples):')
+fcchStartCandidates
+disp('First difference of vector above:')
+diff(fcchStartCandidates)
+disp('Obs: theoretically FCCHs are separated by 12500 symbols,')
+disp('from 10 frames, each with 156.25*8=1250 symbols)')
+

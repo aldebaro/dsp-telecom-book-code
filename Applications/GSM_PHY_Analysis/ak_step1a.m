@@ -7,6 +7,7 @@ SymbolRate = 270833.3333; %bauds
 %SymbolRate/2, such that:
 FilterBandWidth = SymbolRate/2; %filter cutoff frequency
 FilterBandWidth = 100e3;
+filterOrder=40; %lowpass filter order. Needs to be an even number
 
 %read data
 [r_original, information] = ak_getGSMDataFromFile(fileNumber,folder);
@@ -24,8 +25,10 @@ if 0 %if wants to tune into another GSM channel
 end
 
 %Use a low pass filter to clean up the signal
-filt = fir1(40, FilterBandWidth/(SampleRate/2)); %normalize by Nyquist frequency
-r = conv(r_original,filt);
+filt = fir1(filterOrder, FilterBandWidth/(SampleRate/2)); %normalize by Nyquist frequency
+r = conv(r_original,filt); %r has length(r_original)+filterOrder samples
+r=r((filterOrder/2)+1:end); %compensate (eliminate) filter's group delay
+r=r(1:length(r_original)); %now: length(r)=length(r_original)
 
 if showPlots == 1
     Nfft = 512; %num of FFT points

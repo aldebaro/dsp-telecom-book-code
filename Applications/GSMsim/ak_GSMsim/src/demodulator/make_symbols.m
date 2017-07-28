@@ -43,9 +43,9 @@ function [ SYMBOLS ] = make_symbols(Lh)
 % THIS CODE CANNOT HANDLE Lh=1 or Lh>4.
 %
 if Lh==1,
-  error('GSMsim-Error: Lh is constrained to be in the interval [1:4].');
+  error('GSMsim-Error: Lh is constrained to be in the interval [2:4].');
 elseif Lh > 4,
-  error('GSMsim-Error: Lh is constrained to be in the interval [1:4].')
+  error('GSMsim-Error: Lh is constrained to be in the interval [2:4].')
 end
 
 % make initiating symbols

@@ -15,6 +15,8 @@
 %separated by 5000 samples, and 10 bursts = 50,000 samples
 numOfSamplesIn8TimeSlots=5000; %156.25 x numTS x OSR=5000 samples, where numTS=8 and OSR=4
 
+if 0
+%I will disable the first alternative below, which was the original one
 %% First alternative: all from first FB
 disp('-------First alternative: all from first FB:')
 increment = 10*numOfSamplesIn8TimeSlots; % number of samples
@@ -34,15 +36,18 @@ if counter-1 ~= length(fcchStartCandidates)
     length(fcchStartCandidates)    
     warning('Strange error in logic: counter ~= length(fcchStartCandidates)');
 end
+
+end %if 0
+
 allSCHStarts=zeros(1,length(fcchStartCandidates)); %store SCH first samples
 %% Second alternative: consider all detected FBs
 disp('-------Second alternative: consider all detected FBs:')
 for i=1:length(fcchStartCandidates)
-    schStart=numOfSamplesIn8TimeSlots+oversampling*fcchStartCandidates(i); %fcchStartCandidates was obtained with oversampling = 1
-    disp(['FCCH counter = ' num2str(i) '. SCH start according to:']);
+    schStart=numOfSamplesIn8TimeSlots+oversampling*(fcchStartCandidates(i)-1)+1; %fcchStartCandidates was obtained with oversampling = 1
+    disp(['FCCH counter = ' num2str(i) '. Oversampling=4. SCH start according to:']);
     disp(['FB alone is at sample ' ...
         num2str(schStart)]);    
-    allSCHStarts(i)=find_sch(r,schStart);
+    allSCHStarts(i)=find_sch(r,schStart); %find SCH via crosscorrelation
     if allSCHStarts(i)==-1 
         if i ~= length(fcchStartCandidates)
             i
@@ -51,7 +56,7 @@ for i=1:length(fcchStartCandidates)
         end
         allSCHStarts(end)=[]; %delete this candidate
     else
-        disp(['SCCH itself (oversample=4) is at sample '...
+        disp(['SCCH itself is at sample '...
         num2str(allSCHStarts(i))]);
     end
 end

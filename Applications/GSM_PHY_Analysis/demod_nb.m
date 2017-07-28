@@ -3,11 +3,9 @@ function [rx_burst] = demod_nb(r,start)
 %filtering
 
 %defined in gsm_setGlobalVariables.m
-global showPlots 
+global showPlots Lh
 
 OSR = 4; %oversampling
-Lh = 4; %the assumed channel dispersion. It will determine
-%the length of the impulse response estimated by ak_mafi
 
 a = conj(r(start:start+150*OSR-1));
 
