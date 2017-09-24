@@ -37,7 +37,7 @@ for k = 1:N2-1 %2) calculate for other points
     Gr(2*N2-k+1) = Gr(ki);
     Gi(2*N2-k+1) = -Gi(ki);
 end
-%3) recover Nyquist tone: (the TI doc has a typo here)
+%3) recover Nyquist tone: (the Texas Instruments doc has a typo here)
 Gr(N2+1) = Xr(1) - Xi(1);
 Gi(N2+1) = 0;
 Xsplit = Gr + 1j*Gi; %obtain the FFT final result

@@ -5,10 +5,12 @@ function chunks = ak_sliceBytes(inputBytes, b)
 %  b -> number of bits to be extracted of each byte. The
 %       value of b must be 1, 2, 4 or 8.
 %output:
-%  chunks -> sliced bytes, numbers from 0 to (2^b)-1
+%  chunks -> sliced bytes, numbers from 0 to (2^b)-1 that may 
+%            represent the 2^b symbols of a digital modulator
 %Example:
-% ak_sliceBytes([255 16], 4) %slice in chunks of b=4 bits
+% ak_sliceBytes([255 16], 4) %slice ("cut") in chunks of b=4 bits
 % ans = 15    15     1     0 %output
+%See also: ak_unsliceBytes and ak_sliceBitStream
 
 if rem(8,b)~=0
     disp('this is a very simple slicer');

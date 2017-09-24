@@ -9,7 +9,8 @@ function [I,Q] = gmsk_mod(BURST,Tb,OSR,BT)
 % INPUT:      burst   A differential encoded bit sequence (-1,+1)
 %             Tb      Bit duration (GSM: Tb = 3.692e-6 Sec.)
 %             osr     Simulation oversample ratio. osr determines the
-%                     number of simulation steps per information bit
+%                     number of samples per symbol (information bit in
+%                     binary modulations)
 %             BT      The bandwidth/bit duration product (GSM: BT = 0.3)
 %
 % OUTPUT:     i,q     In-phase (i) and quadrature-phase (q) baseband
@@ -52,7 +53,7 @@ function [I,Q] = gmsk_mod(BURST,Tb,OSR,BT)
 % PREPARE VECTOR FOR DATA PROCESSING
 %
 bits = length(BURST);
-f_res = zeros(1,(bits+2)*OSR);
+f_res = zeros(1,(bits+2)*OSR); %AK: this is adding two extra bits
 
 % GENERATE RESULTING FREQUENCY PULSE SEQUENCE
 if 1

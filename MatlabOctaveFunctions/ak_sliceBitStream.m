@@ -5,6 +5,7 @@ function chunks = ak_sliceBitStream(bitStream, b)
 %  b -> number of bits to be used in each output chunk
 %output:
 %  chunks -> sliced bits, numbers from 0 to (2^b)-1
+%See also: ak_sliceBytes and ak_unsliceBytes
 bitStream=bitStream(:); %make sure bitStream is a column vector
 Nbits=length(bitStream); %get the number of bits
 numOfChunks= floor(Nbits/b); %floor discards remaining bits, if they exist

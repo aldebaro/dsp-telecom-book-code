@@ -5,6 +5,7 @@ function bestCodewordIndex = ak_vectorQuantizer(vector, codebook)
 [numOfCodewords,K]=size(codebook);
 minimumDistance = Inf; %initialize with large number
 bestCodewordIndex = -1; %initialize with invalid number
+vector = transpose(vector(:)); %make sure it is a row vector
 for j=1:numOfCodewords %search all codewords in codebook
     error=vector-codebook(j,:); % error
     squaredError=sum(error.*error); %squared Euclidean distance

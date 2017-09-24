@@ -6,8 +6,8 @@ function outImage=ak_dctdemo(imageFile, numCoeffToKeep, blockSize)
 %   blockSize => block size, e.g., use 8 for a block of 8x8 pixels
 %Output: 
 %   outImage => reconstructed image
-%Example of usage:
-% outImage=ak_dctdemo('lenna.tiff',3,8); imagesc(outImage)
+%Example of usage (this GIF image is in folder MatlabBookFigures):
+% outImage=ak_dctdemo('lenna_bw.gif',3,8); imagesc(outImage)
 
 [im,map]=imread(imageFile);
 %im=uint8(magic(8))

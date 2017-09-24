@@ -39,7 +39,8 @@ alpha = zeros(1,L);
 
 % DIFFERENTIAL ENCODING ACCORDING TO GSM 05.05
 % AN INFINITE SEQUENCE OF 1'ENS ARE ASSUMED TO
-% PRECEED THE ACTUAL BURST
+% PRECEED THE ACTUAL BURST. In other words: for n=-1 the sample
+% is assumed to be 1
 %
 data = [1 BURST];
 for n = 1+1:(L+1),

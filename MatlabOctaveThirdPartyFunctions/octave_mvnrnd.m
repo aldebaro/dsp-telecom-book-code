@@ -21,7 +21,7 @@
 % @var{Sigma}(@var{d}x@var{d}).
 % @end deftypefn
 
-function s = mvnrnd(mu,Sigma,K)
+function s = octave_mvnrnd(mu,Sigma,K)
 
 % Iain Murray 2003 -- I got sick of this simple thing not being in Octave and
 %                     locking up a stats-toolbox license in Matlab for no good
