@@ -5,13 +5,13 @@ myPath='.'; %directory where the files can be found, e.g. 'c:/mydir'
 %The first file determines the adopted sampling frequency Fs and
 %the output signal duration
 fileName=[myPath '/amFile1.wav']; %name of first file
-[x,Fs]=wavread(fileName); %Fs is the sampling frequency (Hz)
+[x,Fs]=audioread(fileName); %Fs is the sampling frequency (Hz)
 %soundsc(x,Fs); disp('Press a key'); pause
 M=length(x); %number of samples assumed for the output signal
 U=16; %upsampling factor (must be an integer) to increase Fs
 for i=2:N
     fileName=[myPath '/amFile' num2str(i) '.wav'];
-    [x,Fs_temp]=wavread(fileName);
+    [x,Fs_temp]=audioread(fileName);
     if Fs_temp ~= Fs
         error([fileName ' sampling freq. differs from amFile1.wav'])
     end
@@ -43,7 +43,7 @@ modulationIndex=0.5; %number within range ]0, 1[
 for i=1:N
     fileName=[myPath '/amFile' num2str(i) '.wav'];
     disp(['Processing ' fileName])
-    [x,Fs_temp]=wavread(fileName);
+    [x,Fs_temp]=audioread(fileName);
     x=x(1:M); %force all signals to have the same duration (length)
     xup=resample(x,U,1);
     Fc=freqRF(i)-Fc_if;
@@ -55,4 +55,4 @@ for i=1:N
     %plot(xrf,'r'); hold on; plot(xup);
 end
 maxAbs=max(abs(y))+eps; %wavwrite restricts to [-1,1[.
-wavwrite(y/maxAbs,Fs_tx,16,'amMultiplexedSignals.wav');
+audiowrite('amMultiplexedSignals.wav',y/maxAbs,Fs_tx,'BitsPerSample',16);

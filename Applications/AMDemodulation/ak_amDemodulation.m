@@ -1,5 +1,5 @@
 %% This script performs AM demodulation on mux signal from input file
-[rx,Fs]=wavread('amMultiplexedSignals.wav'); %multiplexed AM signals
+[rx,Fs]=audioread('amMultiplexedSignals.wav'); %multiplexed AM signals
 showPlots = 1; %use 1 to show plots or 0 otherwise
 Foff=3.0e3; %filter cutoff frequency (BW=5 kHz for these AM stations)
 D=20; %Fs is 256 kHz, but a single AM channel can use Fs2=6400 Hz
@@ -24,7 +24,7 @@ for i=1:length(freqRF)
         filename = strcat('AM_DemultiplexedFromFreq' ...
             , num2str(freqRF(i)/1000), '.wav');
         maxAbs=max(abs(mx))+eps; %wavwrite restricts to [-1,1[
-        wavwrite(mx/maxAbs,Fs2,16,filename);
+        audiowrite(filename, mx/maxAbs,Fs2,'BitsPerSample',16);
         %wavplay(mx/maxAbs,Fs2,'sync');%Matlab playback with blocking
     end
     %enable to playback demodulated signal:

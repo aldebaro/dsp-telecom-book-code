@@ -7,7 +7,7 @@ close all, clear *
 Fsfinal=8000; %this will be the final sampling frequency
 showPlots = 1; %to show plots
 %% Read file
-[rx,Fs]=wavread('am_real.wav'); %real-valued signal with AM stations
+[rx,Fs]=audioread('am_real.wav'); %real-valued signal with AM stations
 %in discrete-time, it is centered in 2*pi/3 rad with BW=pi/2 rad
 Flo=(710-1024/3)*1e3; %freq. (Hz) of the "local oscillator"
 D=floor(Fs/Fsfinal); %decimation factor
@@ -43,7 +43,7 @@ for i=1:length(freqRF)
     filename = strcat('AMreal_DemultiplexedFromFreq', ...
         num2str(freqRF(i)/1000), '.wav');
     maxAbs=ceil(max(abs(m))); %wavwrite restricts to [-1,1[
-    wavwrite(m/maxAbs,Fsfinal,16,filename);    
+    audiowrite(filename, m/maxAbs,Fsfinal,'BitsPerSample',16);    
     if showPlots == 1
         clf, subplot(311) %first plot is the multiplexed signal at Fs
         [psdIndB,f]=ak_psd(rx,Fs);
