@@ -1,10 +1,11 @@
 '''
-Based on Ali Jamali Zavare's code: https://github.com/alijamaliz/DTMF-detector
-I removed the dependency on PyAudio, which may require a C compiler.
-
 DTMF detection based on FFT.
 This is a pedagogical tool. The implemented algorithm here is not as efficient,
 as an implementation based on Goertzel algorithm [1,2].
+
+Inspired on Ali Jamali Zavare's code: https://github.com/alijamaliz/DTMF-detector
+I removed the dependency on PyAudio, which may require a C compiler.
+And changed the algorithm to use peak picking.
 
 [1] https://en.wikipedia.org/wiki/Goertzel_algorithm
 [2] https://github.com/EliasOenal/multimon-ng/ and https://github.com/EliasOenal/multimon-ng/blob/master/demod_dtmf.c
@@ -21,7 +22,7 @@ from scipy.signal import find_peaks
 
 audio_file_name = 'dial2.wav' #input file in WAV format
 should_plot = False #use True if want to see auxiliary plots or False otherwise
-silence_duration = 140e-3 #in seconds, interval between two DTMF tones. It depends on the DTMF standard
+silence_duration = 80e-3 #in seconds, interval between two DTMF tones. It depends on the DTMF standard
 window_duration =  50e-3 # in seconds, analysis windows. Suggestion: use as half of the DTMF duration
 shift_duration = 10e-3 # in seconds, window shift
 window_power_threshold = 6 # in dB, below this threshold from the maximum the window is considered silence
