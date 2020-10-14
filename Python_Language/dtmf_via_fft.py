@@ -68,11 +68,20 @@ DTMF_TABLE = {
 
 # reading audio
 Fs, signal = wav.read(audio_file_name) #change for your file name
-Ts = 1/Fs #sampling interval = 1 / (sampling frequency)
+Ts = 1.0/Fs #sampling interval = 1 / (sampling frequency)
 
 window_length = round(window_duration / Ts)
 window_shift = round(shift_duration / Ts)
 silence_length = round(silence_duration / Ts)
+
+print('Some information about file: ', audio_file_name)
+print('Sampling frequency = ', Fs, 'Hz')
+print('Sampling interval = ', Ts, 's')
+print('Window length = ', window_length, 'samples')
+print('Window shift = ', window_shift, 'samples')
+print('Silence length = ', silence_length, 'samples')
+print('')
+
 
 #choose a strategy to determine the frequency (FFT) resolution
 if False:
