@@ -6,7 +6,7 @@ N=4; %number of AM signals (or AM radio stations)
 myPath='.'; %directory where the files can be found, e.g. 'c:/mydir'
 for i=1:N
     inputFileName=[myPath '/amFile' num2str(i) '_Fs44100Hz.wav'];
-    [x,Fs_temp]=wavread(inputFileName); 
+    [x,Fs_temp]=audioread(inputFileName); 
     if Fs_temp ~= 44100 %Fs_temp must be 44100
         error([inputFileName ' sampling frequency is not 44100 Hz!'])
     end
@@ -17,5 +17,5 @@ for i=1:N
     outputFileName=[myPath '/amFile' num2str(i) '.wav'];
     numberOfBitsPerSample = 16; %use 16 bits per sample
     maxAbs=max(abs(y))+eps; %wavwrite restricts to [-1,1[.
-    wavwrite(y/maxAbs,Fs,numberOfBitsPerSample,outputFileName); %save
+    audiowrite(outputFileName, y/maxAbs,Fs,'BitsPerSample',numberOfBitsPerSample); %save
 end
