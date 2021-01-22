@@ -1,7 +1,26 @@
-clf, N=32; A=6; %clear figure, FFT length and cosine amplitude 
-wc=linspace(0,pi,1000); %cosine frequency
-Xw0=A*(sin((N/2)*wc)./sin(wc/2)).*cos(wc*(N-1)/2); %FFT value at DC
-Xw0(1)=A*N; %use L'Hospital to correct NaN in first element (wc=0)
-plot(wc/pi,Xw0),hold on,plot([0:2*pi/N:pi]/pi,zeros(1,N/2+1),'or')
-xlabel('Normalized cosine frequency \Omega_c (rad / \pi)')
-ylabel('FFT DC value Xw[0]'), legend('FFT values','FFT bins'),grid
+function snip_frequency_fftCosineExample()
+clf, N=32; A=6; %clear figure, FFT length, cosine amplitude
+M=1000; %number of sample points imposing the DTFT resolution
+alpha=8.3; %specifies the cosine frequency
+Wc=(alpha*2*pi)/N; %cosine frequency in radians
+W=linspace(0,2*pi,M); %frequency range
+Xw=zeros(1,M); %DTFT values
+for i=1:M %loop over frequencies and calculate DTFT values
+  Xw(i) = (A/2)*(rect_dtft(W(i)+Wc, N)+rect_dtft(W(i)-Wc, N));
+end
+n=0:N-1; x=A*cos(Wc*n); %generate N samples of the cosine
+Xfft = fft(x); %calculate FFT with N points
+disp(['Max(abs(FFT))=' num2str(max(abs(Xfft)))])
+disp(['Scalloping loss in DTFT=' num2str(A*N/2-max(abs(Xfft)))])
+plot(W/pi,abs(Xw)),hold on,stem([0:N-1]*(2*pi/N)/pi,abs(Xfft),'or')
+xlabel('Frequency \Omega (rad) normalized by \pi)')
+ylabel('Magnitude'), legend('DTFT','DFT'),grid
+end
+function dtft_value = rect_dtft(Omega, N) %DTFT of rectangular window
+  if Omega == 0
+    dtft_value = N; %L'Hospital rule to correct NaN if 0/0
+  else
+    W_div_2 = Omega/2; %speed up things computing only once
+    dtft_value=(sin(N*W_div_2)/sin(W_div_2))*exp(-1j*W_div_2*(N-1));
+  end
+end

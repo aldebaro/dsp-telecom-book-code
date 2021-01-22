@@ -1,4 +1,4 @@
-window_choice = 2; %choose one among 3 possible windows
+window_choice = 1; %choose one among 3 possible windows
 clf, N=32; A=6; %clear figure, FFT length, cosine amplitude
 alpha=8.5; %specifies the cosine frequency
 Wc=(alpha*2*pi)/N; %cosine frequency in radians
