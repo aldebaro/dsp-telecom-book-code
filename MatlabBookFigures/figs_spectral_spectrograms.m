@@ -1,5 +1,5 @@
 close all
-[s,Fs,numbits]=wavread('WeWereAway.wav'); %read wav file
+[s,Fs]=readwav('WeWereAway.wav'); %read wav file
 Nfft = 1024; %number of FFT points
 
 %% Fig 1

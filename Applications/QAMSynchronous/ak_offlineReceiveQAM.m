@@ -4,7 +4,7 @@ global txBitStream tailLength;
 showPlots=1;%in case want to overwrite value in dt_setGlobalConstants
 shouldWriteEPS=1; %write output EPS files (with print -depsc)
 
-[r,Fs2]=wavread('c:\temp\output.wav'); %file with recorded QAM / PAM
+[r,Fs2]=readwav('c:\temp\output.wav'); %file with recorded QAM / PAM
 if Fs2 ~= Fs
     error('Discrepant sampling frequency!') %just to check
 end

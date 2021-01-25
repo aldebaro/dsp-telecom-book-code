@@ -103,7 +103,7 @@ position=[fqam(7) -127.4]; ak_makedatatip(h,position,whereToPlace)
 %position=[2522 -136.5]; ak_makedatatip(h,position)
 position=[fqam(9) S(inds(9))]; ak_makedatatip(h,position,'right')
 position=[fqam(10) -131]; ak_makedatatip(h,position,whereToPlace)
-position=[fqam(12) S(inds(12))]; ak_makedatatip(h,position,whereToPlace)
+position=[fqam(12) S(inds(12))]; ak_makedatatip(h,position,'southeast')
 
 xlabel('f (MHz)'); ylabel('PSD S(f) (dBm/Hz)');
 %title('Signal raised to 4th power');
@@ -125,6 +125,13 @@ myaxis=[6000 9000 -220 -110];
 axis(myaxis);
 writeEPS('qamOffsetsTo4RxZoom4','font12Only');
 
+
+%re-do figure, but wider
+close all
+[S,f]=ak_psd(r_carrierRecovery,Fs); 
+factor=1e6;
+h=plot(f/factor,S); grid
+xlabel('f (MHz)'); ylabel('PSD S(f) (dBm/Hz)');
 %To make a figura wider:
 myaxis=[0 Fs/2/factor -220 -100];
 %set(h,'Xtick',round([f_DC fqam]/factor))
@@ -134,6 +141,28 @@ axis(myaxis);
 x=get(gcf, 'Position'); %get figure's position on screen
 x(3)=floor(x(3)*2.8); %adjust the size making it "wider"
 set(gcf, 'Position',x);
+
+
+
+whereToPlace='left';
+snip_channel_qam_squared_freqs
+inds=zeros(size(fqam));
+for i=1:length(fqam)
+    inds(i)=find(f>=fqam(i),1,'first');
+end
+fqam=fqam/factor;
+position=[0 -100]; ak_makedatatip(h,position,'right')
+position=[fqam(1) -125]; ak_makedatatip(h,position,'right')
+position=[fqam(2) S(inds(2))]; ak_makedatatip(h,position,'right')
+position=[fqam(3) S(inds(3))]; ak_makedatatip(h,position,whereToPlace)
+position=[fqam(5) S(inds(5))]; ak_makedatatip(h,position,whereToPlace)
+position=[fqam(7) -127.4]; ak_makedatatip(h,position,whereToPlace)
+%position=[2522 -136.5]; ak_makedatatip(h,position)
+position=[fqam(9) S(inds(9))]; ak_makedatatip(h,position,'right')
+position=[fqam(10) -131]; ak_makedatatip(h,position,whereToPlace)
+position=[fqam(12) S(inds(12))]; ak_makedatatip(h,position,'southeast')
+
+drawnow
 %writeEPS('qamOffsetsTo4Rx','none');
 writeEPS('qamOffsetsTo4Rx','font12Only');
 

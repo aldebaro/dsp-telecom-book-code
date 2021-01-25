@@ -27,6 +27,9 @@ warning off %the code below can generate several warnings. turn off
 figure(50) %create a figure with an arbitrary number
 plot(abscissa,starts), hold on
 for i=1:length(starts)
+    %arrow([abscissa(i) starts(i)], ...
+    %    [abscissa(i) stops(i)]); %,varargin);
+        %'EdgeColor','b','FaceColor','b')
     arrow([abscissa(i) starts(i)], ...
         [abscissa(i) stops(i)]); %,varargin);
         %'EdgeColor','b','FaceColor','b')

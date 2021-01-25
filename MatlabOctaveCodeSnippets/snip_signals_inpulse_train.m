@@ -7,5 +7,5 @@ impulseTrain=zeros(N*L,1); %allocate space with zeros
 b=16; %number of bits per sample
 amplitude = 2^(b-1)-1; %impulse amplitude, max signed int
 impulseTrain(1:L:end)=amplitude; %generate impulses
-wavwrite(impulseTrain,Fs,b,'impulses.wav') %save WAVE RIFF
+writewav(impulseTrain,Fs,'impulses.wav','16r') %save WAVE RIFF
 

@@ -33,8 +33,8 @@ for i=1:length(freqRF)
     mx=mx-mean(mx); %subtract mean
     if 0 %enable to write wav files
         filename = strcat('AM_Freq', num2str(freqRF(i)/1000),'.wav');
-        maxAbs=max(abs(mx))+eps; %wavwrite restricts to [-1,1[.
-        wavwrite(mx/maxAbs,Fs2,16,filename);
+        maxAbs=max(abs(mx))+eps; %restrict to [-1,1[.
+        writewav(mx/maxAbs,Fs2,filename,'16r');
     end
     soundsc(mx,Fs2); %playback demodulated signal
     %wavplay(m2/maxAbs,Fs2,'sync'); %playback with blocking

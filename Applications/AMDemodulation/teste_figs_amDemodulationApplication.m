@@ -1,5 +1,5 @@
 close all, clear all
-[rx,Fs]=wavread('am_real.wav'); %real-valued signal with AM stations
+[rx,Fs]=readwav('am_real.wav'); %real-valued signal with AM stations
 %in discrete-time, it is centered in 2*pi/3 rad with BW=pi/2 rad
 %% Generate first figure
 Foff=4.5e3; %filter cutoff frequency (BW=5 kHz for these AM stations)

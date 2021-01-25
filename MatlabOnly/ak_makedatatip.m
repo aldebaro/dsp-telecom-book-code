@@ -1,4 +1,30 @@
 function ak_makedatatip(hTarget,position,whereToPlace)
+if length(position)~=2
+    error('Error in logic: was expecting only 2 positions')
+end
+x=position(1);
+y=position(2);
+font_size = 8; %default is 10
+if nargin < 3
+    datatip(hTarget,x,y,'FontSize',font_size);    
+else %use whereToPlace
+    switch whereToPlace
+        case 'left'
+            location = 'northwest';
+        case 'right'
+            location = 'northeast';
+        case 'southeast'
+            location = 'southeast';
+        otherwise
+            location = 'northwest'; %default
+            warning(location)
+    end
+    datatip(hTarget,x,y,'FontSize',font_size,'Location',location);
+end
+return
+
+%AK, Jan 2021 - The function below is not working with Matlab R2020a
+
 % function ak_makedatatip(hTarget,position,whereToPlace)
 %'whereToPlace' can be 'right' (default),'left','auto', and indicates
 % where the the datatip is positioned.

@@ -1,4 +1,4 @@
-[h,Fs,b]=wavread('impulseResponses.wav');
+[h,Fs,b]=readwav('impulseResponses.wav');
 nstart=11026; %when second \delta[n] occurs in impulses.wav
 nend=22050; %segment ends before the third \delta[n] in impulses.wav
 h=double(h(nstart:nend)); %segment and cast h to double

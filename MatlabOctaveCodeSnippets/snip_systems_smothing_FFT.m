@@ -1,7 +1,7 @@
 nstart=12650;%chosen after zooming the signal in impulseResponses.wav
 nend=22050;%this was the chosen segment. Adjust them for your data!
 if 1 %if you have impulseResponses.wav available
-    [h,Fs,b]=wavread('impulseResponses.wav');
+    [h,Fs,b]=readwav('impulseResponses.wav');
     h=double(h(nstart:nend)); %segment and cast h to double
 else %use signal with few samples extracted from impulseResponses.wav
     duration = floor(nend-nstart+1); %same duration as h above

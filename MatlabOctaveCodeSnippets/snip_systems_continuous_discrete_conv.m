@@ -16,7 +16,7 @@ subplot(212);
 t=Ts*((0:length(triangle)-1)-2*N+1);
 h=plot(t,triangle);
 ylabel('p(t)*p(t)');
-ak_makedatatip(h,[0.2 3.2]) %indicate the peak
+datatip(h,0.2, 3.2) %indicate the peak
 xlabel('time (s)')
 axis(myaxis)
 title('Convolution')

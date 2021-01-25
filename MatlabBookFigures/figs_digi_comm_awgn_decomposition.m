@@ -55,10 +55,10 @@ writeEPS('wgnExpansion','font12Only')
 clf
 subplot(311), [H,w]=freqz(A(:,1)); plot(w/pi,20*log10(abs(H))), grid
 ylabel('|H_1(e^{j\Omega}| (dB)'); axis([0 1 -40 13])%axis tight 
-subplot(312), psd(innerProductViaConv(1,:)), xlabel(''); 
-ylabel('no decimation'); axis tight
-subplot(313), psd(rxSymbols(1,:));  ylabel('decimation');
-xlabel('Normalized frequency \Omega/\pi'); axis tight
+subplot(312), pwelch(innerProductViaConv(1,:)), xlabel(''); 
+ylabel('no decimation'); title(''); axis tight
+subplot(313), pwelch(rxSymbols(1,:));  ylabel('decimation');
+xlabel('Normalized frequency \Omega/\pi'); title(''); axis tight
 writeEPS('wgnExpansionFrequency','font12Only')
 
 %ak_hist2d(innerProductViaConv(1,:),innerProductViaConv(2,:),30,30)

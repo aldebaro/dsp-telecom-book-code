@@ -1,4 +1,4 @@
-[y,Fs]=wavread('WeWereAway.wav');
+[y,Fs]=readwav('WeWereAway.wav');
 Ts=1/Fs;
 minF0Frequency=80; %minimum F0 frequency in Hz
 maxF0Frequency=300; %minimum F0 frequency in Hz

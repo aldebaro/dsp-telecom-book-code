@@ -5,6 +5,6 @@ while 1 %eternal loop, break it with CTRL+C
     wavplay(outputSignal, Fs, 'async');  %non-blocking playback
     inputSignal  = wavrecord(numSamples, Fs, 'int16'); %record
     subplot(211), plot(inputSignal); axis tight %graph in time domain 
-    subplot(212), psd(double(inputSignal)); %in frequency domain
+    subplot(212), pwelch(double(inputSignal)); %in frequency domain
     drawnow %Force the graphics to update immediately inside the loop
 end

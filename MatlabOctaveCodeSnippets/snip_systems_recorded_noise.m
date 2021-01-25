@@ -1,4 +1,4 @@
-[x,Fs,b]=wavread('filteredNoise.wav'); %recorded output
+[x,Fs,b]=readwav('filteredNoise.wav'); %recorded output
 N=1024; %number of FFT points
 M=floor(length(x)/N); %number of segments of N samples each
 x=x(1:N*M); x=x(:); %make sure x is a column vector with N*M samples

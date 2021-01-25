@@ -20,8 +20,8 @@ rr = real(rc2);
 rr = sqrt(2)*rr; %correct amplitude (power)
 %% Save to a wav file
 Fs2=U*Fs; %Note that Fs2=floor(Fs*length(rr)/length(rc));
-maxAbs=ceil(max(abs(rr))); %wavwrite restricts to [-1,1[.
-wavwrite(rr/maxAbs,Fs2,16,'am_real.wav'); %write with 16 bits/sample
+maxAbs=ceil(max(abs(rr))); %restrict to [-1,1[.
+writewav(rr/maxAbs,Fs2,'am_real.wav','16r'); %write with 16 bits/sample
 
 if 1 %show plots
     Nfft=8192;

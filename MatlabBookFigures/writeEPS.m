@@ -7,7 +7,7 @@ function writeEPS(outputFileName, finalFormatting)
 if nargin == 1
     finalFormatting='wider'; %default is to make plots wider
 end
-
+%drawnow %make sure figure is completed
 %% Make figure items larger, if requested
 if ~strcmp(finalFormatting, 'none')
     ak_increaseFigureItems(finalFormatting);

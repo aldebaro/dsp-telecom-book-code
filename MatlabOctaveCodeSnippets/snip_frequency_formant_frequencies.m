@@ -1,4 +1,4 @@
-[s,Fs,numbits]=wavread('WeWereAway.wav'); %read wav file
+[s,Fs,numbits]=readwav('WeWereAway.wav'); %read wav file
 s = s - mean(s(:)); %extract any eventual DC level
 Nfft=1024; %number of FFT points
 N = length(s); %number of samples in signal
