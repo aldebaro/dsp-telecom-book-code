@@ -8,8 +8,11 @@ h=get(gca);
     delta = (XLim(2) - XLim(1))/10;
 if delta > 1
     %make delta the amount of current tick. Assume ticks are numbers
-    XLim = str2num(h.XTickLabel);
-    delta = XLim(2) - XLim(1);
+    %XLim1 = str2num(h.XTickLabel{1});
+    %XLim2 = str2num(h.XTickLabel{2});
+    XLim1 = str2double(h.XTickLabel{1});
+    XLim2 = str2double(h.XTickLabel{2});
+    delta = XLim2 - XLim1;
 end
 
 ypos = (h.YLim(2)+ 0.8*h.YLim(1))/2; %y position
