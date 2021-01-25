@@ -1,4 +1,4 @@
-Copyright (c) 2009, Erik A Johnson
+Copyright (c) 2016, Erik A Johnson
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
