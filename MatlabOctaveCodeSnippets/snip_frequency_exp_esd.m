@@ -12,8 +12,8 @@ subplot(212)
 plot(t,x), plot(f,Gf)
 xlabel('f (Hz)'); ylabel('ESD (J/Hz)')
 %% Confirm Parseval theorem
-energy_equation = 1/(2*a) %theoretical
-energy_time = sum(x.^2)*Ts %integration
+energy_equation = 1/(2*a); %theoretical
+energy_time = sum(abs(x).^2)*Ts; %integration
 df=0.0001; %defines resolution in frequency
 min_f = -1000; %range of interest
 max_f = 1000;

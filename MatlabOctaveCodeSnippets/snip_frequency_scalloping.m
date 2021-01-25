@@ -26,4 +26,4 @@ disp(['Amplitude error (%) = ' num2str(100*amplitude_error/A)])
 ak_impulseplot([A/2, A/2],[Wc,2*pi-Wc]/pi,[]); %plot cosine impulses
 hold on, stem([0:N-1]*(2*pi/N)/pi,abs(Xw_scaled_fft),'or')
 xlabel('Frequency \Omega (rad) normalized by \pi)')
-ylabel('Magnitude'), grid
+ylabel('FFT magnitude and impulse area scaled by \pi'), grid
