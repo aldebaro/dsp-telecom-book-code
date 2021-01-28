@@ -68,8 +68,6 @@ xlabel('f (Hz)'); ylabel('PSDs (dB/Hz)')
 %writeEPS('arSpectrumUnmatched','font12Only');
 writeEPS('arSpectrumUnmatched');
 
-return
-
 %% Zero-padding does not alleviate leakage
 clf
 N=256; %number of samples available of x1 and x2

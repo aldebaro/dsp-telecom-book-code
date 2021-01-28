@@ -50,7 +50,7 @@ end
 %% Calculate the SD:
 if powerX ~= 0
     x=x.*hamming(length(x)); %use Hamming window
-    [Ax,Pex]=lpc(x,lpcOrder);
+    [Ax,Pex]=aryule(x,lpcOrder);
     X=freqz(1,Ax,Nfft,'whole');
     if takeErrorPowerInAccount==1
         X=Pex*(abs(X).^2); %Calculate magnitude values of DTFTs
@@ -63,7 +63,7 @@ else
 end
 if powerY ~= 0
     y=y.*hamming(length(y)); %use Hamming window
-    [Ay,Pey]=lpc(y,lpcOrder);
+    [Ay,Pey]=aryule(y,lpcOrder);
     Y=freqz(1,Ay,Nfft,'whole');
     if takeErrorPowerInAccount==1
         Y=Pey*(abs(Y).^2);

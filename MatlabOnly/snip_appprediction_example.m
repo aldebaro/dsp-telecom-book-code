@@ -15,7 +15,7 @@ else %ARMA process
     x = filter(Bz, Az, inn); % realization of innovation process
     P = 10; % it is not AR, so choose a relatively high value
 end
-[A, Pinn] = lpc(x, P); %prediction, P: order and Pinn: error variance
+[A, Pinn] = aryule(x, P); %prediction, P: order and Pinn: error variance
 % Given the filter M(z) = 1/A(z), the inverse M^{-1}(z) = A(z)
 % estimates the innovation sequence with X as input:
 estimatedInnovation = filter(A, 1, x); % predict

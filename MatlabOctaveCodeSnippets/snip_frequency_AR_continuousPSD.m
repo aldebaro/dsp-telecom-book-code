@@ -1,7 +1,7 @@
 N=100000; x=randn(1,N); %WGN with zero mean and unit variance
 Fs=600; %assumed sampling frequency in Hz
 y=filter(4,[1 0.5 0.98],x); %realization of an AR(2) process
-[A,Perror]=lpc(y,2) %estimate filter via LPC
+[A,Perror]=aryule(y,2) %estimate filter via LPC
 noverlap=50; Nfft=2048; %pwelch input values
 pwelch(y,[],noverlap,Nfft,Fs);% continuous-time PSD
 [H,w]=freqz(1,A,Nfft); %get frequency response of H(z)

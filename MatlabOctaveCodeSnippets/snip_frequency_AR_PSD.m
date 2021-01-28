@@ -1,6 +1,6 @@
 N=100000; x=randn(1,N); %WGN with zero mean and unit variance
 y=filter(4,[1 0.5 0.98],x); %realization of an AR(2) process
-[A,Perror]=lpc(y,2) %estimate filter via LPC
+[A,Perror]=aryule(y,2) %estimate AR filter via LPC
 noverlap=50; Nfft=2048; Fs=1; %pwelch input values
 [Sp,f]=pwelch(y,[],noverlap,Nfft,Fs,'twosided');%PSD
 %Sp = 2*pi*Sp; %convert estimation into discrete-time PSD
