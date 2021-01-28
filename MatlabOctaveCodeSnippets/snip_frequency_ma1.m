@@ -1,5 +1,4 @@
 B=[1 -0.8]; %MA filter coefficients
-B=ones(1,10);
 x=randn(1,10000); %generate white noise
 Fs=1; %Fs = BW = 1 Hz to obtain discrete-time PSD
 y=filter(B,1,x); %generate MA(1) process
