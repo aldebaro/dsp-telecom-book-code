@@ -19,35 +19,7 @@ writeEPS('psdsWhiteNoise');
 
 close all, clear all
 %% generate some H(z) - case 1 - AR model (IIR)
-p1=0.5; p2=0.3+j*0.2; p3=0.3-j*0.2; %defining the poles...
-p4=0.9*exp(j*2);p5=0.9*exp(-j*2); %as complex conjugates
-Asystem=poly([p1 p2 p3 p4 p5]); %find H(z) denominator
-Bsystem=1; %H(z) numerator given that H(z) is all-poles
-h = impz(Bsystem,Asystem,200); % H(z) impulse response
-%% generate x[n] and y[n]
-Fs=8000; %sampling frequency
-Py_desired = 3; %power in Watts for the random signal y[n]
-S=10000; %number of samples for y[n]
-Eh=sum(h.^2); %energy of the system's impulse response
-Px=Py_desired/Eh; %input power to reach Py_desired
-x=sqrt(Px)*randn(1,S); %white Gaussian with power Px Watts
-y=filter(Bsystem,Asystem,x); %finally, generate y[n]
-Py=mean(y.^2); %get power, to check if close to Py_desired
-disp(['Power (Watts): simulated=' num2str(Py) ...
-    ', desired=' num2str(Py_desired)])
-%% LPC analysis for estimating the PSD of y[n]
-P = 5; %assume we know the correct order of A(z) (matched)
-[A,Perror]=lpc(y,P); %use Yule-Walker to estimate H(z)
-N0over2 = Perror/Fs; %value for the bilateral PSD Sx(w)
-N0=2*N0over2; %assume a unilateral PSD Sy(w)=N0/|A(z)|^2
-Nfft=1024; %number of FFT points for all spectra
-[Hw,f]=freqz(1,A,Nfft,Fs); %frequency response H(w)
-Sy=N0.*(abs(Hw).^2); %PSD estimated via AR modeling
-[Py,f2]=pwelch(y,hamming(Nfft),[],Nfft,Fs); %Welch's
-[Hsystem,f3]=freqz(Bsystem,Asystem,Nfft,Fs); %DTFT
-Sy_theoretical=(Px/(Fs/2)).*(abs(Hsystem).^2);%theoretical
-plot(f2,10*log10(Py),f3,10*log10(Sy_theoretical),...
-    f,10*log10(Sy));
+snip_frequency_PSD_estimation
 legend1 = legend('Welch''s','theoretical','AR estimate')
 set(legend1,'Position',[0.1515 0.7456 0.2321 0.1444]);
 xlabel('f (Hz)'); ylabel('PSDs (dB/Hz)')
@@ -79,7 +51,7 @@ disp(['Power (Watts): simulated=' num2str(Py) ...
     ', desired=' num2str(Py_desired)])
 %% LPC analysis for estimating the PSD of y[n]
 P=20;%we do not know correct order of A(z). Use high value
-[A,Perror]=lpc(y,P); %use Yule-Walker to estimate H(z)
+[A,Perror]=aryule(y,P); %use Yule-Walker to estimate H(z)
 N0over2 = Perror/Fs; %value for the bilateral PSD Sx(w)
 N0=2*N0over2; %assume a unilateral PSD Sy(w)=N0/|A(z)|^2
 Nfft=1024; %number of FFT points for all spectra
@@ -95,6 +67,8 @@ set(legend1,'Position',[0.1461 0.1384 0.2571 0.1587]);
 xlabel('f (Hz)'); ylabel('PSDs (dB/Hz)')
 %writeEPS('arSpectrumUnmatched','font12Only');
 writeEPS('arSpectrumUnmatched');
+
+return
 
 %% Zero-padding does not alleviate leakage
 clf
