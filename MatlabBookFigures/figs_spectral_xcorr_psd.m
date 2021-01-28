@@ -11,7 +11,7 @@ power_x = N0over2 * Fs; %noise power in Watts
 w=linspace(0,2*pi,N);
 plot(w,power_x*ones(1,N))
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
-xlabel('\Omega (rad)'); ylabel('S_x(e^{j \Omega})  (W/\Omega)');
+xlabel('\Omega (rad)'); ylabel('S_x(e^{j \Omega})  (W/Dhz)');
 writeEPS('awgn_continuous_discrete')
 
 clf
@@ -20,53 +20,61 @@ randn('state',0); % reset seed for randn generator
 snip_frequency_noise_PSD
 %hold on; h=plot(w,Sx_th,'r:','lineWidth',3); %plot the theoretical PSD
 %myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
-axis tight
-legend('Scaled periodogram','Theoretical')
-makedatatip(h,10);
+legend('Periodogram','Theoretical')
+%makedatatip(h,10);
+datatip(h,0.994,600)
 %xlabel('\Omega (rad)');
 ylabel('S(e^{j \Omega})');
 title('Estimated with N = 300 samples')
 %increase N
+%axis tight
+myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
 subplot(212)
 randn('state',0)
-N = 3000; % number of samples
+N = 3000; % number of samples and FFT size
 power_x = 600; %desired noise power in Watts
+Fs = 1; %sampling frequency = BW = 1 Dhertz
 x=sqrt(power_x) * randn(1,N); %Gaussian white noise
 actualPower = mean(x.^2) %the actual obtained power 
-[Sk,w]=periodogram(x); %Periodogram (unilateral) calculation
-plot(w,2*pi*Sk); %plot scaled periodogram
-Sx_th=power_x*ones(1,length(w)); %theoretical PSD
-hold on; h = plot(w,Sx_th,'r:','lineWidth',3);
+[Sk,F]=periodogram(x,[],[],Fs,'twosided'); %periodogram 
+subplot(212), plot(2*pi*F,Sk); %plot periodogram
+Sx_th=power_x*ones(1,length(F)); %theoretical PSD
+hold on; h = plot(2*pi*F,Sx_th,'r:','lineWidth',3);
 %myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
-axis tight
 %legend('Periodogram','theoretical')
+mean(Sk) %in this case, it coincides with actualPower
+disp(['Periodogram standard deviation=' num2str(std(Sk))])
 xlabel('\Omega (rad)'); ylabel('S(e^{j \Omega})');
 title('Estimated with N = 3000 samples')
-makedatatip(h,30);
+%makedatatip(h,30);
+datatip(h,0.994,600)
+%axis tight
+myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
 writeEPS('periodogram','font12Only')
 
 clf
 %a)
 snip_frequency_pwelch  %estimates for PSD M=32 samples
 subplot(211)
-plot(w,2*pi*Sk) %scaled periodogram is discrete-time PSD
-hold on, plot(w,power_x*ones(1,length(w)),'r') %PSD theoretical value
+plot(2*pi*F,Sk) %scaled periodogram is discrete-time PSD
+hold on, plot(2*pi*F,power_x*ones(1,length(F)),'r') %PSD theoretical value
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; myaxis(3)=0;
 axis(myaxis);
 ylabel('S(e^{j \Omega})');
-title('Periodograms of M = 32 samples')
+title('Welch with periodograms of M = 32 samples')
 legend('PSD via periodogram averaging','Theoretical PSD value','Location','SouthWest')
 %b)
 Nfft = 256; %segment length M and also FFT dimension
 Sx_th=power_x*ones(1,N); %PSD theoretical expression
-[Sk,w]=pwelch(x,hamming(Nfft),Nfft/2,Nfft,Fs,'twosided');
+[Sk,F]=pwelch(x,hamming(Nfft),Nfft/2,Nfft,Fs,'twosided');
+disp(['Periodogram standard deviation=' num2str(std(Sk))])
 subplot(212)
-plot(w,2*pi*Sk); hold on %discrete-time PSD is periodogram scaled by 2*pi
-plot(w,power_x*ones(1,length(w)),'r')
+plot(2*pi*F,Sk); hold on %discrete-time PSD is periodogram scaled by 2*pi
+plot(2*pi*F,power_x*ones(1,length(F)),'r')
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; myaxis(3)=0;
 axis(myaxis);
 xlabel('\Omega (rad)'); ylabel('S(e^{j \Omega})');
-title('Periodograms of M = 256 samples')
+title('Welch with periodograms of M = 256 samples')
 writeEPS('welch_awgn_3000')
 
 clf

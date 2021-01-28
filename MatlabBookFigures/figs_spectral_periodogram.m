@@ -12,21 +12,15 @@ writeEPS('sumOfCosinesPeriodogramMSS')
 
 clear all, close all
 snip_frequency_periodogram %generate the signals
-clf %do the plot again
-subplot(211),h=stem(Sk); grid, 
-output_txt = {['X: ',num2str(5,4)],...
-    ['Y: ',num2str(254.6,4)]};
-text(8,250,output_txt)
-%makedatatip(h,5) %linear scale
-ylabel('S[k]'), %then plot in dB scale:
-title('Bilateral periodogram. FFT length=64')
-subplot(212),h2=stem(Smatlab); grid, 
-output_txt = {['X: ',num2str(17,4)],...
-    ['Y: ',num2str(Smatlab(17),4)]};
-text(19,Smatlab(17),output_txt)
-%makedatatip(h2,17) %linear scale
-xlabel('k'), ylabel('S[k]'), %then plot in dB scale:
-title('Unilateral periodogram. FFT length=256')
+xlabel('\Omega (rad)'); ylabel('S(e^{\Omega})  (W/dHz)');
+datatip(h,2*pi/N,((A^2/2)/2)/(BW/N))
+%second figure
+subplot(212);
+[Smatlab,f]=periodogram(x,[],[],BW,'twosided'); %zero-padding
+h=stem(2*pi*f,Smatlab,'xr');
+xlabel('\Omega (rad)'); ylabel('S(e^{\Omega})  (W/dHz)');
+datatip(h,2*pi/8,((A^2/2)/2)/(BW/N))
+axis tight
 writeEPS('cosinePeriodograms','font12Only')
 
 clear all, close all

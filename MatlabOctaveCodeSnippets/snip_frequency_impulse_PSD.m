@@ -1,8 +1,12 @@
-N=4; %number of FFT points
-x=[6 0 0 0]; %impulse signal truncated in N samples
+N=5; %number of FFT points
+M=2; %maximum number of autocorrelation lags
+BW=1; %BW in normalized frequency (digital Hertz)
+x=[6 0 0 0 0]; %impulse signal truncated in N samples
 Sms=abs(fft(x)/N).^2 %MS spectrum: all values are 2.25 Watts
-Spsd=abs(fft(x)).^2/N %PSD=9 differs from periodogram by 2*pi
-Sk=periodogram(x,[],length(x)) %periodogram with N-length window
-Power=sum(Sms) %average power (9 Watts) obtained from MS spectrum
-Power2=(1/N)*sum(Spsd) %average power (9 Watts) from PSD
-Power3=(2*pi/N)*sum(Sk) %average power (9 Watts) from periodogram
+Sk=periodogram(x,[],length(x),1,'twosided') %periodogram
+[R,lags]=xcorr(x,M,'biased'); %estimating autocorrelation
+Sxcorr=abs(fft(R)); %PSD via autocorrelation
+Power=sum(Sms) %power (9 W) obtained from MS spectrum
+Power2=(BW/N)*sum(Sk) %power (9 W) from 
+Power3=(BW/N)*sum(Sxcorr) %power (9 W) from periodogram via xcorr
+

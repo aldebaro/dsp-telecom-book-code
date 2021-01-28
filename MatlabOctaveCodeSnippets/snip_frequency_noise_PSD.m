@@ -1,8 +1,11 @@
 N = 300; % number of samples and FFT size
 power_x = 600; %desired noise power in Watts
+Fs = 1; %sampling frequency = BW = 1 Dhertz
 x=sqrt(power_x) * randn(1,N); %Gaussian white noise
 actualPower = mean(x.^2) %the actual obtained power 
-[Sk,w]=periodogram(x); %Periodogram (unilateral) calculation
-subplot(211), plot(w,2*pi*Sk); %plot scaled periodogram
-Sx_th=power_x*ones(1,length(w)); %theoretical PSD
-hold on; h=plot(w,Sx_th,'r:'); %plot the theoretical PSD
+[Sk,F]=periodogram(x,[],[],Fs,'twosided'); %periodogram 
+subplot(211), plot(2*pi*F,Sk); %plot periodogram
+Sx_th=power_x*ones(1,length(F)); %theoretical PSD
+mean(Sk) %in this case, it coincides with actualPower
+disp(['Periodogram standard deviation=' num2str(std(Sk))])
+hold on; h=plot(2*pi*F,Sx_th,'r:','lineWidth',3);
