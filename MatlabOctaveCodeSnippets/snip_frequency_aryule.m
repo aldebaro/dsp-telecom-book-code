@@ -12,7 +12,7 @@ for P=1:4 %vary the filter order
     [Hhat,w]=freqz(sqrt(Perror), Ahat,'twosided');
     clf, plot(2*pi*f,10*log10(Sy),'r'); hold on
     plot(w,10*log10(Px*abs(Hthe).^2),'k--');
-    plot(w,10*log10(abs(Hhat).^2),'b');
+    plot(w,10*log10(Px*abs(Hhat).^2),'b');
     legend('Welch','Theoretical','AR')
     pause
 end
