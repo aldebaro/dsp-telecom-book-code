@@ -28,6 +28,13 @@ else
     end
 end
 
+%AK April 24 - 2021
+%because negative impulses were having different colors than positive ones
+%I am defining a default color:
+if isempty(varargin)
+    varargin={'color','b'};
+end
+
 %remember whether hold is on or off
 holdison = 0;
 if ishold
@@ -44,11 +51,13 @@ markersize = 9;
 linewidth = 2;
 
 stem(t(indicesPos),x(indicesPos),'marker','^','markersize',markersize,...
+    'color','b',...
     'markerfacecolor','auto', ...
     'LineStyle','-', 'LineWidth',linewidth, ...
     varargin{:});
 hold on
 stem(t(indicesNeg),x(indicesNeg),'marker','v','markersize',markersize,...
+    'color','b',...
     'markerfacecolor','auto', ...
     'LineStyle','-', 'LineWidth',linewidth, ...
     varargin{:});
@@ -59,7 +68,7 @@ stem(t(indicesZero),x(indicesZero),'marker','o','markersize',markersize,...
     varargin{:});
 end
 
-plot(t,zeros(size(t))); %plot line to represent zeros
+plot(t,zeros(size(t)),varargin{:}); %plot line to represent zeros
 
 
 %restore previous hold situation

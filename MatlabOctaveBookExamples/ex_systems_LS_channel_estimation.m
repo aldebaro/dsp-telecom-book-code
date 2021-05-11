@@ -1,7 +1,12 @@
-inputLengthLog2=6; %the input length is 2^inputLengthLog2-1
+function [h,h_est,h_est2,h_est3]= ...
+    ex_systems_LS_channel_estimation(inputLengthLog2, ...
+    inputSequenceChoice, SNRdB)
+%function [h,h_est,h_est2,h_est3]= ...
+%ex_systems_LS_channel_estimation(inputLengthLog2,inputSequenceChoice)
+% inputLengthLog2=12; %the input length is 2^inputLengthLog2-1
+% inputSequenceChoice=3; %choose between following options
+% SNRdB = 20; %SNR (dB) that determines noise power. Inf is noiseless
 inputLength=2^inputLengthLog2-1; %number of input samples
-SNRdB = 80; %SNR (dB) that determines noise power. Inf is noiseless
-inputSequenceChoice=1; %choose between following options
 switch inputSequenceChoice %obs: input signal must be a column vector
     case 1; x=transpose(1:2^inputLengthLog2-1); %arbitrary input
     case 2; x=2*((rand(inputLength,1)>0.5)-0.5); %random
@@ -33,14 +38,17 @@ h_est2 = alpha*X'*y; %under assumption, no need to calculate pinv(X)
 %3) Peak-searching procedure with known h peak index (hpeakIndex)
 z=conv(y,flipud(x)); %implement crosscorrelation via convolution
 [maxOutput, maxIndex] = max(abs(z)); %find peak of output (R)
-[temp hpeakIndex] = max(abs(h)); %index of impulse response peak
+[temp, hpeakIndex] = max(abs(h)); %index of impulse response peak
 guessFirstIndex = maxIndex-hpeakIndex+1; %index to get imp. response
 h_est3=alpha*z(guessFirstIndex:guessFirstIndex+length(h)-1);%estimate
 %% Results:
 errors=[h-h_est h-h_est2 h-h_est3]; %estimation error for 3 estimates
-disp(['Errors (time domain): ' ...
-    num2str(10*log10(mean(abs(errors).^2))) ' (dB)'])
+h_sqrt_norm=mean(abs(h).^2);
+disp(['SNR = ' num2str(SNRdB) ' dB and ' ...
+    num2str(inputLength) ' training samples'])
+disp(['NMSE: ' ...
+    num2str(10*log10(mean(abs(errors).^2)/h_sqrt_norm)) ' (dB)'])
 spectralDistort=[ak_spectralDistortion(h,h_est,length(h),10), ...
  ak_spectralDistortion(h,h_est2,length(h),10)... %use 10 dB to get
  ak_spectralDistortion(h,h_est3,length(h),10)]; %passband distortions
-disp(['Errors (freq. domain): ' num2str(spectralDistort) ' (dB)'])
+disp(['Spectral distortions: ' num2str(spectralDistort) ' (dB)'])

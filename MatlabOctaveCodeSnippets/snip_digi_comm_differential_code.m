@@ -11,6 +11,7 @@ m=2*(differentialBits-0.5); %convert {0,1} to {-1,1}
 %% Differential decoding at receiver
 mHat=m; %assume no errors: no noise and perfect decoding at receiver
 differentialBitsHat=(mHat+1)/2; %convert polar {-1,1} to {0,1} 
+%Use ~initialValue to impose an error in initialValue (first bit)
 decodedBits=xor(differentialBitsHat,[~initialValue ...
     differentialBitsHat(1:N-1)])
-errors = bits - decodedBits %no errors: all zeros
+errors = bits - decodedBits %this is all zeros if no errors occur

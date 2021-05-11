@@ -1,7 +1,7 @@
 %generates all figures of interest with example
 %of digital transmission
 dt_setGlobalConstants %set global variables
-showPlots=0; %it show plots and pause at each one
+showPlots=1; %it show plots and pause at each one
 shouldWriteEPS=1; %it will write a EPS file with each plot
 temp=rand(Nbits,1); %random numbers ~[0,1]
 txBitStream=temp>0.5; %bits: 0 or 1

@@ -121,7 +121,10 @@ set(h4, ...
     arrayfun(@num2str, lags(:), 'UniformOutput', false));
 position=[5 2];
 ak_makedatatip(h3,position)
-  writeEPS('twoAbsVersusLagAsImage','none');
+%AK - not sure why this image is not showing up when saved as EPS:
+%writeEPS('twoAbsVersusLagAsImage','none');
+print('../../FiguresNonScript/twoAbsVersusLagAsImage.png','-dpng')
+  
 
 %With a toeplitz matrix
 clf
@@ -169,6 +172,8 @@ writeEPS('correlationPolarAsImage','none')
 Rxx_tau_polar = Rxx_tau; %keep for later use
 
 clf
+%this result is obtained by converting the general 2-D Rxx into a
+%one-dimensional Rxx:
 subplot(121); stem(lags, Rxx_tau_unipolar);
 xlabel('lag l'); ylabel('Rx[l]'); title('Unipolar');
 axis([-10 10 -0.2 1.2])
@@ -177,7 +182,7 @@ xlabel('lag l'); title('Polar');
 axis([-10 10 -0.2 1.2])
 writeEPS('correlationStationaryOneDim');
 
-%assuming ergodicity
+%assuming ergodicity it is simpler to get Rxx (one realization)
 numSamples=1000;
 Xunipolar=floor(2*rand(1,numSamples)); %random values 0 or 1
 [Rxx,lags]=xcorr(Xunipolar,9,'unbiased');

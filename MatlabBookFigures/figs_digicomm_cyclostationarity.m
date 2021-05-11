@@ -22,9 +22,9 @@ Xup_shifted=ak_upsampleRandomShift(X, S, N); %add random phase
 
 clf
 Z=16;
-subplot(311); stem(1:Z, Xup_shifted(1:Z,6))
-subplot(312); stem(1:Z, Xup_shifted(1:Z,22)); ylabel('Amplitude')
-subplot(313); stem(1:Z, Xup_shifted(1:Z,31))
+subplot(311); stem(0:Z-1, Xup_shifted(1:Z,6))
+subplot(312); stem(0:Z-1, Xup_shifted(1:Z,22)); ylabel('Amplitude')
+subplot(313); stem(0:Z-1, Xup_shifted(1:Z,31))
 xlabel('n'); 
 writeEPS('realizationsUpShiftedSine');
 
@@ -109,8 +109,17 @@ writeEPS('sampledSignalACFAfterUnifPhase');
 
 clf
 Z=30;
-subplot(311); stem(1:Z, Xup_shifted(1:Z,10))
-subplot(312); stem(1:Z, Xup_shifted(1:Z,20)); ylabel('Amplitude')
-subplot(313); stem(1:Z, Xup_shifted(1:Z,30))
+subplot(311); stem(0:Z-1, Xup_shifted(1:Z,10))
+subplot(312); stem(0:Z-1, Xup_shifted(1:Z,20)); ylabel('Amplitude')
+subplot(313); stem(0:Z-1, Xup_shifted(1:Z,30))
 xlabel('n'); 
 writeEPS('cyclostationaryRealizations');
+
+
+%% Now generate some realizations without the random shift
+Z=30;
+subplot(311); stem(0:Z-1, Xu(1:Z,10))
+subplot(312); stem(0:Z-1, Xu(1:Z,20)); ylabel('Amplitude')
+subplot(313); stem(0:Z-1, Xu(1:Z,30))
+xlabel('n'); 
+writeEPS('polarWithoutRandomPhase');

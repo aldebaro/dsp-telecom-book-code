@@ -15,6 +15,8 @@ if isvector(x)
     if ~isvector(constel)
         error('Constellation must be a vector if input is a vector');
     end
+    x=transpose(x(:)); %make sure x is a row vector
+    constel=transpose(constel(:)); %make sure constel is a row vector
     M=length(constel); %number M of symbols in constellation
     D=1; %assume dimension is 1
 else

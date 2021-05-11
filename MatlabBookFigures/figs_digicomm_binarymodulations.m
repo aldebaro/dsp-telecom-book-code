@@ -24,7 +24,8 @@ writeEPS('binarypsk');
 
 N=100000; %number of bits
 bits=floor(2*rand(1,N)); %generate N random bits
-window=8192;noverlap=window/2;fftsize=window;fs=16000;
+%noverlap=window/2 %creates conflict between pwelch in Matlab and Octave
+window=8192;noverlap=[];fftsize=window;fs=16000;
 subplot(311);
 s=ak_simpleBinaryModulation('ASK', bits);
 mean(s.^2)

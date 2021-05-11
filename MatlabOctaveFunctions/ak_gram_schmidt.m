@@ -24,7 +24,8 @@ if nargin<2
 end
 [m,dimension]=size(x);
 if dimension>m
-    warning('Input dimension larger than number of vectors');
+    warning(['Input dimension larger than number of vectors, ' ...
+        'which is ok if you are aware about']);
 end
 N=rank(x,tol); %note: rank is slow because it uses SVD
 y=zeros(N,dimension); %pre-allocate space
