@@ -19,9 +19,10 @@ clf, bar(A','stacked')
 xlabel('Tones (k)')
 ylabel('Stacked: N_0/g  and  PSDs')
 hold on
-plot(1:length(S),waterlevel*ones(size(S)),'-X','markersize',16);
+plot(1:length(S),waterlevel*ones(size(S)),'-x','markersize',16);
 legend1 = legend('Inverse "SNR": N_0/g','PSD')
-writeEPS('waterfill','font12Only');
-hold off
 bitsPerTone = log2(1+SNR)
 Rate = sum(bitsPerTone)
+%this is for Matlab only:
+writeEPS('waterfill','font12Only'); %write figure to EPS file
+hold off
