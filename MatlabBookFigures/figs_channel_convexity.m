@@ -53,12 +53,20 @@ bitsk2 = log2(1 + (pk2*Gk2)/noise_power);
 
 rate = symbolRate * (bitsk1 + bitsk2); %rate in bps
 
+% Create figure
+figure1 = figure;
+
+% Create axes
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
 meshc(pk1*1e3,pk2*1e3,rate*1e-3); %properly organize powers and rate
 xlabel('X: power for tone k=0 (mW)')
 ylabel('Y: power for tone k=1 (mW)')
 zlabel('Rate (kbps)')
 %colorbar
+view(axes1,[-103.439226519337 22.2106846926689]);
 axis tight; hold on
+grid
 
 %find maximum
 maxRate = max(rate(:));

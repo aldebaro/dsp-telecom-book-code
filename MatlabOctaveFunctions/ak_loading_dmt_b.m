@@ -14,7 +14,7 @@ gap_dB = 6;
 gap = 10^(gap_dB/10) %convert from dB to linear
 
 %noise for one dimension (or subdimension)
-sigma2 = noisePSD_N0div2;
+sigma2 = noisePSD_N0div2; %per tone (subchannel)
 
 h=[2 1 0 3]/10^7.7; %channel
 if showPlots == 1
