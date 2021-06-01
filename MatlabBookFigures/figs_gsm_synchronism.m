@@ -11,6 +11,8 @@ ak_step1a
 ak_step1b
 ak_step1c
 
+global showPlots 
+showPlots = 1;
 ak_step2a
 
 cd ../../MatlabBookFigures

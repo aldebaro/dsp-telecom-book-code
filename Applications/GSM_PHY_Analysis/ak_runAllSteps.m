@@ -4,19 +4,19 @@ if ~exist('GSMtop','var')
     error('You need to execute GSMsim_config while in GSM config folder')
 end
 gsm_set %set some global variables (from GSMsim package)
-global debugWithArtificialFile 
-showPlots=0; %use 1 to show plots
+global debugWithArtificialFile showPlots
+showPlots=0; %use 1 toshow plots
 % Select the file to analyze
-fileNumber=8; %there are 9 files. Choose a number between 1 and 9
+fileNumber=9; %there are 9 files. Choose a number between 1 and 9
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
 %duration signal. File 4 changes the BCC and PLM in some bursts. File
 %9 (called beacon.cfile) should be first artificially generated with 
 %script ak_CreateC0T0BeaconSignal. File 7 has several correct checksums.
+%You may have to unzip file 6. Check in your folder.
 
 % Gets the data from a file:
 %Select a folder and end it with slash (/ or \). For example:
 %folder='C:/gits/Latex/ak_dspbook/Code/Applications/GSM_PHY_Analysis/';
-%folder='C:/ak/Classes/Pos_PDSemFPGAeDSP/Projetos1aSemana/GSM_analysis/RawFiles/';
 folder='./GSMSignalFiles/'; %default folder using relative path
 if fileNumber==9
     debugWithArtificialFile = 1;

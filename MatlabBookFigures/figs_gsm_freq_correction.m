@@ -1,6 +1,6 @@
 %AK I will cd and go back continuously because I am lazy to check
 %when the scripts need the files within the steps.
-
+%run it from Code\MatlabBookFigures
 clear all
 clf
 %add path to GSM scripts
@@ -28,6 +28,8 @@ GSMsim_config  %set GSMtop variable
 cd ../../../GSM_PHY_Analysis
 %run the analysis of the GSMP challenge
 gsm_setGlobalVariables
+global showPlots 
+showPlots = 1;
 ak_step1a
 cd ../../MatlabBookFigures
 writeEPS('gsm_usrp_psds');

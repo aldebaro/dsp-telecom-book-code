@@ -2,11 +2,14 @@
 global showPlots %show plots if equal to 1
 %Some extra constants
 SymbolRate = 270833.3333; %bauds
-%Obs: signal bandwidth in Hz coincides with SymbolRate in GMSK
-%Hence, consider the spectrum of interest is from -SymbolRate/2 to
-%SymbolRate/2, such that:
-FilterBandWidth = SymbolRate/2; %filter cutoff frequency
-FilterBandWidth = 100e3;
+if 0
+    %Obs: signal bandwidth in Hz coincides with SymbolRate in GMSK
+    %Hence, consider the spectrum of interest is from -SymbolRate/2 to
+    %SymbolRate/2, such that:
+    FilterBandWidth = SymbolRate/2; %filter cutoff frequency
+else
+    FilterBandWidth = 100e3;
+end
 filterOrder=40; %lowpass filter order. Needs to be an even number
 
 %read data
@@ -47,13 +50,13 @@ if showPlots == 1
     axis([-250 250 -80 20])
     ylabel('dB / Hz');
     title('PSD of original complex envelope and filter response');
-
+    
     subplot(212)
     Pr=pwelch(r, Nfft+1, 0, Nfft, SampleRate);
     Pr=fftshift(Pr);
     plot(f,10*log10(Pr));
     %ak_psd(r,SampleRate);
-    %axis([-250 250 -80 20])    
+    %axis([-250 250 -80 20])
     title('PSD of filtered complex envelope');
     ylabel('dB / Hz');
     xlabel('Frequency (kHz)');

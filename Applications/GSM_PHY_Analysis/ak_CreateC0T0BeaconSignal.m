@@ -68,7 +68,7 @@ for multiframeNumber=1:maxNumOf51Multiframes
     end
     %add idle (only zeros) in last frame of 51-frames multiframe
     %this cause abrupt transition and spectral leakage. A professional
-    %implementation would make modulatation with smooth transition
+    %implementation would make modulation with smooth transition
     %and power going down as a ramp
     x=[x zeros(1,samplesPerBurst)];
     numberOfBursts=7; %generate data for time-slots other than TS0

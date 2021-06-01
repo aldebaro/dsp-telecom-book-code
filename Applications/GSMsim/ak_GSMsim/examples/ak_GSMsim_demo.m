@@ -1,13 +1,12 @@
 numOfBurts =500; %number of bursts
 Lh=2; %channel dispersion: length of the channel impulse
-%response minus one.
-showPlots=1;
+      %response minus one.
 shouldAddNoise = 1; %add AWGN noise if 1
-gsm_set; %set some variables
+gsm_set; %set some important variables
 %pre-compute tables used by Viterbi:
 [SYMBOLS,PREVIOUS,NEXT,START,STOPS] = viterbi_init(Lh);
 B_ERRS=0; %reset counter for number of bit errors
-for n=1:numOfBurts;
+for n=1:numOfBurts
     tx_data = data_gen(INIT_L); %randomly generate a burst
     %modulate a burst
     [burst, I, Q] = gsm_mod(Tb,OSR,BT,tx_data,TRAINING);
