@@ -55,7 +55,8 @@ wOffset=(2*pi*freqOffset)/Fs; %convert freqOffset from Hz to radians
 wIF=(2*pi*fIF)/Fs; %convert fIF from Hz to radians
 %% 3) Estimate and correct offsets using a real-valued carrier:
 realCarrierRx=cos((wc+wIF+wOffset)*n+phaseOffset); %real-valued cos()
-r_carrierRecovery=(2*s.*realCarrierRx).^P; %raise to power P
+r=s.*realCarrierRx; %signal after the Rx mixer
+r_carrierRecovery=(2*r).^P; %raise to power P
 %Will use at least desired resolution:
 Nfft = max(ceil(Fs/desiredResolutionHz),length(r_carrierRecovery));
 if Nfft > 2^25 %avoid too large FFT size. 2^25 is an arbitrary number

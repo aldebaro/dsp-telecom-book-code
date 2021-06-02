@@ -1,4 +1,7 @@
 clear all
+close all
+global showPlots 
+showPlots = 1;
 
 %run the analysis of the GSMP challenge
 %Need to cd to GSMsim folder:
@@ -7,15 +10,12 @@ GSMsim_config  %set GSMtop variable
 
 cd ../../../GSM_PHY_Analysis
 gsm_setGlobalVariables
+
 ak_step1a
 ak_step1b
 ak_step1c
 
-global showPlots 
-showPlots = 1;
 ak_step2a
 
 cd ../../MatlabBookFigures
 writeEPS('gsm_usrp_synchronism'); %,'font12Only');
-
-%ak_step2b %no need to run

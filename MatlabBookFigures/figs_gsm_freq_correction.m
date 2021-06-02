@@ -2,6 +2,7 @@
 %when the scripts need the files within the steps.
 %run it from Code\MatlabBookFigures
 clear all
+close all
 clf
 %add path to GSM scripts
 P=path;

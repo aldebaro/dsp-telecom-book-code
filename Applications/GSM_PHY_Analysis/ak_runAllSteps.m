@@ -6,7 +6,7 @@ end
 gsm_set %set some global variables (from GSMsim package)
 global debugWithArtificialFile showPlots
 showPlots=0; %use 1 toshow plots
-% Select the file to analyze
+% Select the file to analyze (file 8 is the one used in the book)
 fileNumber=9; %there are 9 files. Choose a number between 1 and 9
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
 %duration signal. File 4 changes the BCC and PLM in some bursts. File

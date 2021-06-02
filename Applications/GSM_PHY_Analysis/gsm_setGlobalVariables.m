@@ -29,7 +29,6 @@ rng(0)
 %w = warning ('on','all');
 
 global debugWithArtificialFile 
-showPlots=0; %use 1 to show plots
 % Select the file to analyze
 fileNumber=8; %there are 9 files. Choose a number between 1 and 9
 %Obs: file 1 does not have a FCCH. Use 8 for testing and 6 for long
