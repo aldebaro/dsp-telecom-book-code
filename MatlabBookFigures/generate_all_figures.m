@@ -60,6 +60,7 @@ figs_systems_filters_masks
 figs_systems_loopback_measurements
 figs_systems_qfactor
 figs_systems_bilinear
+figs_channel_bilinear_mapping
 figs_systems_elliptic
 figs_systems_fir
 figs_systems_minphase

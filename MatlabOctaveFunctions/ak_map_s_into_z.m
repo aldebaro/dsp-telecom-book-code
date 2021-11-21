@@ -7,11 +7,11 @@ for i=1:N
     %for each s find corresponding z using bilinear transformation
     z_plane_points(i)=((2+Ts*s_plane_points(i)))./(2-Ts*s_plane_points(i)); 
 end
-subplot(121)
+subplot(122)
 hold on
 plot_numbers_in_plane(z_plane_points);
 plot_unit_circle()
-subplot(122)
+subplot(121)
 hold on
 plot_numbers_in_plane(s_plane_points);
 plot_jw()

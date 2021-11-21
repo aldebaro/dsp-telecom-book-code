@@ -9,7 +9,8 @@ function [ann_handle,figx,figy,orix,oriy]=ak_drawvector(x1,y1,xo,yo)
 %Example of vector from point (1,2) to (3,4):
 %ak_drawvector(3,4,1,2) or ak_drawvector([3,4,1,2])
 %
-%Note: make sure the axis of the figure is large enough to hold all
+%Note: First create the axis.
+%And make sure the axis of the figure is large enough to hold all
 %vectors that will be draw. This will avoid the error message below,
 %which occurs when the specified vector coordinates fall outside
 %the current plot axis. To go around it, just expand the axis before
