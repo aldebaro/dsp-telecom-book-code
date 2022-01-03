@@ -1,12 +1,14 @@
-function [xt, t, x_parcels] = ak_sinc_interpolation(xn, Ts, origin_n0)
-%function [xt, t, x_parcels] = ak_sinc_interpolation(xn, Ts, origin_n0)
+function [xt, t, x_parcels] = ak_sinc_interpolation(xn, Ts, origin_n0, textra)
+%function [xt, t, x_parcels] = ak_sinc_interpolation(xn, Ts, origin_n0, textra)
 if nargin < 2
     Ts = 1;
 end
 if nargin < 3
     origin_n0 = 0; %assume x[n] starts at 0
 end
-textra = 5*Ts;
+if nargin < 4
+    textra = 5*Ts;
+end
 nextra = ceil(textra/Ts);
 
 num_discrete_samples = length(xn);
@@ -42,11 +44,17 @@ for nn=1:num_discrete_samples
 end
 
 if nargout < 1
-    clf
-    plot(t,xt,'-','LineWidth',1.5);
+    plot(t,xt,'--','LineWidth',1.5);
+    C=colororder;
     hold on
-    plot(t,x_parcels);
-    stem(n*Ts,xn,'Color','b');
-    plot(n*Ts,xn,'x','MarkerSize',20,'Color','b');
+    for i=1:num_discrete_samples
+        plot(t,x_parcels(i,:),'Color',C(i,:));
+        stem(n*Ts,xn,'Color',C(i,:));
+        plot(n(i)*Ts,xn(i),'x','MarkerSize',20,'Color',C(i,:),'LineWidth',2.5);
+    end
+    y_zeros = t(1):Ts:t(end);
+    stem(y_zeros,zeros(1,length(y_zeros)),'o','Color','k');
+    xlabel('t (s)');
+    ylabel('x(t)')
     hold off
 end
