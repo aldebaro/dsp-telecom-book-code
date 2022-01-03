@@ -111,8 +111,7 @@ close all
 clf
 max_n = 4; %n varies from -max_n to max_n
 subplot(311)
-%xn=[0.5 -2.8   1.3  3.5 -1.7  1.1  4];
-xn=[0.5 -2.8   1.3] %  3.5 -1.7  1.1  4];
+xn=[1 -3   3];
 N=length(xn);
 xn_extended=zeros(1,2*max_n+1);
 xn_extended(max_n+1:max_n+N)=xn;
@@ -141,3 +140,4 @@ writeEPS('sinc_reconstruction','font12Only');
 
 clf
 ak_sinc_interpolation(xn,Ts,0,max_n*Ts);
+writeEPS('sum_sinc_reconstruction','font12Only');

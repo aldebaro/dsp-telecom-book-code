@@ -44,13 +44,22 @@ for nn=1:num_discrete_samples
 end
 
 if nargout < 1
-    plot(t,xt,'--','LineWidth',1.5);
+    plot(t,xt,'LineWidth',1.5);
     C=colororder;
+    newcolors = [0.83 0.14 0.14
+             1.00 0.54 0.00
+             0.47 0.25 0.80];
+    C=[C(1,:)
+        newcolors
+        C(2:end,:)];
+    colororder(C);
+    [num_colors, ~] = size(C);
     hold on
     for i=1:num_discrete_samples
-        plot(t,x_parcels(i,:),'Color',C(i,:));
-        stem(n*Ts,xn,'Color',C(i,:));
-        plot(n(i)*Ts,xn(i),'x','MarkerSize',20,'Color',C(i,:),'LineWidth',2.5);
+        j=rem(i,num_colors-1)+2; %skip the color already used
+        plot(t,x_parcels(i,:),'--','Color',C(j,:));
+        stem(n*Ts,xn,'Color',C(j,:));
+        plot(n(i)*Ts,xn(i),'x','MarkerSize',20,'Color',C(j,:),'LineWidth',2.5);
     end
     y_zeros = t(1):Ts:t(end);
     stem(y_zeros,zeros(1,length(y_zeros)),'o','Color','k');
