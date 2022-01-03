@@ -3,8 +3,8 @@ function ak_impulseplot(x,t,T,varargin)
 %Plots the time series x as impulses. The abscissa is t as time-axis or
 %generated automatically with T as sampling interval.
 %Examples:
-% x=1:3; t=1:0.5:2; ak_impulseplot(x,t,[],'color','r')
-% T=0.5; ak_impulseplot(x,[],T,'color','r')
+% x=[1 2 -3]; t=1:0.5:2; ak_impulseplot(x,t,[],'color','r')
+% T=0.5; ak_impulseplot(x,[],T,'color','#0072BD')
 
 %Check syntax:
 if isempty(t)
@@ -24,6 +24,13 @@ else
             'sampling interval T. Check the syntax']);
         end    
     end
+end
+
+%Use dark blue if color is not specified
+%From: https://www.mathworks.com/help/matlab/creating_plots/specify-plot-colors.html
+if isempty(varargin)
+    varargin{1} = 'color';
+    varargin{2} = '#0072BD';
 end
 
 %remember whether hold is on or off
