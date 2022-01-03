@@ -1,4 +1,4 @@
-%generate example of y[n]=x[-n]
+if 0%generate example of y[n]=x[-n]
 close all
 x=[3 0 4 0 5];
 y=fliplr(x);
@@ -71,3 +71,73 @@ yy = 3.841;
 text(xx,yy,'\leftarrow notice','fontsize',18);
 ak_add3dots
 writeEPS('undersampled');
+%
+end
+%% Illustrate ZOH
+close all
+clf
+subplot(131)
+xn=[0.5 -2.8   1.3  3.5 -1.7  1.1  4];
+N=length(xn);
+stem(0:N-1,xn)
+xlabel('Discrete-time n')
+ylabel('x[n]')
+grid
+subplot(132)
+%xs
+%T=0.2; ak_sampledsignalsplot(x,[],T,'color','r')
+Ts=0.2; ak_sampledsignalsplot(xn,[],Ts)
+ylabel('x_s(t)')
+grid
+subplot(133)
+L=200; xt=ak_zeroOrderHolder(xn, L);
+t=linspace(0,N*Ts,length(xt));
+plot(t,xt)
+xlabel('Time (s)')
+ylabel('x(t)')
+%myaxis=axis
+%subplot(132)
+%axis(myaxis)
+grid
+%To resize and make a figura shorter:
+x=get(gcf, 'Position'); %get figure's position on screen
+x(4)=floor(x(4)*0.5); %adjust the size making it "taller"
+set(gcf, 'Position',x);
+writeEPS('zoh_reconstruction');
+
+
+%% Illustrate perfect sinc reconstruction
+close all
+clf
+max_n = 4; %n varies from -max_n to max_n
+subplot(311)
+%xn=[0.5 -2.8   1.3  3.5 -1.7  1.1  4];
+xn=[0.5 -2.8   1.3] %  3.5 -1.7  1.1  4];
+N=length(xn);
+xn_extended=zeros(1,2*max_n+1);
+xn_extended(max_n+1:max_n+N)=xn;
+stem(-max_n:max_n, xn_extended)
+%hold on
+%stem(0:N-1,xn)
+xlabel('Discrete-time n')
+ylabel('x[n]')
+grid
+subplot(312)
+%xs
+%T=0.2; ak_sampledsignalsplot(x,[],T,'color','r')
+Ts=0.2; ak_sampledsignalsplot(xn,[],Ts,'color','b')
+hold on
+t=(-max_n:max_n)*Ts;
+plot(t,zeros(1,length(t)),'color','b');
+ylabel('x_s(t)')
+axis tight
+grid
+subplot(313)
+[xt, t, x_parcels] = ak_sinc_interpolation(xn,Ts,0,max_n*Ts);
+plot(t,xt); %,'--','LineWidth',1.5);
+ylabel('x(t)')
+xlabel('Time (s)')
+writeEPS('sinc_reconstruction','font12Only');
+
+clf
+ak_sinc_interpolation(xn,Ts,0,max_n*Ts);
