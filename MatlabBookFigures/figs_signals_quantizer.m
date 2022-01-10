@@ -1,3 +1,98 @@
+%% Non-uniform quantization of a mixture of Gaussians with Lloyd's algorithm
+clear all, clf
+N=100000; %number of random samples
+weight1=0.8; %weight from 0 to 1
+weight2=1-weight1; %weight from 0 to 1
+mean1 = -4;
+var1 = 0.5;
+mean2 = 3;
+var2 = 4;
+b=3; %number of bits
+N1=round(weight1*N);
+N2=N-N1;
+x1=mean1+sqrt(var1)*randn(1,N1); %Gaussian samples
+x2=mean2+sqrt(var2)*randn(1,N2); %Gaussian samples
+x=[x1, x2]; %concatenate, mix the 2 Gaussians
+M=2^b;
+numBins=100; %number of bins
+[partition,codebook] = lloyds(x,M); %design the quantizer
+[pdf_approximation,abcissa] = ak_normalize_histogram(x,numBins);
+plot(abcissa, pdf_approximation);
+hold on
+fxx = weight1*normpdf(linspace(abcissa(1),abcissa(end),numBins),mean1,sqrt(var1)) + ...
+    (1-weight1)*normpdf(linspace(abcissa(1),abcissa(end),numBins),mean2,sqrt(var2));
+plot(abcissa, fxx);
+for i=1:length(partition) %plot each partition boundary
+    plot([partition(i), partition(i)],[0, 1],'--','Color','b');
+end
+plot(codebook,zeros(size(codebook)),'o','Color','k'); %quantization levels
+myaxis=axis;
+myaxis(4)=max(pdf_approximation); %limit max value
+axis(myaxis) %set new axis
+legend('Estimated PDF','Theoretical PDF');
+xlabel('Input')
+ylabel('PDF likelihood')
+writeEPS('gaussian_mixture_quantization','font12Only');
+
+clf
+x=linspace(abcissa(1),abcissa(end),50000); 
+x_hat=ak_nonuniform_quantizer(x,codebook);
+plot(x,x_hat)
+grid
+xlabel('Input')
+ylabel('Output')
+axis tight
+writeEPS('gaussian_mixture_stairs');
+
+return 
+
+%% Non-uniform quantization input-output for Gaussian
+codebook=[-6.8, -4.2, -2.4, -0.8, 0.8, 2.4, 4.2, 6.8];
+x=linspace(-8,8,50000); 
+x_hat=ak_nonuniform_quantizer(x,codebook);
+plot(x,x_hat)
+grid
+xlabel('Input')
+ylabel('Output')
+writeEPS('gauss_quantization');
+
+%% Non-uniform quantization input-output
+codebook=[-4,-1,0,3];
+x=linspace(-6,6,50000); 
+x_hat=ak_nonuniform_quantizer(x,codebook);
+plot(x,x_hat)
+grid
+xlabel('Input')
+ylabel('Output')
+writeEPS('nonuniform_quantization');
+
+%% Non-uniform quantization with Lloyd's algorithm
+clf
+N=1000000; %number of random samples
+b=3; %number of bits
+variance = 10;
+x=sqrt(variance)*randn(1,N); %Gaussian samples
+M=2^b;
+numBins=100; %number of bins
+[partition,codebook] = lloyds(x,M); %design the quantizer
+[pdf_approximation,abcissa] = ak_normalize_histogram(x,numBins);
+plot(abcissa, pdf_approximation);
+hold on
+fxx = normpdf(linspace(abcissa(1),abcissa(end),numBins),0,sqrt(variance));
+plot(abcissa, fxx);
+for i=1:length(partition) %plot each partition boundary
+    plot([partition(i), partition(i)],[0, 1],'--','Color','b');
+end
+plot(codebook,zeros(size(codebook)),'o','Color','k'); %quantization levels
+myaxis=axis;
+myaxis(4)=max(pdf_approximation); %limit max value
+axis(myaxis) %set new axis
+legend('Estimated PDF','Theoretical PDF');
+xlabel('Input')
+ylabel('PDF likelihood')
+writeEPS('gaussian_quantization','font12Only');
+return 
+
 %% Float vs double precision
 clf
 N=300; delta_x=zeros(1,N); x=linspace(-8,8,N); %define range

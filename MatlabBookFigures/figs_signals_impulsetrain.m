@@ -1,4 +1,4 @@
-if 0%generate example of y[n]=x[-n]
+%generate example of y[n]=x[-n]
 close all
 x=[3 0 4 0 5];
 y=fliplr(x);
@@ -72,7 +72,7 @@ text(xx,yy,'\leftarrow notice','fontsize',18);
 ak_add3dots
 writeEPS('undersampled');
 %
-end
+
 %% Illustrate ZOH
 close all
 clf
@@ -138,6 +138,7 @@ ylabel('x(t)')
 xlabel('Time (s)')
 writeEPS('sinc_reconstruction','font12Only');
 
+%% Show the parcels (each sinc) in sinc reconstruction
 clf
 ak_sinc_interpolation(xn,Ts,0,max_n*Ts);
 writeEPS('sum_sinc_reconstruction','font12Only');

@@ -2,6 +2,8 @@ function [x_q,x_i,quantizerLevels,partitionThresholds] = ...
     ak_quantizer2(x,b,xmin,xmax,forceZeroLevel)
 %function [x_q,x_i,quantizerLevels]=ak_quantizer2(x,b,xmin,xmax,...
 %    forceZeroLevel)
+%Design a uniform quantizer with the option to create a level to
+%represent "zero".
 %Note that x_i has values from 0 to (2^b)-1.
 if nargin < 3 %use default values
     xmin=min(x);
