@@ -44,8 +44,6 @@ ylabel('Output')
 axis tight
 writeEPS('gaussian_mixture_stairs');
 
-return 
-
 %% Non-uniform quantization input-output for Gaussian
 codebook=[-6.8, -4.2, -2.4, -0.8, 0.8, 2.4, 4.2, 6.8];
 x=linspace(-8,8,50000); 
@@ -91,7 +89,6 @@ legend('Estimated PDF','Theoretical PDF');
 xlabel('Input')
 ylabel('PDF likelihood')
 writeEPS('gaussian_quantization','font12Only');
-return 
 
 %% Float vs double precision
 clf
