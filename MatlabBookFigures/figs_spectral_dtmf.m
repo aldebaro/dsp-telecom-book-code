@@ -93,6 +93,12 @@ myaxis(3)=520; myaxis(4)=1640;
 axis(myaxis)
 colorbar
 
+if 0 %in case one wants to save the signal (without silence spaces among tones)
+    normalizedSignal = dtmfSignal/max(abs(dtmfSignal)); %force to range [-1, 1]
+    normalizedSignal = (2^15 - 1)*normalizedSignal; %force to range [-32767, 32767]
+    audiowrite('dtmf_tones.wav',int16(normalizedSignal),samplingFrequency)
+end
+
 writeEPS('dtmf_spectrogram','font12Only');
 
 
