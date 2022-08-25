@@ -23,4 +23,4 @@ Besides "installing" the packages (that are called "toolboxes" in Matlab), Octav
 pkg load signal
 
 # Credits
-I tried to give credits to all third-party code I am using. In case I failed, please let me know and will I happily give proper credits.
+I tried to give credits to all third-party code I am using. In case I failed, please let me know and I will happily give proper credits.
