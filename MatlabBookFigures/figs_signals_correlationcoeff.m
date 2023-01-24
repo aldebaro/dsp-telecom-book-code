@@ -6,14 +6,15 @@ subplot(311)
 C=[4 0;0 1]; %covariance matrix
 mu=[30 6];  %mean
 plotOneGaussian(mu,C);
-text(23,2,'product A')
+text(23,8,'product A')
+%legend('product A')
 
 subplot(312)
 C=[4 0.99;0.99 1]; %covariance matrix
 mu=[30 12];  %mean
 plotOneGaussian(mu,C);
 ylabel('y (number of purchased units)')
-text(25,7,'product B')
+text(24.6,14,'product B')
 
 if 0
     C=[4 0.1;0.1 1]; %covariance matrix
@@ -26,12 +27,13 @@ C=[4   -1.4593;   -1.4593    2];
 mu=[30 8];  %mean
 plotOneGaussian(mu,C);
 xlabel('x (customer age)'); 
-text(23,3,'product C')
+text(23,6,'product C')
 
+if 0
 x=get(gcf, 'Position'); %get figure's position on screen
 x(3)=floor(x(3)*0.6); %adjust the size making it "wider"
 set(gcf, 'Position',x);
-
+end
 if 0
 x=get(gcf, 'Position'); %get figure's position on screen
 x(4)=floor(x(4)*1.2); %adjust the size making it "taller"

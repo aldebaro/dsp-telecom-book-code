@@ -43,7 +43,7 @@ for i=1:length(temp)
         signal_freqs+negative_freqs(i), fliplr(baseBandSignalSketch), 'k-o')
 end
 xlabel('frequency (Hz)')
-title(['Fs = ' num2str(fs) ' MHz. Replicas from positive and negative bands are in blue and black. Note if phase inversion occurred.'])
+title(['Fs = ' num2str(fs) ' Hz. Replicas from positive and negative bands are in blue and black. Note if phase inversion occurred.'])
 tt=axis;
 tt(4) = maxSketchValue; 
 axis(tt);
