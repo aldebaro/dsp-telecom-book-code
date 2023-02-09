@@ -8,12 +8,14 @@ y = y[0]
 n1 = np.arange(0, 5)  # time
 n2 = np.arange(-4, 1)  # time reversal
 
+#### Show the 'signal' in started order
 plt.subplot(211)
-plt.title("X[n")
+plt.title("X[n]")
 plt.stem(n1, x)
 
+#### Show the 'signal' in reverse order
 plt.subplot(212)
-plt.title("Y[n")
+plt.title("Y[n]")
 plt.stem(n2, y)
 
 
