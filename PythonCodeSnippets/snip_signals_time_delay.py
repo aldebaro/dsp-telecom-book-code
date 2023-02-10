@@ -25,16 +25,16 @@ noise = np.sqrt(noisePower) * rd.randn(np.size(y))
 y = y + noise
 plt.figure()
 plt.subplot(211)
-plt.plot(t[0:5000], X[0:5000])
-plt.plot(t[0:5000], y[0:5000])
+plt.plot(t, X)
+plt.plot(t, y)
 
-plt.subplot(212)
+#plt.subplot(212)
 
 c = sp.correlate(X, y, "full")
 lags = sp.correlation_lags(len(X), len(y), "full")
 
-plt.plot(lags * Ts, c)
-pl.show()
+#plt.plot(lags * Ts, c)
+plt.show()
 index_max = max(range(len(c)), key=np.abs(c).__getitem__)
 L = lags[index_max]
 estimated_time_delay = L * Ts
