@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pylab as pl
 
-Fs = 20  # sampling frequency
+Fs = 20  # Sampling Frequency
 Ts = 1 / Fs  # Sampling Period
-f0 = Fs / 2  # Frequency of a singal must be at maximun half of Sampling Frequency
+f0 = Fs / 2  # Frequency of a signal must be at maximun half of Sampling Freq.
 t = np.arange(0, 1, Ts)  # Discrete time axis, 0 to 1 second
 theta1 = np.pi / 4  # Defining a angle
 A1 = 1 / (np.cos(theta1))  # Define a Amplitude
