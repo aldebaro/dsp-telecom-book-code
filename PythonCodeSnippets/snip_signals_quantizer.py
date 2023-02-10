@@ -1,35 +1,38 @@
-#### Considering values maximum and min of a input
-Xmin = -1
-Xmax = 3
+# Given maximum and minimum values
+X_min = -1
+X_max = 3
 
-b = 2  # Number o quantizer's bits
+b = 2  # Number of quantizer's bits
 M = 2 ** b  # Number of output levels
 
-delta = abs((Xmax - Xmin) / (M - 1))  # Calculating the quantization step
+# Calculating the quantization step
+delta = abs((X_max - X_min) / (M - 1))
 print(delta)
-####Get the output values
+
+# Get the output values
 quantizer_levels = []
 for i in range(M):
-    quantizer_levels.append(Xmin + i * delta)
+    quantizer_levels.append(X_min + i * delta)
 
-####Discover if there is 0 in the output values
-# @TODO use np.find or similar to check existence of a zero
-aux = 0
-if 0 in quantizer_levels:
-    aux = 1
+# Find out if 0 is present in the output values
+is_zero_represented = 0 in quantizer_levels
 
-####Fix the output leves if theres is no 0 value
-if aux == 0:
+# If not present, force the output to contain 0
+if not is_zero_represented:
+
+    # Get the number of negatives output values
+    num_negatives = 0
+    for i in quantizer_levels:
+        if i < 0:
+            num_negatives += 1
+
+    # Reassign the minimum value so that 0 will be represented
+    X_min = -1 * num_negatives * delta
+    print(X_min, num_negatives)
+
+    # Once again find the output values
     new_quantizer_levels = []
+    for i in range(M):
+        new_quantizer_levels.append(X_min + i * delta)
 
-    ###Get the number of negatives output values
-    Nneg = 0
-    for i in range(len(quantizer_levels)):
-        if quantizer_levels[i] < 0:
-            Nneg += 1
-
-    Xmin = -Nneg * delta  # Update de minimun value
-    print(Xmin, Nneg)
-    # for i in range(M):
-    # new_quantizer_levels.append(Xmin + i * delta)
     print(new_quantizer_levels)
