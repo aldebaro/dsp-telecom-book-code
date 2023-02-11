@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab as pl
 
 
 #### ak_quantizer assumes the quantizer allocates 2^(b-1)
@@ -23,8 +22,8 @@ def ak_quantizer(x, delta, b):
 
 
 delta = 0.5  # quantization step
-b = 3  # Number od bits
-x = np.arange(-5, 4, 1 * 10 ** -2)  # Define input dynamic range
+b = 3  # Number of bits
+x = np.arange(-5, 4, 1 * 10**-2)  # Define input dynamic range
 x_i, x_q = ak_quantizer(x, delta, b)  # Do the quantization
 
 plt.plot(x, x_q, color="red")
