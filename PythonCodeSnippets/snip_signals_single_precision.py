@@ -4,7 +4,7 @@ import time as tm
 import numpy as np
 import scipy.fft as sp
 
-n = 2 ** 20  # getting the FFT length
+n = 2**20  # getting the FFT length
 
 xs = np.float32(np.random.rand(n))  # Generate random signal with single precsion
 xd = np.random.rand(n)  # Generate random signal with double precsion

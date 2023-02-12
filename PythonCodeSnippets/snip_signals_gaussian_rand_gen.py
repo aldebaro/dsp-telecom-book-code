@@ -6,7 +6,6 @@ import scipy.stats as sp
 
 ####Function that get the values of a histogram and the central position of a bin
 def ak_normalize_histogram(y, numBins=10):
-
     pdf_aproximation, abcissa = np.histogram(y[0], numBins)
     aux = []
     for i in range(len(abcissa) - 1):

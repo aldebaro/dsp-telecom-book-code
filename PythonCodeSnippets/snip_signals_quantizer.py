@@ -3,7 +3,7 @@ Xmin = -1
 Xmax = 3
 
 b = 2  # Number o quantizer's bits
-M = 2 ** b  # Number of output levels
+M = 2**b  # Number of output levels
 
 delta = abs((Xmax - Xmin) / (M - 1))  # Calculating the quantization step
 print(delta)
