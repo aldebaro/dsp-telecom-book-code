@@ -11,7 +11,6 @@ value_min = min(squared_errors)
 index_min = min(range(len(squared_errors)), key=squared_errors.__getitem__)
 
 # Put the output level that has the minimun squared error as the quantized
-
 # value of the imput
 x_quantized = output_levels[index_min]
 print(x_quantized)
