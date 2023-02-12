@@ -24,7 +24,7 @@ def ak_quantizer(x, delta, b):
 
 delta = 0.5  # quantization step
 b = 3  # Number od bits
-x = np.arange(-5, 4, 1 * 10 ** -2)  # Define input dynamic range
+x = np.arange(-5, 4, 1 * 10**-2)  # Define input dynamic range
 x_i, x_q = ak_quantizer(x, delta, b)  # Do the quantization
 
 plt.plot(x, x_q, color="red")
