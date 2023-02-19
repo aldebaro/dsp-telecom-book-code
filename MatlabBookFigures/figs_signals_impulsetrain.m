@@ -16,6 +16,14 @@ xlabel('t (s)')
 ylabel('x_o(t)'), axis tight
 writeEPS('oversampled_cosine');
 
+%show reconstruction of a cosine
+close all
+snip_signals_cosine_reconstruction
+figure(1)
+writeEPS('cosine_reconstruction_steps','font12Only');
+figure(2)
+writeEPS('cosine_reconstruction_parcels','font12Only');
+close all
 %generate example of y[n]=x[-n]
 x=[3 0 4 0 5];
 y=fliplr(x);
