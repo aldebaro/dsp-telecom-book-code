@@ -14,7 +14,7 @@ xn=A*cos(2*pi*fc*t); %cosine sampled at Fs
 oversampled_Ts = Ts/oversampling_factor; %new value of Ts
 oversampled_n = n(1)*oversampling_factor:n(end)*oversampling_factor;
 oversampled_t = oversampled_n*oversampled_Ts;
-oversampled_xn=A*cos(2*pi*fc*oversampled_t); %cosine sampled at 
+oversampled_xn=A*cos(2*pi*fc*oversampled_t); %cosine oversampled
 %% Reconstruct signal from samples stored at xn and compare with 
 %% the "ground truth" oversampled_xn
 ak_sinc_reconstruction(n,xn,Ts,oversampled_n,oversampled_xn,textra)
