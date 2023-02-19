@@ -1,19 +1,19 @@
 close all
 
 %generate example of signal
-snip_discrete_signal_generation
+snip_signals_signal_generation
 xlabel('n');
 ylabel('x[n]');
 grid
 writeEPS('discrete_cosine');
 
 %generate example of oversampled signal
-snip_oversampled_signal
+snip_signals_oversampling
 subplot(211)
-ylabel('x_1(t)'), axis tight
+ylabel('x(t)'), axis tight
 subplot(212)
 xlabel('t (s)')
-ylabel('x_2(t)'), axis tight
+ylabel('x_o(t)'), axis tight
 writeEPS('oversampled_cosine');
 
 %generate example of y[n]=x[-n]
