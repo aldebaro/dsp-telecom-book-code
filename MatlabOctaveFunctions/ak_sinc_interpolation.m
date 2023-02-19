@@ -38,7 +38,7 @@ n = origin_n0:num_discrete_samples-1; %assume it simply increments
 for nn=1:num_discrete_samples
     this_n = n(nn);
     %We are always delaying signals by n*Ts
-    my_sinc=xn(nn)*sinc((t-this_n*Ts)/Ts); %this sinc will have its first zero at Tsym
+    my_sinc=xn(nn)*sinc((t-this_n*Ts)/Ts); %this sinc will have its first zero at this_n*Ts
     x_parcels(nn,:)=my_sinc;    
     xt = xt + my_sinc;
 end

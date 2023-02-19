@@ -1,5 +1,22 @@
-%generate example of y[n]=x[-n]
 close all
+
+%generate example of signal
+snip_discrete_signal_generation
+xlabel('n');
+ylabel('x[n]');
+grid
+writeEPS('discrete_cosine');
+
+%generate example of oversampled signal
+snip_oversampled_signal
+subplot(211)
+ylabel('x_1(t)'), axis tight
+subplot(212)
+xlabel('t (s)')
+ylabel('x_2(t)'), axis tight
+writeEPS('oversampled_cosine');
+
+%generate example of y[n]=x[-n]
 x=[3 0 4 0 5];
 y=fliplr(x);
 n1=0:4;
