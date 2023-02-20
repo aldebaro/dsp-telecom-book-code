@@ -7,6 +7,22 @@ ylabel('x[n]');
 grid
 writeEPS('discrete_cosine');
 
+%generate plots of sinc
+close all
+snip_signals_sinc
+grid; axis tight; xlabel('t (s)'); ylabel('x(t)')
+writeEPS('sinc_plot');
+
+%generate plots of rects
+snip_signals_rect
+writeEPS('rect_plots');
+
+%signal with 3 rect functions
+snip_signals_three_rects
+axis tight
+grid
+writeEPS('three_rects');
+
 %generate example of oversampled signal
 snip_signals_oversampling
 subplot(211)
@@ -24,6 +40,60 @@ writeEPS('cosine_reconstruction_steps','font12Only');
 figure(2)
 writeEPS('cosine_reconstruction_parcels','font12Only');
 close all
+
+%reconstruction of sincs
+close all
+snip_signals_reconstruction_sinc
+figure(1)
+writeEPS('sinc_reconstruction_steps','font12Only');
+figure(2)
+writeEPS('sinc_reconstruction_parcels','font12Only');
+
+%failed reconstruction of cosine
+close all
+snip_signals_failed_cosine_reconstruction
+figure(1)
+subplot(412)
+myaxis = axis;
+myaxis(3)=-1;
+myaxis(4)=1;
+axis(myaxis)
+subplot(413)
+myaxis = axis;
+myaxis(3)=-1;
+myaxis(4)=1;
+axis(myaxis)
+writeEPS('failed_cosine_reconstruction','font12Only');
+
+%show failed reconstruction of rects
+close all
+snip_signals_reconstruction_failure
+figure(1)
+writeEPS('failed_reconstruction_steps','font12Only');
+figure(2)
+writeEPS('failed_reconstruction_parcels','font12Only');
+
+%show a single sinc parcel when reconstructing a cosine
+close all
+snip_signals_cosine_reconstruction
+[x_reconstructed, x_parcels, t_oversampled, ...
+    t_oversampled_expanded] = ak_sinc_reconstruction(n,xn,Ts,oversampled_n,oversampled_xn,textra);
+plot(t_oversampled_expanded,x_reconstructed,'LineWidth',1.5);
+hold on
+i = 5; %choose specific sinc parcel
+plot(t_oversampled_expanded,x_parcels(i,:),'--','Color','k');
+%stem(n*Ts,xn,'Color','k');
+plot(n(i)*Ts,xn(i),'x','MarkerSize',20,'Color','k');
+y_zeros = t_oversampled_expanded(1):Ts:t_oversampled_expanded(end);
+stem(y_zeros,zeros(1,length(y_zeros)),'o','Color','k');
+xlabel('t (s)');
+ylabel('Reconstructed x(t)')
+hold off
+axis tight
+%ak_changeFigureSize(1.5, 1.5) %expand figure
+writeEPS('cosine_reconstruction_single_parcel','font12Only');
+close all
+
 %generate example of y[n]=x[-n]
 x=[3 0 4 0 5];
 y=fliplr(x);
