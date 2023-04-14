@@ -2,19 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pylab as pl
 import scipy.stats as sp
-
-
-####Function that get the values of a histogram and the central position of a bin
-def ak_normalize_histogram(y, numBins=10):
-
-    pdf_aproximation, abcissa = np.histogram(y[0], numBins)
-    aux = []
-    for i in range(len(abcissa) - 1):
-        aux.append((abcissa[i] + abcissa[i + 1]) / 2)
-    rg = np.max(aux) - np.min(aux)
-    binwidth = rg / len(pdf_aproximation)
-    pdf_aproximation = pdf_aproximation / (len(y[0]) * binwidth)
-    return pdf_aproximation, aux
+from lasse.statistics.histograms import ak_normalize_histogram
 
 
 B = 100  # setting the nunber of bins

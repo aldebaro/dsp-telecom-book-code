@@ -1,25 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pylab as pl
-
-
-#### ak_quantizer assumes the quantizer allocates 2^(b-1)
-# levels to negative output values, one levels to '0' and
-# 2^(b-1) - 1 to positive values.
-def ak_quantizer(x, delta, b):
-    x_q = []
-    x_i = []
-    for i in range(len(x)):
-        auxi = x[i] / delta  # Quantizer levels
-        auxi = round(auxi)  # get the nearest integer
-        if auxi > (2 ** (b - 1)) - 1:
-            auxi = (2 ** (b - 1)) - 1  # Obligate a maximun value
-        elif auxi < -(2 ** (b - 1)):
-            auxi = -(2 ** (b - 1))  # Obligate a minimun value
-        auxq = auxi * delta  # get the docoded output already quantized
-        x_q.append(auxq)
-        x_i.append(auxi)
-    return x_i, x_q
+from lasse.dsp.scalar_quantization import ak_quantizer
 
 
 delta = 0.5  # quantization step

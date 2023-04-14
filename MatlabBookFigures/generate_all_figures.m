@@ -31,6 +31,7 @@ figs_signals_correlationcoeff
 figs_signals_impulsetrain
 figs_signals_quantizer
 figs_signals_periodic
+figs_signals_evenodd
 figs_signals_randomprocesses
 figs_signals_taxonomy
 %figs_signals_exercises %AK, saiu?
