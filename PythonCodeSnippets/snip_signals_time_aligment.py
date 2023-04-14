@@ -1,28 +1,45 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab as pl
 import scipy.signal as sp
+from typing import Tuple
 
-x = np.array([1, -2, 3, 4, 5, -1])  # A signal
-y = np.array([3, 1, -2, -2, 1, -4, -3, -5, -10])  # another sigal
 
-####Crosscorrelation between they
-c = sp.correlate(x, y)
-lags = sp.correlation_lags(len(x), len(y))
+def delete_samples(L: sp.correlation_lags, x: np.ndarray,
+                   y: np.ndarray) -> Tuple[np.ndarray]:
+    # Remove L first items from two 1D signal arrays
+    return (x[L:], y) if L > 0 else (x, y[-L:])
 
-index_max = max(range(len(c)), key=np.abs(c).__getitem__)
-L = lags[index_max]  # lag for maximum abs crosscorelation
 
-if L > 0:
-    x = x[L:]  # deleting first L Samples from x
-else:
-    y = y[-L:]  # deleting first L Samples from y
+def set_same_length(x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    # Compute minimum length among two 1D signal arrays
+    # and return both with same size
+    min_length = min(len(x), len(y))
+    return x[:min_length], y[:min_length]
 
-if len(x) > len(y):  # making both length been the same
-    x = x[0 : len(y)]
-else:
-    y = y[0 : len(x)]
 
-plt.plot(np.array(x - y))
-plt.title("Error between aligned x and y")
-pl.show()
+def main():
+    # Signals
+    x = np.array([1, -2, 3, 4, 5, -1])
+    y = np.array([3, 1, -2, -2, 1, -4, -3, -5, -10])
+
+    # Compute Crosscorrelation and lags array
+    c = sp.correlate(x, y)
+    lags = sp.correlation_lags(len(x), len(y))
+
+    # Find position of max lag
+    index_max = max(range(len(c)), key=np.abs(c).__getitem__)
+    L = lags[index_max]
+
+    # Rearange signals sizes based on max lag
+    x, y = delete_samples(L=L, x=x, y=y)
+    x, y = set_same_length(x=x, y=y)
+
+    # Plot results
+    plt.plot(np.array(x - y))
+    plt.title("Error between aligned x and y")
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
+
