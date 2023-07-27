@@ -15,9 +15,9 @@ function [ann_handle,figx,figy,orix,oriy]=ak_drawvector(x1,y1,xo,yo)
 %which occurs when the specified vector coordinates fall outside
 %the current plot axis. To go around it, just expand the axis before
 %the first vector and do not rescale it.
-%??? Error using ==> annotation at 116
+%??? Error using ==> annotation (line 111)
 %X and Y values must be between 0 and 1
-%Error in ==> ak_drawvector at 31
+%Error in ==> ak_drawvector (line 58)
 %ann_handle=annotation('arrow',[orix figx],[oriy figy]);
 if nargin == 1 %a complex number or a vector
     if ~isvector(x1)
