@@ -2,7 +2,7 @@
 
 Source code for Aldebaro's book on DSP and digital communications. More information at http://aldebaro.ufpa.br/
 
-# Installation
+# Installation of Matlab / Octave code
 
 1) Execute Matlab or Octave
 
@@ -21,6 +21,14 @@ addpath('../dsp-telecom-book-code/MatlabOctaveThirdPartyFunctions);
 Besides "installing" the packages (that are called "toolboxes" in Matlab), Octave requires "loading" (enabling for usage) the packages that will be used. For example, having the "signal" package installed, to effectively use it, issue the command:
 
 pkg load signal
+
+# Extra Python code
+
+The following projects complement the code provided in this repository:
+
+https://github.com/aldebaro/dsp-projects - DSP projects
+
+https://github.com/lasseufpa/lasse-py - useful Python modules
 
 # Credits
 I tried to give credits to all third-party code I am using. In case I failed, please let me know and I will happily give proper credits.

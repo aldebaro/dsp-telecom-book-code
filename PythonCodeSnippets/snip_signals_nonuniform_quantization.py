@@ -10,4 +10,5 @@ else:
     else:
         x_quantized = 3
 
-print(x_quantized)
+print(f"x = {x}")
+print(f"x_quantized = {x_quantized}")
