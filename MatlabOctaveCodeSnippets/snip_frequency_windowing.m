@@ -1,6 +1,6 @@
 W0 = 1; % signal angular frequency in rad
 A = 3; % signal amplitude in V
-N = 14; % window duration in samples
+N = 1000; % window duration in samples
 rect_window = ones(1, N); % rectangular window
 M = 10000; % samples to represent infinite duration signal
 n = 0:M-1; % long duration discrete-time axis
@@ -8,7 +8,7 @@ x = A*cos(2*pi*W0*n); % signal of long duration
 xw = x(1:N) .* rect_window; % windowing
 subplot(311)
 w=[-W0 W0]; Xw=0.5*pi*[A A]; 
-h=ak_impulseplot(Xw,w,[]).
+h=ak_impulseplot(Xw,w,[]);
 xlabel(''), ylabel('X(e^{j\Omega})')
 axis([-pi pi 0 A*N/2+2])
 %ak_makedatatip(h,[-W0, Xw(1)])
