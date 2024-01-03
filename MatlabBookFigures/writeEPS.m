@@ -1,5 +1,5 @@
-function writeEPS(outputFileName, finalFormatting)
-% function writeEPS(outputFileName, finalFormatting)
+function writeEPS(outputFileName, finalFormatting, outputFolder)
+% function writeEPS(outputFileName, finalFormatting, outputFolder)
 % Write current figure as EPS file in folder Figures. Calls function
 % ak_increaseFigureItems unless finalFormatting == 'none'.
 % Default value of finalFormatting is 'wider'
@@ -7,6 +7,17 @@ function writeEPS(outputFileName, finalFormatting)
 if nargin == 1
     finalFormatting='wider'; %default is to make plots wider
 end
+if nargin < 3
+    %User did not specify an outputFolder.
+    %There are now two options for the relative position of the current
+    %folder with respect to the output folder Figures
+    outputFolder='../../Figures/';
+    doesFolderExist=exist(outputFolder,'dir');
+    if doesFolderExist == 0
+        outputFolder='../../../Figures/';
+    end
+end
+
 %drawnow %make sure figure is completed
 %% Make figure items larger, if requested
 if ~strcmp(finalFormatting, 'none')
@@ -16,13 +27,6 @@ end
 %% Print the EPS file
 %this is equivalent to
 %print -depsc ../../Figures/outputFileName.eps
-%There are two options for the relative position of the current
-%folder with respect to the output folder Figures
-outputFolder='../../Figures/';
-doesFolderExist=exist(outputFolder,'dir');
-if doesFolderExist == 0
-    outputFolder='../../../Figures/';
-end
 
 fullPathFileName = [outputFolder outputFileName '.eps'];
 disp(['Printing ' fullPathFileName]);

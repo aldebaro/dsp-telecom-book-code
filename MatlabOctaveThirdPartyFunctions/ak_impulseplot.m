@@ -1,4 +1,4 @@
-function ak_impulseplot(x,t,T,varargin)
+function h=ak_impulseplot(x,t,T,varargin)
 % function ak_impulseplot(x,t,T,varargin)
 %Plots the time series x as impulses. The abscissa is t as time-axis or
 %generated automatically with T as sampling interval.
@@ -48,7 +48,7 @@ indicesZero = find(x==0);
 markersize = 11;
 linewidth = 2;
 
-stem(t(indicesPos),x(indicesPos),'marker','^','markersize',markersize,...
+h=stem(t(indicesPos),x(indicesPos),'marker','^','markersize',markersize,...
     'markerfacecolor','auto', ...
     'LineStyle','-', 'LineWidth',linewidth, ...
     varargin{:});
