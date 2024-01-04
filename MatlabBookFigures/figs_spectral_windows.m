@@ -112,6 +112,13 @@ whereToPlace='southeast'; ak_makedatatip(h,[-W0, Xw(W0_index)], whereToPlace)
 xlabel('\Omega (rad)'), ylabel('|X_w(e^{j\Omega})|')
 writeEPS('leakage_example3','none',outputFolder)
 
+%% Plots illustrating combined effect of leakage and picket-fence
+outputFolder = '../../latex/ak_dspbook/Figures/';
+snip_frequency_fftCosineExample(8,2)
+writeEPS('leak_picket_ex1','none',outputFolder)
+
+snip_frequency_fftCosineExample(8,2.5)
+writeEPS('leak_picket_ex2','none',outputFolder)
 
 %% Windows
 clf

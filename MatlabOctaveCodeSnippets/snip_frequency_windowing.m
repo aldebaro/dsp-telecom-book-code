@@ -37,4 +37,4 @@ h=plot(Omega, abs(Xw));
 axis([-pi pi 0 A*N/2+2])
 W0_index = find(Omega==-W0);
 whereToPlace='southeast'; ak_makedatatip(h,[-W0, Xw(W0_index)], whereToPlace)
-xlabel('\Omega (rad)'), ylabel('X_w(e^{j\Omega})')
+xlabel('\Omega (rad)'), ylabel('|X_w(e^{j\Omega})|')
