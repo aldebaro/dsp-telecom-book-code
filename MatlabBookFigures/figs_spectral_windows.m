@@ -114,11 +114,52 @@ writeEPS('leakage_example3','none',outputFolder)
 
 %% Plots illustrating combined effect of leakage and picket-fence
 outputFolder = '../../latex/ak_dspbook/Figures/';
+clf
 snip_frequency_fftCosineExample(8,2)
 writeEPS('leak_picket_ex1','none',outputFolder)
 
+clf
 snip_frequency_fftCosineExample(8,2.5)
 writeEPS('leak_picket_ex2','none',outputFolder)
+
+clf
+snip_frequency_fftCosineExample(8,0)
+writeEPS('leak_picket_ex3','none',outputFolder)
+
+clf
+snip_frequency_fftCosineExample(32, 8.3)
+writeEPS('leak_picket_ex4','none',outputFolder)
+
+clf
+subplot(221)
+N=10;
+n=0:N-1;
+alpha=2.5;
+xwn=6*cos(alpha*2*pi/N*n);
+stem(n,xwn)
+ylabel('x_w[n]')
+subplot(222)
+snip_frequency_fftCosineExample(N, alpha)
+xlabel('')
+subplot(223)
+alpha=pi;
+xwn=6*cos(alpha*2*pi/N*n);
+stem(n,xwn)
+xlabel('n'), ylabel('x_w[n]')
+subplot(224)
+snip_frequency_fftCosineExample(N, alpha)
+writeEPS('leak_picket_ex5','none',outputFolder)
+
+clf
+subplot(121)
+N=256;
+alpha=50;
+snip_frequency_fftCosineExample(N, alpha)
+alpha=30.5;
+subplot(122)
+snip_frequency_fftCosineExample(N, alpha)
+ylabel('')
+writeEPS('leak_picket_ex6','none',outputFolder)
 
 %% Windows
 clf

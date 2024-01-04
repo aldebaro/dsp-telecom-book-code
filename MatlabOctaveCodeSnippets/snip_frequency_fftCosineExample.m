@@ -1,12 +1,10 @@
 function snip_frequency_fftCosineExample(N, alpha)
 % function snip_frequency_fftCosineExample(alpha)
-% Superimposes the DTFT and FFT of a windowed cosine.
+% Superimposes the DTFT and FFT of a windowed cosine,
+% assuming the rectangular window.
 % N     - FFT length
 % alpha - specifies the cosine angular frequency Wc as
 %         Wc=(alpha*2*pi)/Nfft, where Wc is in radians
-if nargin < 2
-    alpha = 8.3; % default value
-end
 A=6; %cosine amplitude
 if alpha > N/2
     error('alpha cannot be larger than N/2')
@@ -29,7 +27,7 @@ else
     W_fft = -pi+(deltaW/2):deltaW:pi-(deltaW/2); %N is odd
 end
 %% Plot and calculate scalloping loss
-clf, plot(Omega,abs(Xw)),hold on, stem(W_fft,abs(Xfft),'or')
+plot(Omega,abs(Xw)),hold on, stem(W_fft,abs(Xfft),'or')
 xlabel('Angular frequency \Omega (rad)')
 ylabel('|X_w(e^{j\Omega})|'), legend('DTFT','DFT')
 grid, axis tight
