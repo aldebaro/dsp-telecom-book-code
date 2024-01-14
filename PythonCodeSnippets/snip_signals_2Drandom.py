@@ -10,3 +10,5 @@ numbiny = 30
 mu_est = np.mean(r)
 R = C + np.transpose(mu) * mu
 Rest = Cest + np.transpose(mu_est) * mu_est
+print("R=", R)
+print("Rest=", Rest)
