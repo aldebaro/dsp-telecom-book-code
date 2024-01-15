@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab as pl
 
 Fs = 20  # Sampling Frequency
 Ts = 1 / Fs  # Sampling Period
