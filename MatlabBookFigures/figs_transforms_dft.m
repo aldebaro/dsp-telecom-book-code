@@ -127,22 +127,33 @@ writeEPS('dftfftcost');
 if 0 %I am disabling function calls below because rsmak is in
     %Matlab's splines toolbox and not in Octave. Will not use it
 
-    showUnityCircle(3)
+    showUnityCircle(3, -1)
     writeEPS('circledivided3');
 
-    showUnityCircle(4)
+    showUnityCircle(4, -1)
     writeEPS('circledivided4');
 
-    showUnityCircle(5)
+    showUnityCircle(5, -1)
     writeEPS('circledivided5');
 
-    showUnityCircle(6)
+    showUnityCircle(6, -1)
     writeEPS('circledivided6');
 end
 
+%% Show DFT angles (angular frequencies) walking counter clockwise
+% instead of following the twiddle factor convention (clockwise)
+outputFolder = '../../latex/ak_dspbook/Figures/';
+N=4;
+showUnityCircle(N, 1) % instead of showUnityCircle(N, -1)
+writeEPS('dftcirclecounter4', 'wider', outputFolder);
+
+N=5;
+showUnityCircle(N, 1) % instead of showUnityCircle(N, -1)
+writeEPS('dftcirclecounter5', 'wider', outputFolder);
+
 end
 
-function showUnityCircle(N)
+function showUnityCircle(N, one_or_minusone)
 clf
 if 0
     %two instructions below are equivalent
@@ -156,11 +167,11 @@ set(gcf,'Position',Position);
 circle = rsmak('circle'); %circle
 fnplt(circle)
 k=0:N-1;
-W_N = (exp(-2*pi*j/N)).^k;
+W_N = (exp(one_or_minusone*2*pi*1j/N)).^k;
 for i=1:N
     ak_drawvector(W_N(i));
     text(real(W_N(i))+0.1,imag(W_N(i))-0.1,...
-        ['k=' num2str(k(i))],'FontSize',12,'FontWeight','bold')
+        ['k=' num2str(k(i))],'FontSize',14,'FontWeight','bold')
 end
 
 end
