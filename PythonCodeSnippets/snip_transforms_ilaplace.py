@@ -4,7 +4,7 @@ t = sp.Symbol('t', positive=True)
 s = sp.symbols('s')
 
 a = 1
-b = -1
+b = -2
 c = -1 + 2*sp.I
 
 X = (s - a) / ((s - b) * (s - c) * (s - sp.conjugate(c)))
