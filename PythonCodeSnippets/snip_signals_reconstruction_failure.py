@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from lasse import rectpuls, ak_sinc_reconstruction
+from lasse.util.python_as_matlab import rectpuls
+from lasse.util.ak_functions import ak_sinc_reconstruction
 
 ## Define variables
 Ts=0.2 #sampling interval (in seconds)

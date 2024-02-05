@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import lfilter
-from lasse import ak_psd
+from lasse.util.ak_functions import ak_psd
 
 B = np.array([1+3j, -0.8-2j]) #MA highpass filter with complex coefficients
 #B = np.array([1, 0.8]) #MA lowpass filter with real coefficients

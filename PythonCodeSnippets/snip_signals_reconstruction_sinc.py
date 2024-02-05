@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from lasse import ak_sinc_reconstruction
+from lasse.util.ak_functions import ak_sinc_reconstruction
 
 ## Define variables
 Ts=0.1 #sampling interval (in seconds)
