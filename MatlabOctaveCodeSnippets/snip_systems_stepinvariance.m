@@ -8,7 +8,7 @@ Bz=[0 1-exp(-a*Ts)]; %get theoretical B(z).
 Az=[1 -exp(-a*Ts)]; %get theoretical A(z)
 t=0:Ts:10; qt=1-exp(-a*t); %q(t) is the system response to u(t)
 un=ones(1,2*length(t));
-hn=impz(Bz,Az,length(ht)); %discrete-time h[n] from H(z)=Bz/Az
+hn=impz(Bz,Az,length(t)); %discrete-time h[n] from H(z)=Bz/Az
 qn=conv(un,hn);
 q_Error=qt - qn(1:length(qt)); %error from column vectors
 disp(['mean square error (MSE) = ' num2str(mean(q_Error.^2))]);
