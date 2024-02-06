@@ -12,19 +12,19 @@ Sms = np.abs(np.fft.fft(x) / N) ** 2
 Sk = np.abs(np.fft.fft(x, n=len(x))) ** 2
 
 # Estimating autocorrelation
-R = np.correlate(x, x, mode='full') / len(x)
+R = np.correlate(x, x, mode="full") / len(x)
 lags = np.arange(-M, M + 1)
 
-Sxcorr = np.abs(np.fft.fft(R))# PSD via autocorrelation
+Sxcorr = np.abs(np.fft.fft(R))  # PSD via autocorrelation
 
 
-Power = np.sum(Sms)# Power obtained from MS spectrum
+Power = np.sum(Sms)  # Power obtained from MS spectrum
 
 
-Power2 = (BW / N) * np.sum(Sk)# Power from periodogram
+Power2 = (BW / N) * np.sum(Sk)  # Power from periodogram
 
 
-Power3 = (BW / N) * np.sum(Sxcorr)# Power from periodogram via xcorr
+Power3 = (BW / N) * np.sum(Sxcorr)  # Power from periodogram via xcorr
 
 
 print("MS Spectrum:", Sms)
