@@ -20,7 +20,9 @@ if nargin == 0
     finalFormatting='wider'; %default is to make plots wider
 end
 
-h=figure(1); %get handler, which is a "Figure" object
+%get handler, which is a "Figure" object, from current figure
+h=get(groot,'CurrentFigure');
+%h=figure(1); %get handler, which is a "Figure" object
 if strcmp(finalFormatting, 'wider') %impose our format
     myFontSize = 12;
     %From http://www.mathworks.com/matlabcentral/newsreader/view_thread/12055

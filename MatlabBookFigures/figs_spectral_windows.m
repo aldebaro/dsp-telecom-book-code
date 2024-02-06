@@ -1,4 +1,167 @@
-% Windows
+%% Plots illustrating leakage
+% Assume pwd is something like 
+% C:\ak_bootor\dsp-telecom-book-code\MatlabOctaveFunctions
+outputFolder = '../../latex/ak_dspbook/Figures/';
+W0 = 1; % signal angular frequency in rad
+A = 3; % signal amplitude in V
+N = 14; % window duration in samples
+M = 10000; % samples to represent infinite duration signal
+subplot(311)
+w=[-W0 W0]; Xw=0.5*pi*[A A]; 
+h=ak_impulseplot(Xw,w,[]);
+xlabel(''), ylabel('X(e^{j\Omega})')
+axis([-pi pi 0 A*N/2+2])
+%ak_makedatatip(h,[-W0, Xw(1)])
+whereToPlace='northwest'; ak_makedatatip(h,[W0, Xw(2)], whereToPlace)
+subplot(312)
+% discretize the frequency axis in large number M of points
+Omega = linspace(-pi, pi, M); 
+%add frequency values of interest to facilitate plots
+Omega = sort([Omega -W0 W0 0]);
+W_div_2 = Omega/2; %speed up things computing only once
+rect_window_dtft=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+rect_window_dtft(isnan(rect_window_dtft))=N; %L'Hospital rule to correct NaN if 0/0
+h=plot(Omega, abs(rect_window_dtft));
+xlabel(''), ylabel('|W(e^{j\Omega})|')
+axis([-pi pi 0 A*N/2+2])
+whereToPlace='northwest'; ak_makedatatip(h,[0, N], whereToPlace)
+subplot(313)
+W_div_2 = (Omega+W0)/2; %speed up things computing only once
+dtft_parcel1=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel1(isnan(dtft_parcel1))=N; %L'Hospital rule to correct NaN if 0/0
+W_div_2 = (Omega-W0)/2; %speed up things computing only once
+dtft_parcel2=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel2(isnan(dtft_parcel2))=N; %L'Hospital rule to correct NaN if 0/0
+Xw = (A/2)*(dtft_parcel1 + dtft_parcel2);
+h=plot(Omega, abs(Xw));
+axis([-pi pi 0 A*N/2+2])
+W0_index = find(Omega==-W0);
+whereToPlace='southeast'; ak_makedatatip(h,[-W0, Xw(W0_index)], whereToPlace)
+xlabel('\Omega (rad)'), ylabel('|X_w(e^{j\Omega})|')
+writeEPS('leakage_example','none',outputFolder)
+
+N = 50; % window duration in samples
+M = 10000; % samples to represent infinite duration signal
+subplot(311)
+w=[-W0 W0]; Xw=0.5*pi*[A A]; 
+h=ak_impulseplot(Xw,w,[]);
+xlabel(''), ylabel('X(e^{j\Omega})')
+axis([-pi pi 0 A*N/2+2])
+%ak_makedatatip(h,[-W0, Xw(1)])
+whereToPlace='northwest'; ak_makedatatip(h,[W0, Xw(2)], whereToPlace)
+subplot(312)
+% discretize the frequency axis in large number M of points
+Omega = linspace(-pi, pi, M); 
+%add frequency values of interest to facilitate plots
+Omega = sort([Omega -W0 W0 0]);
+W_div_2 = Omega/2; %speed up things computing only once
+rect_window_dtft=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+rect_window_dtft(isnan(rect_window_dtft))=N; %L'Hospital rule to correct NaN if 0/0
+h=plot(Omega, abs(rect_window_dtft));
+xlabel(''), ylabel('|W(e^{j\Omega})|')
+axis([-pi pi 0 A*N/2+2])
+whereToPlace='northwest'; ak_makedatatip(h,[0, N], whereToPlace)
+subplot(313)
+W_div_2 = (Omega+W0)/2; %speed up things computing only once
+dtft_parcel1=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel1(isnan(dtft_parcel1))=N; %L'Hospital rule to correct NaN if 0/0
+W_div_2 = (Omega-W0)/2; %speed up things computing only once
+dtft_parcel2=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel2(isnan(dtft_parcel2))=N; %L'Hospital rule to correct NaN if 0/0
+Xw = (A/2)*(dtft_parcel1 + dtft_parcel2);
+h=plot(Omega, abs(Xw));
+axis([-pi pi 0 A*N/2+2])
+W0_index = find(Omega==-W0);
+whereToPlace='southeast'; ak_makedatatip(h,[-W0, Xw(W0_index)], whereToPlace)
+xlabel('\Omega (rad)'), ylabel('|X_w(e^{j\Omega})|')
+writeEPS('leakage_example2','none',outputFolder)
+
+N = 1000; % window duration in samples
+M = 10000; % samples to represent infinite duration signal
+subplot(311)
+w=[-W0 W0]; Xw=0.5*pi*[A A]; 
+h=ak_impulseplot(Xw,w,[]);
+xlabel(''), ylabel('X(e^{j\Omega})')
+axis([-pi pi 0 A*N/2+2])
+%ak_makedatatip(h,[-W0, Xw(1)])
+whereToPlace='northwest'; ak_makedatatip(h,[W0, Xw(2)], whereToPlace)
+subplot(312)
+% discretize the frequency axis in large number M of points
+Omega = linspace(-pi, pi, M); 
+%add frequency values of interest to facilitate plots
+Omega = sort([Omega -W0 W0 0]);
+W_div_2 = Omega/2; %speed up things computing only once
+rect_window_dtft=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+rect_window_dtft(isnan(rect_window_dtft))=N; %L'Hospital rule to correct NaN if 0/0
+h=plot(Omega, abs(rect_window_dtft));
+xlabel(''), ylabel('|W(e^{j\Omega})|')
+axis([-pi pi 0 A*N/2+2])
+whereToPlace='northwest'; ak_makedatatip(h,[0, N], whereToPlace)
+subplot(313)
+W_div_2 = (Omega+W0)/2; %speed up things computing only once
+dtft_parcel1=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel1(isnan(dtft_parcel1))=N; %L'Hospital rule to correct NaN if 0/0
+W_div_2 = (Omega-W0)/2; %speed up things computing only once
+dtft_parcel2=(sin(N*W_div_2)./sin(W_div_2)).*exp(-1j*W_div_2*(N-1));
+dtft_parcel2(isnan(dtft_parcel2))=N; %L'Hospital rule to correct NaN if 0/0
+Xw = (A/2)*(dtft_parcel1 + dtft_parcel2);
+h=plot(Omega, abs(Xw));
+axis([-pi pi 0 A*N/2+2])
+W0_index = find(Omega==-W0);
+whereToPlace='southeast'; ak_makedatatip(h,[-W0, Xw(W0_index)], whereToPlace)
+xlabel('\Omega (rad)'), ylabel('|X_w(e^{j\Omega})|')
+writeEPS('leakage_example3','none',outputFolder)
+
+%% Plots illustrating combined effect of leakage and picket-fence
+outputFolder = '../../latex/ak_dspbook/Figures/';
+clf
+snip_frequency_fftCosineExample(8,2)
+writeEPS('leak_picket_ex1','none',outputFolder)
+
+clf
+snip_frequency_fftCosineExample(8,2.5)
+writeEPS('leak_picket_ex2','none',outputFolder)
+
+clf
+snip_frequency_fftCosineExample(8,0)
+writeEPS('leak_picket_ex3','none',outputFolder)
+
+clf
+snip_frequency_fftCosineExample(32, 8.3)
+writeEPS('leak_picket_ex4','none',outputFolder)
+
+clf
+subplot(221)
+N=10;
+n=0:N-1;
+alpha=2.5;
+xwn=6*cos(alpha*2*pi/N*n);
+stem(n,xwn)
+ylabel('x_w[n]')
+subplot(222)
+snip_frequency_fftCosineExample(N, alpha)
+xlabel('')
+subplot(223)
+alpha=pi;
+xwn=6*cos(alpha*2*pi/N*n);
+stem(n,xwn)
+xlabel('n'), ylabel('x_w[n]')
+subplot(224)
+snip_frequency_fftCosineExample(N, alpha)
+writeEPS('leak_picket_ex5','none',outputFolder)
+
+clf
+subplot(121)
+N=256;
+alpha=50;
+snip_frequency_fftCosineExample(N, alpha)
+alpha=30.5;
+subplot(122)
+snip_frequency_fftCosineExample(N, alpha)
+ylabel('')
+writeEPS('leak_picket_ex6','none',outputFolder)
+
+%% Windows
 clf
 numW = 5; %number of windows
 N=32;
