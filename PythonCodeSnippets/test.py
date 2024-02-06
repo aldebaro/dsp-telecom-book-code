@@ -12,8 +12,7 @@ R = np.correlate(x, x, mode='full') / N  # divide by N for biased autocorrelatio
 l = np.arange(-maxLag, maxLag + 1)  # lag values corresponding to R
 
 # Plotting
-center = int((len(R) - 1) / 2)
-plt.stem(l, R[center - maxLag:center + maxLag + 1])  # Adjust the indexing here
+plt.stem(l, R[N-1:N+maxLag*2])  # Adjust the indexing here
 plt.xlabel('lag l')
 plt.ylabel('autocorrelation R[l]')
 plt.show()

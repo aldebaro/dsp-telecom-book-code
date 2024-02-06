@@ -17,14 +17,14 @@ xn = A * np.cos(2 * np.pi * fc * t)  # cosine sampled at Fs
 
 # Generate oversampled version of xn
 oversampled_Ts = Ts / oversampling_factor  # new value of Ts
-oversampled_n = np.arange(n[0] * oversampling_factor, n[-1] * oversampling_factor + 1)
+oversampled_n = np.arange(int(n[0] * oversampling_factor), int(n[-1] * oversampling_factor) + 1)
 oversampled_t = oversampled_n * oversampled_Ts  # time in seconds
 oversampled_xn = A * np.cos(2 * np.pi * fc * oversampled_t)  # oversampled cosine
 
-# Reconstruct signal from samples stored at xn and compare with
-# the "ground truth" oversampled_xn
-def ak_sinc_reconstruction(n, xn, Ts, oversampled_n, oversampled_xn, textra):
-    # Reconstruction code goes here
+def ak_sinc_reconstruction(n, x, Ts, t_oversampled, xo, t_oversampled_expanded, x_reconstructed, x_parcels):
+    # Add your plotting code here
     pass
 
+# Reconstruct signal from samples stored at xn and compare with
+# the "ground truth" oversampled_xn
 ak_sinc_reconstruction(n, xn, Ts, oversampled_n, oversampled_xn, textra)
