@@ -1,9 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # Custom function to mimic MATLAB's rectpuls
 def rectpuls(t, width):
     return np.where(np.abs(t) <= width / 2, 1, 0)
+
 
 # Mimicking a continuous-time signal by using plot
 Ts = 0.001  # Sampling interval in seconds
@@ -15,8 +17,8 @@ x = A * rectpuls(t - tc, pulse_width)
 
 plt.subplot(2, 1, 1)
 plt.plot(t, x)  # Plot as a continuous-time signal
-plt.xlabel('t')
-plt.ylabel('x(t)')
+plt.xlabel("t")
+plt.ylabel("x(t)")
 
 # Making explicit the signal is discrete-time by using stem
 n = np.arange(-10, 11)  # Discrete-time in seconds
@@ -27,7 +29,7 @@ x = A * rectpuls(n - nc, pulse_width)
 
 plt.subplot(2, 1, 2)
 plt.stem(n, x)  # Plot as a discrete-time signal
-plt.xlabel('n')
-plt.ylabel('x[n]')
+plt.xlabel("n")
+plt.ylabel("x[n]")
 
 plt.show()

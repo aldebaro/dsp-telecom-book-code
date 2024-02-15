@@ -36,11 +36,11 @@ while begin_index < Nx:
     yblock = ifft(Xblock * H, Nfft)  # Get circular convolution result
     output_index = min(begin_index + Nfft, Nh + Nx - 1)  # Auxiliary variable
     # Add partial result, ensuring to only use the real part of the complex numbers
-    y[begin_index:output_index] += yblock[:output_index - begin_index].real
+    y[begin_index:output_index] += yblock[: output_index - begin_index].real
     begin_index += Nb  # Shift beginning of block
 
 
 # Compare the error with result from conv
-error = y - np.convolve(x, h, mode='full')
+error = y - np.convolve(x, h, mode="full")
 plt.stem(error)
 plt.show()
