@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import lfilter, freqz
-from scipy.signal import welch, windows
+from scipy.signal import welch
 from aryule_function import aryule
 
 N = 100000

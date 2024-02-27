@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import lfilter, freqz
-from scipy.signal import welch, windows
+from scipy.signal import welch
 from aryule_function import aryule
 
 N = 100000
@@ -14,14 +14,14 @@ y = lfilter(B, A, x)  # realization of an AR(2) process
 Py = np.mean(np.abs(y) ** 2)  # output power
 
 for P in range(1, 5):  # vary the filter order
-    f, Sy = welch(y, window="rect", nperseg=N, fs=Fs, return_onesided=False)
+    f, Sy = welch(y, window="rect", nperseg=N, fs=Fs,noverlap=None, return_onesided=False)
     w, Hthe = freqz(B, A, worN=N, whole=True)
     Ahat, Perror, rc = aryule(y, P)  # estimate filter of order P
     w, Hhat = freqz(np.sqrt(Perror), Ahat, worN=N, whole=True)
 
     plt.figure()
     plt.plot(np.fft.fftshift(2 * np.pi * f) + np.pi, 10 * np.log10(Sy), "r")
-    plt.plot(w, 10 * np.log10(Px * np.abs(Hthe) ** 2), "k--")
     plt.plot(w, 10 * np.log10(Px * np.abs(Hhat) ** 2), "b")
+    plt.plot(w, 10 * np.log10(Px * np.abs(Hthe) ** 2), "k--")
     plt.legend(["Welch", "Theoretical", "AR"])
-    plt.show()
+plt.show()
