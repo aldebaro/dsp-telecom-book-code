@@ -24,4 +24,4 @@ for P in range(1, 5):  # vary the filter order
     plt.plot(w, 10 * np.log10(Px * np.abs(Hhat) ** 2), "b")
     plt.plot(w, 10 * np.log10(Px * np.abs(Hthe) ** 2), "k--")
     plt.legend(["Welch", "Theoretical", "AR"])
-plt.show()
+    plt.show()
