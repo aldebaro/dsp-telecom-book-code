@@ -1,5 +1,3 @@
-#from .correlation import CORRELATION
-#from .levinson import LEVINSON
 from spectrum import LEVINSON, CORRELATION
 import numpy as np
 
