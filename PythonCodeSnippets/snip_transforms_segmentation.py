@@ -15,9 +15,9 @@ M = np.floor(S / N).astype(int) # Number of blocks, floor may discard last block
 powerPerBlock = np.zeros(M) # Pre-allocate space
 
 for m in range(M):  # Following the book convention
-    beginIndex = m * N + 1 # Index of the m-th block start
+    beginIndex = m * N  # Index of the m-th block start
    
-    endIndex = beginIndex + N - 1 # m-th block end index
+    endIndex = beginIndex + N  # m-th block end index
    
     xm = x[beginIndex:endIndex]  # The samples of m-th block
     powerPerBlock[m] = np.mean(abs(xm) ** 2) # Estimate power of block xm
