@@ -31,6 +31,7 @@ Fs = 1 / Ts  # sampling frequency (5 Hz)
 fc = Fs / 4  # cosine frequency (1.25 Hz)
 oversampling_factor = 200  # oversampling factor
 textra = 1 # one extra time (1 second) for visualizing sincs
+graph_overlay = False #allows you to plot overlapping graphs
 
 # Generate signal xn sampled at Fs
 n = np.arange(-max_n, max_n + 1)  # original discrete-time axis as integers
@@ -46,4 +47,4 @@ oversampled_xn = A * np.cos(2 * np.pi * fc * oversampled_t)  # oversampled cosin
 
 # Reconstruct signal from samples stored at xn and compare with
 # the "ground truth" oversampled_xn
-a=sR.ak_sinc_reconstruction(n, xn, Ts, oversampled_n, oversampled_xn, textra)
+a=sR.ak_sinc_reconstruction(n, xn, Ts, oversampled_n, oversampled_xn, textra, graph_overlay) #Store all output
