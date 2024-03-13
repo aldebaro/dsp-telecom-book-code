@@ -9,7 +9,7 @@ def integers(vector):
     else:
         return False
     
-def ak_sinc_reconstruction(n, xn, Ts, n_oversampled, xo, textra=0):
+def ak_sinc_reconstruction(n, xn, Ts, n_oversampled, xo, textra=0,go=False):
     # Verifications
 
     if integers(n) != True: #check if vector has only integerscode 
@@ -47,7 +47,6 @@ def ak_sinc_reconstruction(n, xn, Ts, n_oversampled, xo, textra=0):
     
     n_oversampled_expanded = np.arange(int(n_oversampled[0]- nextra),n_oversampled[-1]+nextra+1)
     t_oversampled_expanded = n_oversampled_expanded*oversampled_Ts
-    print(t_oversampled_expanded)
     total_samples= len(t_oversampled_expanded)
     
     '''Find parcel corresponding to each sinc and sum them to
@@ -69,7 +68,7 @@ def ak_sinc_reconstruction(n, xn, Ts, n_oversampled, xo, textra=0):
     
     # Subplot 1
     plt.subplot(3, 1, 1)    
-    plt.plot(n, xn)
+    plt.stem(n, xn)
     plt.title('Discret_Signal')
     plt.grid()
     # Subplot 2
@@ -78,12 +77,15 @@ def ak_sinc_reconstruction(n, xn, Ts, n_oversampled, xo, textra=0):
     plt.title('Oversampled_Signal')
     plt.grid()
     # Subplot 3
-    plt.subplot(3, 1, 3)
-    plt.plot(t_oversampled_expanded,x_reconstructed[0])
-    #plt.plot(t_oversampled_expanded,x_reconstructed[0], label='Graph1') #Plot the oversampled signal and
-    #plt.plot(t_oversampled, xo, label='Graph2')                         # reconstructed signal at the same time
-    plt.title('Reconstructed_Signal')
-
+    if go:
+        plt.subplot(3, 1, 3)
+        plt.plot(t_oversampled_expanded,x_reconstructed[0], label='Graph1')#Plot the oversampled signal and
+        plt.plot(t_oversampled, xo, label='Graph2')                         # reconstructed signal at the same time
+        plt.title('Reconstructed_Signal')
+    else:
+        plt.subplot(3, 1, 3)
+        plt.plot(t_oversampled_expanded,x_reconstructed[0])
+        plt.title('Reconstructed_Signal')
     plt.tight_layout()
     plt.grid()
     plt.show()
