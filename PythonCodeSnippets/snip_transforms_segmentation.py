@@ -8,8 +8,6 @@ x = rand(S) # Create some very very long vector
 
 N = 50 # Number of samples per frame (or block)
 
-M = np.floor(S / N) # Number of blocks, floor may discard last block samples
-
 M = np.floor(S / N).astype(int) # Number of blocks, floor may discard last block samples
 
 powerPerBlock = np.zeros(M) # Pre-allocate space
