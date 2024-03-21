@@ -1,6 +1,6 @@
 # Jupyter notebooks
 
-Below are some notebooks of the [book's applications](https://ai6g.org/books/dsp/Applications.html#x20-770001.13) which can be viwed in Google Colab.
+Below are some notebooks of the [book's applications](https://ai6g.org/books/dsp/Applications.html#x20-770001.13) which can be viewed in Google Colab.
 
 - [Using Cross-Correlation For Synchronization Of Two Signals Or Time Alignment](https://colab.research.google.com/github/aldebaro/dsp-telecom-book-code/blob/master/PythonNotebooks/ch1ap14_UsingCross-CorrelationForSynchronizationOfTwoSignalsOrTime-alignment.ipynb?authuser=2)
 - [Recording Sound](https://colab.research.google.com/github/aldebaro/dsp-telecom-book-code/blob/master/PythonNotebooks/ch1ap2_RecordingSound.ipynb?authuser=2)
