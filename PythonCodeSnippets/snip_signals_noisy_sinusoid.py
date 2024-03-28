@@ -37,17 +37,15 @@ ly = Hy[0]
 Ry = Hy[1]
 Ry /= (x + z).size - abs(ly)
 
-plt.figure
-plt.subplot(311)
-plt.ylabel('R_x[l]')
-plt.stem(lx, Rx)
+fig,axs = plt.subplots(3,1)
 
-plt.subplot(312)
-plt.ylabel('R_z[l]')
-plt.stem(lz, Rz)
+axs[0].stem(lx,Rx)
+axs[0].set_ylabel("R_x[I]")
 
-plt.subplot(313)
-plt.stem(ly, Ry)
-plt.xlabel('Lag l')
-pl.ylabel('R_y[l]')
+axs[1].stem(lz,Rz)
+axs[1].set_ylabel("R_z[l]")
+
+axs[2].stem(ly,Ry)
+axs[2].set_ylabel("R_y[l]")
+axs[2].set_xlabel("Lag I")
 pl.show()
