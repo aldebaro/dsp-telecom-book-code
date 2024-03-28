@@ -11,4 +11,7 @@ for i in range(N - 1):
         temp = temp + (x[n + i + 1] * x[n].conjugate())
     R[i + 1] = temp
 Q = np.conjugate(np.flip(R[1:]))
-print(Q)
+
+R_x = np.concatenate((Q,R))
+print(R_x)
+
