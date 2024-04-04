@@ -34,6 +34,6 @@ try:
         plt.draw() #update the graph in the same figure
         plt.pause(0.1)
 
-except KeyboardInterrupt:
+except KeyboardInterrupt: #press CTRL to end recording
     print("Finish Recording")
     
