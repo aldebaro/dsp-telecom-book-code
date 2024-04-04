@@ -30,4 +30,3 @@ with wave.open(file_name) as wf:
 
 result = np.array_equal(y, z)
 print(result)  # should return true
-
