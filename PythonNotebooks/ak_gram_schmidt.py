@@ -27,37 +27,40 @@ def ak_gram_schmidt(x):
                 ((y(m,:)*x(k,:)')/(y(m,:)*y(m,:)'))*y(m,:);
     but in the code y(m,:)*y(m,:)'=1 and the denominator is 1
     """
-    
-    print(np.finfo(max(x)))
-    tol=min(max(np.transpose(np.shape(x)))*np.finfo(max(x))) #find tolerance
+
+    #tol=min(max(np.transpose(np.shape(x))) * np.finfo(float).eps * np.max(x)) #find tolerance
+
+    # tol = np.min(np.max(np.shape(x) * np.finfo(float).eps * np.max(x)))
+    x = np.array(x)
+    tol = np.finfo(float(np.max(x))).eps * max(x.shape)
 
     m, dimension=np.shape(x)
     if dimension > m:
         print('Input dimension larger than number of vectors,\nwhich is ok if you are aware about')
 
     N = np.linalg.matrix_rank(x,tol=tol) # note: rank is slow because it uses SVD
-    y[:] = np.zeros((N, dimension)) # pre-allocate space
-    #print("y zeros =", y)
+    y = np.zeros((N, dimension)) # pre-allocate space
+
     # pick first vector and normalize it
-    print("x[:] =", x[:])
-    print(sum(np.power(x[:], 2)))
-    print("div =", np.sqrt(sum(np.power(x[:], 2))))
+
     y = x[:] / np.sqrt(sum(np.power(x[:], 2)))
     numBasis = 1
 
     for k in range(1, m):
-        errorVector = x[k:] # error (or target) vector
+        errorVector = x[k,:] # error (or target) vector
         for m in range(1, numBasis): # go over all previously selected basis
             # p_xy = <x,y> * y; # recall, in this case: ||y||=1
-            projectionOverBasis = ((y[m:]*np.transpose(x[k:])))*y[m:]
+            projectionOverBasis = ((y[m,:]*np.transpose(x[k,:])))*y[m,:]
             # update target:
-            errorVector -= projectionOverBasis
-            
+            errorVector = errorVector - projectionOverBasis
+        
         magErrorVector = np.sqrt(sum(np.power(errorVector, 2)))
+        print(f"magErrorVector {k} = ", magErrorVector)
+
         if ( magErrorVector > tol ):
             # keep the new vector in basis set
             numBasis += 1
-            y[numBasis:] = errorVector / magErrorVector
+            y[numBasis,:] = errorVector / magErrorVector
             if (numBasis >= N):
                 break # Abort. Reached final number of vectors
 
@@ -68,15 +71,18 @@ def ak_gram_schmidt(x):
 
 
 def test_ak_gram_schmidt():
-    x = [[0, -1, -1, 0],
-         [0, 2,  2,  0],
-         [0, 1,  0,  1],
-         [1, 1,  1,  1],
+    x = [[0, -1, -1,  0],
+         [0,  2,  2,  0],
+         [0,  1,  0,  1],
+         [1,  1,  1,  1],
          [-1, 2 , 2,  1]]
 
     Ah, A = ak_gram_schmidt(x)
-    print("Ah = ", Ah)
-    print("A = ", A)
+    print("x = \n", np.array(x))
+    print()
+    print("Ah = \n", Ah)
+    print()
+    print("A = \n", A)
 
 if __name__ == "__main__":
     test_ak_gram_schmidt()
