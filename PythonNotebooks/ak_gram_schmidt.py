@@ -55,7 +55,7 @@ def ak_gram_schmidt(x):
             errorVector = errorVector - projectionOverBasis
         
         magErrorVector = np.sqrt(sum(np.power(errorVector, 2)))
-        print(f"magErrorVector {k} = ", magErrorVector)
+        # print(f"magErrorVector {k} = ", magErrorVector)
 
         if ( magErrorVector > tol ):
             # keep the new vector in basis set
