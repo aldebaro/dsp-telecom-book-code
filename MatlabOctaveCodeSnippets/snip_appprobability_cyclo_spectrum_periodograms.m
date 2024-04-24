@@ -3,10 +3,10 @@ N=1e3*P; %number of samples of this realization (force multiple of P)
 Wc=2*pi/P; Phc=pi/5; %carrier frequency and phase, both in radians
 n=0:N-1; carrier=transpose(cos(Wc*n+Phc)); %same for all realizations
 x=randn(N,1).*carrier; %WGN modulated by sinusoidal carrier
-L = length(x);		% signal length
-Nw = 128;			% window length
-Nv = fix(2/3*Nw);	% block overlap
-nfft = 2*Nw;		% FFT length
+L = length(x);      % signal length
+Nw = 128;           % window length
+Nv = fix(2/3*Nw);   % block overlap
+nfft = 2*Nw;        % FFT length
 da = 1/L;           % cyclic frequency resolution (normalized freq)
 cycleIndex = round(2*Wc/(2*pi*da)); %find the correct cycle
 a1 = cycleIndex-20; % first cyclic freq. bin to scan (cycle a1*da)
