@@ -1,8 +1,13 @@
 close all
+use_bilinear=0;
+if use_bilinear==1
+    zTosMapping='s=(2*Fs*(z-1))./(z+1)'; %bilinear transformation
+else
+    zTosMapping='s=z*Fs'; %some "crazy" transformation    
+    Fs=(20*wfilter)/(2*pi); %choose sampling frequency (Hz)
+end
 chebyshevFilterType=1; %1 has ripple in passband, 2 in stopband
 filterOrder=4; %H(s) filter order
-zTosMapping='s=z*Fs'; %some transformation
-%zTosMapping='s=(2*Fs*(z-1))./(z+1)'; %bilinear transformation
 if chebyshevFilterType==1
     wfilter=8; %passband frequency (rad/s);
     passbandRipple=1; %maximum ripple in passband (dB)
@@ -12,7 +17,6 @@ elseif chebyshevFilterType==2
     stopbandRipple=40; %ripple down from the peak passband value (dB)
     [Bs,As]=cheby2(filterOrder,stopbandRipple,wfilter,'s'); % H(s)
 end
-Fs=(20*wfilter)/(2*pi); %choose sampling frequency (Hz)
 %% Plot H(s) and the corresponding H(z)
 slim=20;
 [Xs,Ys]=meshgrid(linspace(-slim,slim,100)); %100x100 grid in S plane
@@ -24,7 +28,7 @@ z=Xz+1j*Yz; %matrix with all points of interest in z plane
 %for each point z at Z plane, find s and the corresponding value H(s)
 %s=(2*Fs*(z-1))./(z+1); %use bilinear transformation
 eval(zTosMapping); %for each z, find the corresponding s
-%Use H(z)=H(s)|s=2Fs(z-1)/(z+1)
+%Use H(z)=H(s)|s=f(z), where f(z) could be, e.g., f(z)=2Fs(z-1)/(z+1)
 Hz=polyval(Bs,s)./polyval(As,s); %H(z)
 figure(1)
 meshc(Xs,Ys,20*log10(abs(Hs))); %plot in dB
