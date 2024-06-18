@@ -1,8 +1,11 @@
 %plots for Laplace transform
 %plot magnitude and phase of X(s)=(s-a)/[(s-b)(s-c)(s-c*)] varying the
 %values of s in a grid
+% Use y as rows and x as columns for better visualization
+% that is: imaginary in rows and real part in columns.
+close all
 clf
-a=1; b=-2; c=-1+j*2; %choose poles and zeros
+a=1; b=-2; c=-1+1j*2; %choose poles and zeros
 smin=-3; smax=3;
 N=100;
 svalues=linspace(smin,smax,N);
@@ -10,36 +13,38 @@ N=length(svalues);
 Xs=zeros(N,N);
 for x=1:N
     for y=1:N
-        s=svalues(x)+j*svalues(y);
-        Xs(x,y)=(s-a)/((s-b)*(s-c)*(s-conj(c)));
+        s=svalues(x)+1j*svalues(y);
+        Xs(y,x)=(s-a)/((s-b)*(s-c)*(s-conj(c)));
     end
 end
 
-%plot magnitude
+%% Plot magnitude
 clf
+%best_view=[13 11];
+best_view=[15 9];
 meshc(svalues,svalues,20*log10(abs(Xs)));
-ylabel('\sigma')
-xlabel('j\omega')
+xlabel('\sigma')
+ylabel('j\omega')
 zlabel('20 log_{10} |X(s)|');
-view([-67 24]);
+view(best_view);
 writeEPS('s_mag')
 
-%plot phase
+%% Plot phase
 mesh(svalues,svalues,unwrap(angle(Xs)));
 hold on;
 %show also pole and zero location
 minValue=-10;
-plot3(imag(a),real(a),minValue,'o','markersize',12)
-plot3(imag(b),real(b),minValue,'x','markersize',12)
-plot3(imag(c),real(c),minValue,'x','markersize',12)
-plot3(-imag(c),real(c),minValue,'x','markersize',12)
-ylabel('\sigma')
-xlabel('j\omega')
+plot3(real(a),imag(a),minValue,'o','markersize',12)
+plot3(real(b),imag(b),minValue,'x','markersize',12)
+plot3(real(c),imag(c),minValue,'x','markersize',12)
+plot3(real(c),-imag(c),minValue,'x','markersize',12)
+xlabel('\sigma')
+ylabel('j\omega')
 zlabel('angle of X(s) (rad)');
-view([-15 12]);
+view(best_view);
 writeEPS('s_phase')
 
-%zero pole representation
+%% Zero pole representation
 clf
 plot(a,0,'o','markersize',12,'linewidth',2);
 hold on
@@ -53,29 +58,29 @@ line([0,0],[-3,3],'linewidth',1,'color','k')
 grid
 writeEPS('s_polezero')
 
-%superimpose the jw axis
+%% Superimpose the jw axis to magnitude
 clf
 meshc(svalues,svalues,20*log10(abs(Xs)));
 hold on
 wfreqs = linspace(-3,3,2*N);
-s=j*wfreqs;
+s=1j*wfreqs;
 Xs_in_w=(s-a)./((s-b).*(s-c).*(s-conj(c)));
-plot3(imag(s),real(s),20*log10(abs(Xs_in_w)),'k','linewidth',2);
+plot3(real(s),imag(s),20*log10(abs(Xs_in_w)),'k','linewidth',2);
 %plot
-ylabel('\sigma')
-xlabel('j\omega')
+xlabel('\sigma')
+ylabel('j\omega')
 zlabel('20 log_{10} |X(s)|');
-view([-145 8]);
+view(best_view);
 writeEPS('s_mag_and_jw')
 
 %plot only the response at the jw axis
 clf
-plot3(imag(s),real(s),20*log10(abs(Xs_in_w)),'k','linewidth',2);
+plot3(real(s),imag(s),20*log10(abs(Xs_in_w)),'k','linewidth',2);
 %plot
-ylabel('\sigma')
-xlabel('j\omega')
+xlabel('\sigma')
+ylabel('j\omega')
 zlabel('20 log_{10} |X(s)|');
-view([-145 8]);
+view(best_view);
 axis([-3 3 -3 3 -60 30])
 grid
 writeEPS('s_jw')

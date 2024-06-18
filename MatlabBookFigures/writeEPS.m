@@ -4,17 +4,24 @@ function writeEPS(outputFileName, finalFormatting, outputFolder)
 % ak_increaseFigureItems unless finalFormatting == 'none'.
 % Default value of finalFormatting is 'wider'
 % See ak_increaseFigureItems.
+%TODO because I am using symbolic links for the latex, the definition
+%of the output folder got more tricky. I should use an environment
+%variable.
 if nargin == 1
     finalFormatting='wider'; %default is to make plots wider
 end
 if nargin < 3
     %User did not specify an outputFolder.
-    %There are now two options for the relative position of the current
+    %There are now three options for the relative position of the current
     %folder with respect to the output folder Figures
     outputFolder='../../Figures/';
     doesFolderExist=exist(outputFolder,'dir');
     if doesFolderExist == 0
         outputFolder='../../../Figures/';
+        doesFolderExist=exist(outputFolder,'dir');
+        if doesFolderExist == 0        
+            outputFolder='../../latex/ak_dspbook/Figures/';
+        end
     end
 end
 
@@ -29,6 +36,11 @@ end
 %print -depsc ../../Figures/outputFileName.eps
 
 fullPathFileName = [outputFolder outputFileName '.eps'];
+
+% delete png and pdf versions in this folder
+png_fullPathFileName = [outputFolder outputFileName '.png'];
+pdf_fullPathFileName = [outputFolder outputFileName '.pdf'];
+
 disp(['Printing ' fullPathFileName]);
 if 1
     %old style
@@ -59,4 +71,14 @@ else
     else %for gray color space (black and white figures)
         eval(['export_fig ' fullPathFileName ' -painters -q100 -RGB -r600 -gray']);
     end
+end
+
+if exist(png_fullPathFileName,'file')
+    eval(['delete ' png_fullPathFileName])
+    disp(['Deleting ' png_fullPathFileName]);
+end
+
+if exist(pdf_fullPathFileName,'file')
+    eval(['delete ' pdf_fullPathFileName])
+    disp(['Deleting ' pdf_fullPathFileName]);
 end
