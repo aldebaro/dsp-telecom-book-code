@@ -33,7 +33,7 @@ subplot(212)
 randn('state',0)
 N = 3000; % number of samples and FFT size
 power_x = 600; %desired noise power in Watts
-Fs = 1; %sampling frequency = BW = 1 Dhertz
+Fs = 1; %sampling frequency = BW = 1
 x=sqrt(power_x) * randn(1,N); %Gaussian white noise
 actualPower = mean(x.^2) %the actual obtained power 
 [Sk,F]=periodogram(x,[],[],Fs,'twosided'); %periodogram 
