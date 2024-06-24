@@ -11,7 +11,7 @@ power_x = N0over2 * Fs; %noise power in Watts
 w=linspace(0,2*pi,N);
 plot(w,power_x*ones(1,N))
 myaxis = axis; myaxis(1)=0; myaxis(2)=2*pi; axis(myaxis);
-xlabel('\Omega (rad)'); ylabel('S_x(e^{j \Omega})  (W/Dhz)');
+xlabel('\Omega (rad)'); ylabel('S_x(e^{j \Omega})');
 writeEPS('awgn_continuous_discrete')
 
 clf
