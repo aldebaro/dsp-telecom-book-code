@@ -12,15 +12,6 @@ writeEPS('sumOfCosinesPeriodogramMSS')
 
 clear all, close all
 snip_frequency_periodogram %generate the signals
-xlabel('\Omega (rad)'); ylabel('S(e^{\Omega})  (W/dHz)');
-datatip(h,2*pi/N,((A^2/2)/2)/(BW/N))
-%second figure
-subplot(212);
-[Smatlab,f]=periodogram(x,[],[],BW,'twosided'); %zero-padding
-h=stem(2*pi*f,Smatlab,'xr');
-xlabel('\Omega (rad)'); ylabel('S(e^{\Omega})  (W/dHz)');
-datatip(h,2*pi/8,((A^2/2)/2)/(BW/N))
-axis tight
 writeEPS('cosinePeriodograms','font12Only')
 
 clear all, close all
@@ -35,6 +26,55 @@ clf, %redo figure
 h=plot(f/1000,10*log10(P)); grid, makedatatip(h,17) %linear scale
 xlabel('Frequency (kHz)'), ylabel('S(f) (dBW/Hz)'), %graph in Hz
 writeEPS('cosinePeriodogramFs8000','font12Only')
+
+clear all, close all
+snip_frequency_cosines_psd
+writeEPS('twocosinesPeriodogram','font12Only')
+
+clear all, close all
+N=128; n=(0:N-1)'; %number of samples and column vector
+Fs=2000; %bandwidth in Hertz, equivalent to sampling frequency
+dW=(2*pi)/N; %FFT bin width in radians, to define cosines
+k1=N/4; k2=N/8; W1=k1*dW; W2=k2*dW;%define frequencies in radians
+x=10*cos(W1*n) + 1*cos(W2*n); %create sum of bin-centered cosines
+Sdef = (abs(fft(x)).^2)/(N*Fs); %periodogram via its definition
+Sdef = [Sdef(1); 2*Sdef(2:N/2); Sdef(N/2+1)]; %convert to unilateral
+[S,w] = periodogram(x,hamming(N),N,Fs); %using periodogram function
+Power_freq=(Fs/N)*sum(S) %estimate power (watts) in frequency domain
+Power_time=mean(x.^2) %estimate power (watts) in time domain
+h=plot(w,10*log10(Sdef),'-x'); hold on
+h2=plot(w,10*log10(S),'-ro'); %Periodogram (dB scale)
+xlabel('f (Hz)'), ylabel('S(f) (dBW/Hz)')
+%use w=W Fs to convert to f in Hz and show datatips (f=W*Fs/(2*pi))
+f1=W1*Fs/(2*pi); f2=W2*Fs/(2*pi); %frequencies in Hz
+datatip(h,f1,Sdef(k1)); datatip(h,f2,Sdef(k2));
+df=Fs/N; %bin width in Hz
+plot([f2 f1], [10*log10(0.5/df) 10*log10(50/df)], 'kx', 'MarkerSize', 12)
+legend('Rectangular','Hamming','True values')
+writeEPS('hamming_periodogram','font12Only')
+
+clear all, close all
+N=128; n=(0:N-1)'; %number of samples and column vector
+Fs=2000; %bandwidth in Hertz, equivalent to sampling frequency
+dW=(2*pi)/N; %FFT bin width in radians, to define cosines
+k1=N/4+0.5; k2=N/8+0.5; W1=k1*dW; W2=k2*dW;%define frequencies in radians
+x=10*cos(W1*n) + 1*cos(W2*n); %create sum of bin-centered cosines
+Sdef = (abs(fft(x)).^2)/(N*Fs); %periodogram via its definition
+Sdef = [Sdef(1); 2*Sdef(2:N/2); Sdef(N/2+1)]; %convert to unilateral
+[S,w] = periodogram(x,hamming(N),N,Fs); %using periodogram function
+Power_freq=(Fs/N)*sum(S) %estimate power (watts) in frequency domain
+Power_time=mean(x.^2) %estimate power (watts) in time domain
+h=plot(w,10*log10(Sdef),'-x'); hold on
+h2=plot(w,10*log10(S),'-ro'); %Periodogram (dB scale)
+xlabel('f (Hz)'), ylabel('S(f) (dBW/Hz)')
+%use w=W Fs to convert to f in Hz and show datatips (f=W*Fs/(2*pi))
+%use w=W Fs to convert to f in Hz and show datatips (f=W*Fs/(2*pi))
+f1=W1*Fs/(2*pi); f2=W2*Fs/(2*pi); %frequencies in Hz
+datatip(h,f1,Sdef(floor(k1))); datatip(h,f2,Sdef(floor(k2)));
+df=Fs/N; %bin width in Hz
+plot([f2 f1], [10*log10(0.5/df) 10*log10(50/df)], 'kx', 'MarkerSize', 12)
+legend('Rectangular','Hamming','True values')
+writeEPS('hamming_nonbincenter','font12Only')
 
 clear all, close all
 randn('state',0); % reset seed for randn generator
