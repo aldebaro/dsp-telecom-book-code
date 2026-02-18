@@ -85,7 +85,7 @@ filterBWInHz=40; %equivalent FFT bandwidth in Hz
 samplingFrequency=8000; %sampling frequenci in Hz
 windowShiftInms=1; %window shift in miliseconds
 thresholdIndB=40; %discards low power values below it
-ak_specgram(dtmfSignal,filterBWInHz,samplingFrequency,windowShiftInms,thresholdIndB)
+ak_specgram(dtmfSignal,samplingFrequency,filterBWInHz,windowShiftInms,thresholdIndB)
 set(gca,'ytick',[lfg,hfg])
 grid
 myaxis=axis;
@@ -110,7 +110,7 @@ for i=1:length(phoneNumber)
     dtmfSignal(firstSample:lastSample)=tones(:,phoneNumber(i));
 end
 clf
-ak_specgram(dtmfSignal,filterBWInHz,samplingFrequency,windowShiftInms,thresholdIndB)
+ak_specgram(dtmfSignal,samplingFrequency,filterBWInHz,windowShiftInms,thresholdIndB)
 set(gca,'ytick',[lfg,hfg])
 grid
 myaxis=axis;

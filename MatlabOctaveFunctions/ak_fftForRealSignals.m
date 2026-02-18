@@ -11,7 +11,7 @@ end
 N2 = N/2; %calculate spectrum using FFT of N/2 points
 %pre-compute the constant factors
 deltaW = 2*pi/N; %angular spacing between points
-angles = deltaW*[0:N2-1]; %angles in rad
+angles = deltaW*(0:N2-1); %angles in rad
 Ai = -cos(angles);
 Ar = 1-sin(angles);
 Bi = cos(angles);

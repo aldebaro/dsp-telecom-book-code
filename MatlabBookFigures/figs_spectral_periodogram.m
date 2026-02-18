@@ -115,15 +115,52 @@ axis([0 4000 -50 15])
 title('16384-points FFT')
 writeEPS('cosineOnAWGN','font12Only')
 
+%% Spectrum of sum of cosines
 clf
-N=3000; %total number of samples
-n=0:N-1; %abscissa
-x1=100*cos(2*pi/30*n); %first cosine
-x2=1*cos(2*pi/7*n); %second cosine
-x=[x1 x2]; %concatenation of 2 cosines
-%plot(0:2*N-1,x)
-subplot(211), pwelch(x), title('')
-ylabel('PSD');
-subplot(212), specgram(x), colorbar
-xlabel('time (samples)');
+Fs=8000; %sampling frequency (Hz)
+Ts=1/Fs; %sampling interval (seconds)
+N=14*Fs; %total number of desired samples (corresponding to 14 sec)
+n=0:N-1; %generate discrete-time abscissa
+t=n*Ts; %discretized continuous-time axis (sec.)
+f0=1000; %cosine frequency (Hz)
+x0=500*cos(2*pi*f0*t+0.3); %signal segment for first half
+f1=3500; %cosine frequency (Hz)
+x1=2*cos(2*pi*f1*t+pi); %signal segment for first half
+x=x0+x1; %sum of 2 frequency components
+ak_spectrum(x, Fs);
+writeEPS('simplefreqcomponents','font12Only')
+
+%% Spectrum now using dBm
+clf
+[X, f] = ak_spectrum(x, Fs);
+mag = abs(X);
+phase = angle(X);
+subplot(211)
+%plot(f, 10*log10((mag.^2)/(1e-3))); %convert to dBm using definition
+plot(f, 20*log10(mag) + 30); %dBm in simpler equation
+ylabel('Magnitude (dBm)');
+subplot(212)
+plot(f,phase); %plot graph
+ylabel('Phase (rad)');
+%myaxis=axis; axis([f(1),f(end),myaxis(3), myaxis(4)])
+xlabel('Frequency (Hz)');
+writeEPS('simplefreqcomponentsdBm','font12Only')
+
+%% PSD and spectrogram
+subplot(211), ak_psd(x, Fs, 'onesided'); %PSD for real-valued signals
+xlabel('Frequency (Hz)'); ylabel('PSD (dBm / Hz)')
+axis([0 Fs/2 -20 100])
+subplot(212), ak_specgram(x, Fs), colorbar %spectrogram
+writeEPS('newCosinesSpectrogram','font12Only')
+
+%% Different components each half of the signal
+clf
+snip_frequency_cosine_spectogram
+writeEPS('cosinesSpectrum','font12Only')
+
+%% PSD and spectrogram
+subplot(211), ak_psd(z, Fs, 'onesided'); %PSD for real-valued signals
+xlabel('Frequency (Hz)'); ylabel('PSD (dBm / Hz)')
+axis([0 Fs/2 -20 100])
+subplot(212), ak_specgram(z, Fs), colorbar %spectrogram
 writeEPS('cosinesSpectrogram','font12Only')

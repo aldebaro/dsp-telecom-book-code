@@ -1,26 +1,32 @@
-function [newb,f,newt]=ak_specgram(x,suggestedFilterBWInHz,...
-    samplingFrequency,windowShiftInms,thresholdIndB,...
+function [newb,f,newt]=ak_specgram(x,samplingFrequency,...
+    suggestedFilterBWInHz,...
+    windowShiftInms,thresholdIndB,...
     preemphasisCoefficient, verbosity)
-%function [newb,f,newt]=ak_specgram(x,suggestedFilterBWInHz,...
-%    samplingFrequency,windowShiftInms,thresholdIndB,...
+%function [newb,f,newt]=ak_specgram(x,samplingFrequency, ...
+%    suggestedFilterBWInHz, windowShiftInms,thresholdIndB,...
 %    preemphasisCoefficient, verbosity)
-%suggested threshold=120; maximum - threshold is floor value.
-%If x is complex-valued, use frequency range from -Fs/2 to Fs/2-df
-%instead of 0 to Fs-df as in Matlab's.
+%
+% thresholdIndB - threshold is a minimum floor value with respect
+%                 to the maximum value of the spectrogram.
+%
+% If x is complex-valued, the frequency range is -Fs/2 to Fs/2-df.
+% For real-valued x, this range is 0 to Fs-df, as Matlab does.
 %Example:
 %x=randn(1,1000); %white noise
 %or
 % x=exp(-1j*pi/4*(0:999)); %complex tone at -2000 Hz
-% [b,f,t]=ak_specgram(x,80,16000,1,120);
+% [b,f,t]=ak_specgram(x,16000,80,1,120);
 % imagesc(t,f,b);axis xy; colormap(jet)
 % xlabel('seconds'); ylabel('Hz');
 %
-%Aldebaro Klautau - Dec. 2017
+%Aldebaro Klautau - Feb. 2026
 
-if nargin == 1
+if nargin < 3
     disp('Assuming default values.');
+    if nargin == 1
+        samplingFrequency=2;
+    end
     suggestedWindowSize=min(512,length(x));
-    samplingFrequency=2;
     thresholdIndB=120;
     suggestedFilterBWInHz=2*samplingFrequency / suggestedWindowSize;
     windowShiftInms=0.5*1e3*suggestedWindowSize/samplingFrequency;
@@ -116,7 +122,7 @@ newt = transpose(newt);
 
 if (nargout == 0)
     imagesc(newt,f,b);axis xy; colormap(jet)
-    xlabel('seconds'); ylabel('Hz');
+    xlabel('Time (seconds)'); ylabel('Frequency (Hz)');
 else
     %if nargout is 0, avoid having newb printed out because it is
     %undefined but in this case newb has to be passed to the caller
