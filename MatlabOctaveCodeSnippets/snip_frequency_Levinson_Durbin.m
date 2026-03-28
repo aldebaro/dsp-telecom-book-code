@@ -14,7 +14,7 @@ sigma2 = 1;                          % driving noise variance
 w = sqrt(sigma2) * randn(1,N);       % white Gaussian noise
 x = filter(1, A_true, w);            % AR process (synthesis filter)
 %% Estimate autocorrelation (Matlab assumes it's real-valued)
-r = xcorr(x, P, 'biased');           % biased estimate
+r = xcorr(x, P, 'biased');           % autocorrelation estimate
 r = r(P+1:end);                      % keep lags 0...P
 %% Estimate linear filter via MATLAB and custom implementation
 [A1, E1, K1] = levinson(r, P);       % MATLAB reference
