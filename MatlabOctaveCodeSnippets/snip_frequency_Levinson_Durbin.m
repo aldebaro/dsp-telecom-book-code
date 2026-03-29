@@ -1,4 +1,4 @@
-%% Compare custom Levinson–Durbin with MATLAB's levinson()
+%% Compare custom Levinson-Durbin with MATLAB's levinson()
 N = 1000;      % Number of samples
 P = 3;          % AR model order
 %% Generate A(z) that leads to a STABLE synthesis filter 1/A(z)
@@ -15,7 +15,7 @@ w = sqrt(sigma2) * randn(1,N);       % white Gaussian noise
 x = filter(1, A_true, w);            % AR process (synthesis filter)
 %% Estimate autocorrelation (Matlab assumes it's real-valued)
 r = xcorr(x, P, 'biased');           % autocorrelation estimate
-r = r(P+1:end);                      % keep lags 0...P
+r = r(P+1:end);                      % keep lags 0, 1, ..., P
 %% Estimate linear filter via MATLAB and custom implementation
 [A1, E1, K1] = levinson(r, P);       % MATLAB reference
 [A2, E2, K2] = ak_levinson_durbin(r, P);% our implementation
