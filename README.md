@@ -7,9 +7,7 @@ Besides DSP, there is also code for digital communications.
 
 # Python
 
-Most of our teaching and research is now conducted in Python.
-The printed version of the book emphasizes Matlab because it is more concise, but the equivalent Python code can be found online or obtained via AI / LLM.
-Hence, the focus is now Jupyter notebooks using Python, which are a very useful tool for efficient DSP learning.
+Most of our teaching and research activities are now conducted in Python. While the printed version of the book emphasizes MATLAB due to its conciseness, equivalent Python implementations are readily available online or can be generated with modern AI/LLM tools. Accordingly, the primary emphasis has shifted to Jupyter notebooks in Python, which provide an effective and interactive environment for learning digital signal processing (DSP).
 
 # Extra Python code
 
