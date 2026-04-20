@@ -1,4 +1,4 @@
-# dsp-telecom-book-code
+# Code for the book "Digital Signal Processing Using Python, Matlab, and Octave"
 
 Source code for Aldebaro's book on DSP.
 The printed version can be found at Amazon: https://www.amazon.com/dp/6501609135/.
